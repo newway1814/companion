@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Companion - Interview Room</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb95f",
+                        "outline": "#6e7977",
+                        "on-secondary-fixed": "#2a1700",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "on-background": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0047bf",
+                        "surface-tint": "#006a63",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#e6e9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#1e5fe7",
+                        "surface-container": "#e9edff",
+                        "inverse-surface": "#293040",
+                        "surface-bright": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-container": "#0f766e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-primary-fixed-variant": "#00504a",
+                        "secondary": "#855300",
+                        "on-primary-container": "#a3faef",
+                        "on-tertiary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "primary": "#005c55",
+                        "outline-variant": "#bdc9c6",
+                        "surface-dim": "#d3daef",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#9cf2e8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sidebar-width": "320px",
+                        "unit-base": "8px",
+                        "panel-gap": "1px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "section-title": ["IBM Plex Sans"],
+                        "display-md": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["IBM Plex Mono"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .split-resizer { width: 1px; background-color: #DDD6CC; cursor: col-resize; transition: background-color 0.2s; }
+        .split-resizer:hover { background-color: #0F766E; }
+    </style>
+</head>
+<body class="bg-[#F7F4EE] text-on-surface font-body-md h-full flex flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<div class="font-display-md text-display-md font-semibold text-primary">Companion</div>
+<div class="h-6 w-px bg-outline-variant mx-2"></div>
+<div class="flex items-center gap-2">
+<span class="font-section-title text-section-title text-on-surface">Session: Project Deep-Dive</span>
+<span class="bg-surface-variant text-on-surface-variant px-2 py-1 rounded font-mono-label text-mono-label">Question 2 of 5</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<!-- Readiness Indicator -->
+<div class="flex items-center gap-2 bg-[#E6F4F1] border border-primary-container px-3 py-1.5 rounded-full">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-primary-container">Steady</span>
+</div>
+<div class="flex items-center gap-4 font-mono-label text-mono-label text-on-surface-variant bg-surface px-3 py-1.5 rounded border border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 18px;">timer</span>
+<span>8 min left</span>
+</div>
+<button class="flex items-center justify-center p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</header>
+<!-- Main Workspace (Three Pane Layout) -->
+<main class="flex-1 flex w-full max-w-container-max mx-auto overflow-hidden">
+<!-- Left Panel: Interviewer Card -->
+<section class="w-1/3 min-w-[320px] max-w-[480px] bg-surface-container-lowest flex flex-col border-r border-outline-variant overflow-y-auto">
+<div class="p-gutter border-b border-outline-variant">
+<div class="flex items-center gap-3 mb-6">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+</div>
+<div>
+<h2 class="font-section-title text-section-title">Interviewer</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Senior Engineer</p>
+</div>
+</div>
+<div class="bg-surface p-4 rounded border border-outline-variant relative">
+<!-- Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container rounded-l"></div>
+<p class="font-body-lg text-body-lg text-on-surface leading-relaxed ml-2">
+                        "Walk me through the performance bottleneck you found in your API. What evidence showed it was the bottleneck?"
+                    </p>
+</div>
+</div>
+<!-- Transcript Timeline (Bottom Left) -->
+<div class="p-gutter mt-auto border-t border-outline-variant bg-surface-bright">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Transcript Timeline</h3>
+<div class="flex flex-col gap-3">
+<div class="flex items-start gap-3 opacity-60">
+<div class="mt-1 flex items-center justify-center w-6 h-6 rounded-full bg-surface-variant text-on-surface-variant">
+<span class="material-symbols-outlined" style="font-size: 14px;">check</span>
+</div>
+<div>
+<p class="font-mono-label text-mono-label text-on-surface">Q1: Project Overview</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<div class="mt-1 flex items-center justify-center w-6 h-6 rounded-full bg-primary text-on-primary">
+<span class="font-mono-label text-[12px]">2</span>
+</div>
+<div>
+<p class="font-mono-label text-mono-label text-primary font-bold">Q2: Performance Bottleneck</p>
+<p class="text-[12px] text-on-surface-variant mt-1">Active</p>
+</div>
+</div>
+<div class="flex items-start gap-3 opacity-40">
+<div class="mt-1 flex items-center justify-center w-6 h-6 rounded-full border border-outline-variant text-on-surface-variant">
+<span class="font-mono-label text-[12px]">3</span>
+</div>
+<div>
+<p class="font-mono-label text-mono-label text-on-surface">Q3: Solution Architecture</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Split Resizer 1 -->
+<div class="split-resizer"></div>
+<!-- Center Area: Answer Composer -->
+<section class="flex-1 bg-[#F7F4EE] flex flex-col p-gutter overflow-y-auto">
+<div class="flex-1 bg-surface-container-lowest rounded-xl border border-[#DDD6CC] shadow-sm flex flex-col focus-within:border-primary-container focus-within:ring-2 focus-within:ring-primary-container/20 transition-all overflow-hidden">
+<div class="p-4 border-b border-outline-variant bg-surface flex justify-between items-center">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Your Answer</span>
+<div class="flex gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Format Bold">
+<span class="material-symbols-outlined" style="font-size: 18px;">format_bold</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Format List">
+<span class="material-symbols-outlined" style="font-size: 18px;">format_list_bulleted</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-surface-variant rounded transition-colors" title="Code Block">
+<span class="material-symbols-outlined" style="font-size: 18px;">code</span>
+</button>
+</div>
+</div>
+<textarea class="flex-1 w-full p-6 bg-transparent border-none resize-none focus:ring-0 font-body-lg text-body-lg text-on-surface placeholder:text-outline" placeholder="Answer with metrics and tradeoffs..."></textarea>
+<div class="p-4 bg-surface border-t border-outline-variant flex justify-between items-center">
+<span class="font-mono-label text-mono-label text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined" style="font-size: 16px;">keyboard</span>
+                        Markdown supported
+                    </span>
+<button class="bg-[#0F766E] text-white px-6 py-2 rounded font-label-caps text-label-caps hover:bg-primary-fixed-dim hover:text-on-primary-fixed-variant transition-colors flex items-center gap-2">
+                        Submit Answer
+                        <span class="opacity-70 font-mono-label text-[10px] tracking-normal border border-white/30 px-1 rounded">⌘↵</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Split Resizer 2 -->
+<div class="split-resizer"></div>
+<!-- Right Panel: Evidence Panel -->
+<section class="w-[360px] bg-surface-container-lowest border-l border-outline-variant flex flex-col overflow-y-auto">
+<div class="p-gutter border-b border-outline-variant bg-surface sticky top-0 z-10">
+<div class="flex items-center gap-2 text-on-surface-variant mb-2">
+<span class="material-symbols-outlined" style="font-size: 18px;">assignment</span>
+<h3 class="font-label-caps text-label-caps">Target Claim</h3>
+</div>
+<div class="bg-[#FEF3C7] border border-[#F59E0B]/30 rounded p-3 relative mt-2">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B] rounded-l"></div>
+<p class="font-body-md text-body-md text-[#92400E] ml-2 font-medium">
+                        "Reduced API latency by 40%"
+                    </p>
+</div>
+</div>
+<div class="p-gutter flex-1">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Required Evidence</h4>
+<div class="space-y-3">
+<!-- Checkbox Item 1 -->
+<label class="flex items-start gap-3 p-3 rounded border border-outline-variant hover:border-primary cursor-pointer transition-colors group">
+<div class="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-outline rounded bg-surface group-hover:border-primary transition-colors">
+<input class="opacity-0 absolute inset-0 w-full h-full cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-transparent peer-checked:text-primary transition-colors" style="font-size: 16px;">check</span>
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface block">Baseline Measurement</span>
+<span class="font-mono-label text-[11px] text-on-surface-variant">What was the latency before?</span>
+</div>
+</label>
+<!-- Checkbox Item 2 -->
+<label class="flex items-start gap-3 p-3 rounded border border-outline-variant hover:border-primary cursor-pointer transition-colors group">
+<div class="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-outline rounded bg-surface group-hover:border-primary transition-colors">
+<input class="opacity-0 absolute inset-0 w-full h-full cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-transparent peer-checked:text-primary transition-colors" style="font-size: 16px;">check</span>
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface block">Measurement Method</span>
+<span class="font-mono-label text-[11px] text-on-surface-variant">How did you measure it? (Tools used)</span>
+</div>
+</label>
+<!-- Checkbox Item 3 -->
+<label class="flex items-start gap-3 p-3 rounded border border-outline-variant hover:border-primary cursor-pointer transition-colors group">
+<div class="mt-0.5 relative flex items-center justify-center w-5 h-5 border border-outline rounded bg-surface group-hover:border-primary transition-colors">
+<input class="opacity-0 absolute inset-0 w-full h-full cursor-pointer peer" type="checkbox"/>
+<span class="material-symbols-outlined text-transparent peer-checked:text-primary transition-colors" style="font-size: 16px;">check</span>
+</div>
+<div>
+<span class="font-body-md text-body-md text-on-surface block">Tradeoffs Made</span>
+<span class="font-mono-label text-[11px] text-on-surface-variant">What was sacrificed for speed? (Memory, UX)</span>
+</div>
+</label>
+</div>
+<div class="mt-8 border-t border-outline-variant pt-6">
+<h4 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Interviewer Notes</h4>
+<p class="font-mono-label text-mono-label text-outline italic text-sm">Waiting for response to evaluate depth of technical understanding.</p>
+</div>
+</div>
+</section>
+</main>
+</body></html>

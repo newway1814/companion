@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Companion - Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb95f",
+                      "outline": "#6e7977",
+                      "on-secondary-fixed": "#2a1700",
+                      "background": "#f9f9ff",
+                      "inverse-primary": "#80d5cb",
+                      "on-surface": "#141b2b",
+                      "on-background": "#141b2b",
+                      "secondary-container": "#fea619",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00174b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#0047bf",
+                      "surface-tint": "#006a63",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dce2f7",
+                      "on-tertiary-container": "#e6e9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#1e5fe7",
+                      "surface-container": "#e9edff",
+                      "inverse-surface": "#293040",
+                      "surface-bright": "#f9f9ff",
+                      "surface": "#f9f9ff",
+                      "on-surface-variant": "#3e4947",
+                      "on-primary-fixed": "#00201d",
+                      "inverse-on-surface": "#edf0ff",
+                      "on-secondary-container": "#684000",
+                      "surface-variant": "#dce2f7",
+                      "secondary-fixed": "#ffddb8",
+                      "primary-container": "#0f766e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f1f3ff",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e1e8fd",
+                      "tertiary-fixed": "#dbe1ff",
+                      "tertiary-fixed-dim": "#b4c5ff",
+                      "primary-fixed-dim": "#80d5cb",
+                      "on-primary-fixed-variant": "#00504a",
+                      "secondary": "#855300",
+                      "on-primary-container": "#a3faef",
+                      "on-tertiary-fixed-variant": "#003ea8",
+                      "on-primary": "#ffffff",
+                      "primary": "#005c55",
+                      "outline-variant": "#bdc9c6",
+                      "surface-dim": "#d3daef",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#9cf2e8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sidebar-width": "320px",
+                      "unit-base": "8px",
+                      "panel-gap": "1px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "section-title": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "mono-label": [
+                              "IBM Plex Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "mono-label": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        body {
+            background-color: #F7F4EE; /* Explicitly setting Level 0 background */
+            color: #141b2b; /* on-background */
+        }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .input-focus-ring:focus-within {
+            border-color: #0F766E !important; /* primary-container */
+            box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2) !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-body-md">
+<!-- Top Navigation (Suppressed per logic for transactional flow, but keeping a minimal brand anchor) -->
+<header class="w-full flex justify-between items-center px-gutter h-16 sticky top-0 z-40 bg-[#F7F4EE]/80 backdrop-blur-md border-b panel-gap border-[#DDD6CC]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">psychology</span>
+<span class="font-display-md text-display-md text-primary-container">Companion</span>
+</div>
+<div class="text-on-surface-variant font-mono-label text-mono-label">
+            Setup Workspace
+        </div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center py-12 px-gutter w-full">
+<!-- Header Section -->
+<div class="max-w-[1000px] w-full mb-12 text-center">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-4">Initial Configuration</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                Companion uses your background and target context to generate grounded, realistic interview scenarios.
+            </p>
+</div>
+<!-- Two Column Layout Container -->
+<div class="max-w-[1000px] w-full grid grid-cols-1 md:grid-cols-2 gap-panel-gap bg-[#DDD6CC] rounded-lg overflow-hidden border border-[#DDD6CC]">
+<!-- Left Column: Resume Upload -->
+<section class="bg-surface-container-lowest p-8 flex flex-col h-full">
+<div class="mb-6">
+<h2 class="font-section-title text-section-title text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">description</span>
+                        Background Profile
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Upload your current resume or professional history.</p>
+</div>
+<!-- Upload Area (Initial State - Hidden via classes for demonstration of Success state below, but structure provided) -->
+<div class="hidden border-2 border-dashed border-outline-variant rounded-lg p-8 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-surface-container-low transition-colors mb-6">
+<span class="material-symbols-outlined text-4xl text-outline mb-4">cloud_upload</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-2">DRAG &amp; DROP PDF OR DOCX</span>
+<span class="font-body-md text-body-md text-outline">or click to browse files</span>
+</div>
+<!-- Success State: Resume Parsed -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 mb-6 relative">
+<div class="flex items-start gap-4">
+<div class="bg-primary-container/10 p-3 rounded-full flex-shrink-0">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">task_alt</span>
+</div>
+<div class="flex-grow">
+<h3 class="font-section-title text-section-title text-on-surface">Resume Parsed Successfully</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">Extracted 4 roles, 2 degrees, and 14 skills.</p>
+<div class="bg-surface-container-lowest border border-outline-variant rounded p-3 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline">picture_as_pdf</span>
+<span class="font-mono-label text-mono-label text-on-surface">J_Doe_Resume_2024.pdf</span>
+</div>
+<button aria-label="Remove resume" class="text-on-surface-variant hover:text-error transition-colors">
+<span class="material-symbols-outlined text-sm">close</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant">
+<div class="flex items-center gap-3 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">info</span>
+<p class="font-mono-label text-mono-label">Used to validate experience claims during simulation.</p>
+</div>
+</div>
+</section>
+<!-- Right Column: Target Role -->
+<section class="bg-surface-container-lowest p-8 flex flex-col h-full">
+<div class="mb-6">
+<h2 class="font-section-title text-section-title text-on-surface mb-2 flex items-center gap-2">
+<span class="material-symbols-outlined">target</span>
+                        Target Context
+                    </h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Define the specific role you are preparing for.</p>
+</div>
+<form class="space-y-5 flex-grow flex flex-col">
+<!-- Role Title -->
+<div class="input-focus-ring rounded">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1" for="role-title">Target Role Title</label>
+<input class="w-full bg-surface-container-lowest border border-[#DDD6CC] rounded-[4px] p-3 font-body-md text-body-md text-on-surface focus:outline-none transition-shadow" id="role-title" placeholder="e.g. Senior Product Manager" type="text"/>
+</div>
+<!-- Company -->
+<div class="input-focus-ring rounded">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1" for="company">Company (Optional)</label>
+<input class="w-full bg-surface-container-lowest border border-[#DDD6CC] rounded-[4px] p-3 font-body-md text-body-md text-on-surface focus:outline-none transition-shadow" id="company" placeholder="e.g. Acme Corp" type="text"/>
+</div>
+<!-- Job Description -->
+<div class="flex-grow flex flex-col input-focus-ring rounded">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1" for="job-desc">Job Description</label>
+<textarea class="w-full flex-grow min-h-[120px] bg-surface-container-lowest border border-[#DDD6CC] rounded-[4px] p-3 font-body-md text-body-md text-on-surface resize-none focus:outline-none transition-shadow" id="job-desc" placeholder="Paste the full job description here..."></textarea>
+</div>
+</form>
+</section>
+</div>
+<!-- Action Footer -->
+<div class="max-w-[1000px] w-full mt-8 flex justify-end items-center gap-4">
+<button class="bg-surface-container-lowest text-on-surface border border-[#DDD6CC] px-6 py-3 rounded-[4px] font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+                Save Draft
+            </button>
+<button class="bg-primary-container text-on-primary px-8 py-3 rounded-[4px] font-label-caps text-label-caps hover:opacity-90 transition-opacity flex items-center gap-2 shadow-sm shadow-primary-container/20">
+                Continue to interview setup
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</main>
+</body></html>

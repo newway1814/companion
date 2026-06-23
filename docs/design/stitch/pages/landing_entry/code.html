@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Companion - Interview Research Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=IBM+Plex+Sans:wght@500;600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-fixed-dim": "#ffb95f",
+                    "outline": "#6e7977",
+                    "on-secondary-fixed": "#2a1700",
+                    "background": "#f9f9ff",
+                    "inverse-primary": "#80d5cb",
+                    "on-surface": "#141b2b",
+                    "on-background": "#141b2b",
+                    "secondary-container": "#fea619",
+                    "on-secondary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#00174b",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#0047bf",
+                    "surface-tint": "#006a63",
+                    "error": "#ba1a1a",
+                    "surface-container-highest": "#dce2f7",
+                    "on-tertiary-container": "#e6e9ff",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#1e5fe7",
+                    "surface-container": "#e9edff",
+                    "inverse-surface": "#293040",
+                    "surface-bright": "#f9f9ff",
+                    "surface": "#f9f9ff",
+                    "on-surface-variant": "#3e4947",
+                    "on-primary-fixed": "#00201d",
+                    "inverse-on-surface": "#edf0ff",
+                    "on-secondary-container": "#684000",
+                    "surface-variant": "#dce2f7",
+                    "secondary-fixed": "#ffddb8",
+                    "primary-container": "#0f766e",
+                    "on-secondary": "#ffffff",
+                    "surface-container-low": "#f1f3ff",
+                    "on-error": "#ffffff",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e1e8fd",
+                    "tertiary-fixed": "#dbe1ff",
+                    "tertiary-fixed-dim": "#b4c5ff",
+                    "primary-fixed-dim": "#80d5cb",
+                    "on-primary-fixed-variant": "#00504a",
+                    "secondary": "#855300",
+                    "on-primary-container": "#a3faef",
+                    "on-tertiary-fixed-variant": "#003ea8",
+                    "on-primary": "#ffffff",
+                    "primary": "#005c55",
+                    "outline-variant": "#bdc9c6",
+                    "surface-dim": "#d3daef",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#9cf2e8"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "gutter": "24px",
+                    "sidebar-width": "320px",
+                    "unit-base": "8px",
+                    "panel-gap": "1px",
+                    "container-max": "1440px"
+            },
+            "fontFamily": {
+                    "headline-sm": [
+                            "IBM Plex Sans"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "IBM Plex Sans"
+                    ],
+                    "section-title": [
+                            "IBM Plex Sans"
+                    ],
+                    "display-md": [
+                            "IBM Plex Sans"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "body-lg": [
+                            "Inter"
+                    ],
+                    "mono-label": [
+                            "IBM Plex Mono"
+                    ]
+            },
+            "fontSize": {
+                    "headline-sm": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "500"
+                            }
+                    ],
+                    "body-md": [
+                            "15px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "40px",
+                            {
+                                    "lineHeight": "48px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "section-title": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "letterSpacing": "0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "display-md": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "body-lg": [
+                            "16px",
+                            {
+                                    "lineHeight": "26px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "mono-label": [
+                            "13px",
+                            {
+                                    "lineHeight": "18px",
+                                    "fontWeight": "400"
+                            }
+                    ]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #F7F4EE;
+        }
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        /* Tactical Level Elevation */
+        .elevation-card {
+            background: #FFFFFF;
+            border: 1px solid #DDD6CC;
+        }
+        
+        .elevation-modal {
+            background: #FFFFFF;
+            border: 1px solid #DDD6CC;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Custom Button Styles based on guidelines */
+        .btn-primary {
+            background-color: #0F766E;
+            color: #ffffff;
+            border-radius: 4px;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-secondary {
+            background-color: #FFFFFF;
+            color: #111827;
+            border: 1px solid #DDD6CC;
+            border-radius: 4px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #f9f9ff;
+        }
+    </style>
+</head>
+<body class="font-body-md text-on-surface antialiased min-h-screen flex flex-col">
+<!-- Top Navigation from Shared Components -->
+<nav class="flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-6">
+<div class="font-display-md text-display-md font-semibold text-primary dark:text-primary-fixed">Companion</div>
+<div class="hidden md:flex gap-4 ml-8">
+<!-- Highlight Landing as Active -->
+<a class="font-label-caps text-label-caps text-primary dark:text-primary-fixed border-b-2 border-primary pb-1 hover:text-primary dark:hover:text-primary-fixed transition-all hover:opacity-80" href="#">Landing</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-all hover:opacity-80" href="#">Resumes</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-all hover:opacity-80" href="#">Roles</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-all hover:opacity-80" href="#">History</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden md:block btn-secondary px-4 py-2 font-label-caps text-label-caps">Upload Resume</button>
+<button class="btn-primary px-4 py-2 font-label-caps text-label-caps">Start Mock Interview</button>
+<div class="flex gap-2 ml-2">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-grow flex flex-col items-center justify-center pt-20 pb-24 px-gutter max-w-container-max mx-auto w-full">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center w-full">
+<!-- Left Column: Copy & CTAs -->
+<div class="flex flex-col gap-8 max-w-xl">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-6 leading-tight">
+                        Practice defending your software project claims.
+                    </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        A technical interviewer that challenges vague answers using your resume and target role. Prepare for behavioral and technical deep-dives in a high-fidelity environment.
+                    </p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 mt-2">
+<button class="btn-primary px-6 py-3 font-body-md text-body-md font-semibold flex items-center justify-center gap-2 w-full sm:w-auto">
+                        Start project deep-dive
+                        <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="btn-secondary px-6 py-3 font-body-md text-body-md font-semibold w-full sm:w-auto">
+                        View previous sessions
+                    </button>
+</div>
+<div class="flex items-center gap-2 mt-4 text-outline font-mono-label text-mono-label">
+<span class="material-symbols-outlined text-sm" data-icon="lock">lock</span>
+<span>Private by default. Delete anytime.</span>
+</div>
+</div>
+<!-- Right Column: UI Preview -->
+<div class="relative w-full h-[500px] flex items-center justify-center group perspective-1000">
+<!-- Floating Decorative Elements (Subtle Outlines) -->
+<div class="absolute -top-10 -right-10 w-32 h-32 border border-outline-variant/30 rounded-full"></div>
+<div class="absolute -bottom-10 -left-10 w-48 h-48 border border-outline-variant/30 rounded-full"></div>
+<!-- Main Interview Room Preview Card -->
+<div class="elevation-modal w-full max-w-md rounded-xl p-6 relative z-10 transform transition-transform duration-500 ease-out group-hover:-translate-y-2 group-hover:rotate-1">
+<!-- Header -->
+<div class="flex items-center justify-between border-b border-outline-variant pb-4 mb-4">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-primary" data-icon="smart_toy">smart_toy</span>
+</div>
+<div>
+<h3 class="font-section-title text-section-title text-on-surface">System Design Focus</h3>
+<p class="font-mono-label text-mono-label text-on-surface-variant">Session #492</p>
+</div>
+</div>
+<span class="px-2 py-1 bg-surface-container-low text-primary font-label-caps text-label-caps rounded">04:12</span>
+</div>
+<!-- Transcript List Interaction -->
+<div class="space-y-4 mb-6">
+<!-- User Input -->
+<div class="flex flex-col gap-1 items-end pl-12">
+<div class="p-3 bg-surface-container-highest rounded-lg rounded-tr-sm text-on-surface font-body-md text-body-md">
+                                For the messaging service, we implemented a custom pub-sub system that reduced API latency significantly.
+                            </div>
+</div>
+<!-- AI Challenge Moment -->
+<div class="flex flex-col gap-2 pr-12">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="warning">warning</span>
+<span class="font-label-caps text-label-caps text-primary">Challenge Identified</span>
+</div>
+<div class="p-4 bg-white border border-primary/20 shadow-[0_0_15px_rgba(15,118,110,0.05)] rounded-lg rounded-tl-sm text-on-surface font-body-md text-body-md relative overflow-hidden">
+<!-- Accent Bar -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<p class="mb-2">Your resume says you <span class="bg-secondary-fixed-dim/30 px-1 rounded font-mono-label text-mono-label">reduced API latency by 40%</span>.</p>
+<p class="font-semibold">What was the original baseline latency, and how did the custom pub-sub model specifically address the bottleneck compared to an off-the-shelf solution?</p>
+</div>
+</div>
+</div>
+<!-- Input Area Preview -->
+<div class="mt-auto border-t border-outline-variant pt-4">
+<div class="flex items-center justify-between border border-outline-variant rounded p-2 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all">
+<span class="text-on-surface-variant font-body-md text-body-md pl-2">Defend your approach...</span>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="mic">mic</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-surface-variant rounded text-on-surface hover:bg-primary hover:text-white transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Decorative Structured Claim Card floating behind -->
+<div class="absolute top-1/4 -right-8 w-64 elevation-card rounded-lg p-3 z-0 opacity-80 transform rotate-6 hidden lg:block">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container rounded-l-lg"></div>
+<div class="pl-2">
+<div class="flex items-center gap-1 mb-1">
+<span class="material-symbols-outlined text-primary text-xs" data-icon="verified">verified</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Verified Claim</span>
+</div>
+<p class="font-mono-label text-mono-label text-on-surface">"Led migration to microservices"</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

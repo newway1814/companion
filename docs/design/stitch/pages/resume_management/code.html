@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Companion - Resumes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#ffb95f",
+                        "outline": "#6e7977",
+                        "on-secondary-fixed": "#2a1700",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "on-background": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0047bf",
+                        "surface-tint": "#006a63",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#e6e9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#1e5fe7",
+                        "surface-container": "#e9edff",
+                        "inverse-surface": "#293040",
+                        "surface-bright": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-container": "#0f766e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-primary-fixed-variant": "#00504a",
+                        "secondary": "#855300",
+                        "on-primary-container": "#a3faef",
+                        "on-tertiary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "primary": "#005c55",
+                        "outline-variant": "#bdc9c6",
+                        "surface-dim": "#d3daef",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#9cf2e8"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "sidebar-width": "320px",
+                        "unit-base": "8px",
+                        "panel-gap": "1px",
+                        "container-max": "1440px"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "section-title": ["IBM Plex Sans"],
+                        "display-md": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["IBM Plex Mono"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #F7F4EE; color: #141b2b; }
+        .panel-divider { background-color: #DDD6CC; width: 1px; }
+        .evidence-chip { background-color: rgba(245, 158, 11, 0.15); color: #92400E; }
+        .claim-card-verified { border-left: 4px solid #0F766E; }
+        .claim-card-hypothesis { border-left: 4px solid #F59E0B; }
+    </style>
+</head>
+<body class="font-body-md h-screen overflow-hidden flex">
+<!-- TopNavBar (Mobile Only) -->
+<nav class="md:hidden flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md absolute top-0 w-full">
+<div class="font-display-md text-display-md font-semibold text-primary">Companion</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-primary hover:text-primary transition-all duration-100 active:scale-95">notifications</span>
+<span class="material-symbols-outlined text-primary hover:text-primary transition-all duration-100 active:scale-95">account_circle</span>
+</div>
+</nav>
+<!-- SideNavBar (Web) -->
+<nav class="hidden md:flex flex-col py-gutter bg-surface h-screen w-sidebar-width left-0 top-0 border-r border-outline-variant flat no shadows relative">
+<div class="px-gutter mb-8">
+<div class="font-headline-sm text-headline-sm font-bold text-primary mb-1">Companion</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Interview Research Studio</div>
+</div>
+<button class="mx-gutter mb-6 bg-primary-container text-white font-body-md py-2 px-4 rounded hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">add</span>
+            New Session
+        </button>
+<div class="flex flex-col gap-1 px-4 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary font-bold border-r-2 border-primary bg-surface-container-low opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined">description</span>
+                Resumes
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">assignment_ind</span>
+                Target Roles
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150" href="#">
+<span class="material-symbols-outlined">history</span>
+                Session History
+            </a>
+</div>
+<div class="mt-auto px-4 flex flex-col gap-1 border-t border-outline-variant pt-4 mx-4">
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors duration-150 text-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-1 flex h-screen overflow-hidden bg-[#F7F4EE] mt-16 md:mt-0">
+<!-- Left Panel: Saved Resumes -->
+<div class="w-80 flex flex-col h-full bg-white border-r border-[#DDD6CC] flex-shrink-0">
+<div class="p-6 border-b border-[#DDD6CC] flex justify-between items-center bg-white">
+<h2 class="font-section-title text-section-title text-on-surface">Saved Resumes</h2>
+<button class="text-primary hover:bg-surface-container-low p-1 rounded transition-colors" title="Upload Resume">
+<span class="material-symbols-outlined">upload_file</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-2">
+<!-- Resume Item Active -->
+<div class="p-4 rounded border-2 border-primary bg-surface-container-lowest cursor-pointer transition-all">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]">description</span>
+<span class="font-body-md font-medium text-on-surface">Software_Engineer_2024.pdf</span>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px]">more_vert</span>
+</div>
+<div class="text-sm text-on-surface-variant flex flex-col gap-1">
+<span class="font-mono-label text-mono-label">Uploaded: Oct 24, 2023</span>
+<span class="font-mono-label text-mono-label">Last used: 2 hrs ago</span>
+</div>
+</div>
+<!-- Resume Item Inactive -->
+<div class="p-4 rounded border border-[#DDD6CC] bg-white hover:bg-[#ECE7DF] cursor-pointer transition-all">
+<div class="flex items-start justify-between mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[20px]">description</span>
+<span class="font-body-md text-on-surface">PM_Resume_Draft_v2.pdf</span>
+</div>
+</div>
+<div class="text-sm text-on-surface-variant flex flex-col gap-1">
+<span class="font-mono-label text-mono-label">Uploaded: Sep 12, 2023</span>
+<span class="font-mono-label text-mono-label">Last used: Oct 10, 2023</span>
+</div>
+</div>
+</div>
+<div class="p-4 border-t border-[#DDD6CC] bg-white mt-auto">
+<button class="w-full bg-white border border-[#DDD6CC] text-error font-body-md py-2 px-4 rounded hover:bg-error-container transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                    Clear all data
+                </button>
+</div>
+</div>
+<!-- Center Panel: Claims Analysis -->
+<div class="flex-1 flex flex-col h-full bg-[#F7F4EE] max-w-container-max mx-auto overflow-hidden relative">
+<div class="p-8 pb-4 flex justify-between items-end border-b border-[#DDD6CC]">
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">PROJECT CLAIMS ANALYSIS</div>
+<h1 class="font-display-md text-display-md text-on-surface">Software_Engineer_2024.pdf</h1>
+</div>
+<div class="flex gap-3">
+<button class="bg-white border border-[#DDD6CC] text-on-surface font-body-md py-2 px-4 rounded hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                        Edit Resume
+                    </button>
+<button class="bg-white border border-error text-error font-body-md py-2 px-4 rounded hover:bg-error-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+                        Delete resume
+                    </button>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-8 space-y-6">
+<!-- Structured Claim Card - Verified -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-6 claim-card-verified relative shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="font-section-title text-section-title text-on-surface">Distributed Logging Service</div>
+<span class="material-symbols-outlined text-primary" title="Verified Metric">check_circle</span>
+</div>
+<p class="font-body-md text-on-surface mb-4">
+                        "Designed and implemented a distributed logging service using Kafka and Elasticsearch, processing 5M+ logs daily and reducing query latency by 40%."
+                    </p>
+<div class="flex gap-2 flex-wrap">
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary-container font-mono-label text-mono-label border border-primary-container/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">analytics</span>
+                            Metric: 5M+ logs daily
+                        </span>
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary-container font-mono-label text-mono-label border border-primary-container/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">speed</span>
+                            Metric: Reduced latency by 40%
+                        </span>
+</div>
+</div>
+<!-- Structured Claim Card - Hypothesis/Warning -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-6 claim-card-hypothesis relative shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="font-section-title text-section-title text-on-surface">Payment Gateway Migration</div>
+<span class="material-symbols-outlined text-[#F59E0B]" title="Requires Verification">warning</span>
+</div>
+<p class="font-body-md text-on-surface mb-4">
+                        "Led the migration of the legacy payment gateway to Stripe, significantly improving transaction speed and increasing revenue."
+                    </p>
+<div class="flex gap-2 flex-wrap mb-4">
+<span class="px-2 py-1 rounded evidence-chip font-mono-label text-mono-label flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error_outline</span>
+                            Metric found, but baseline missing
+                        </span>
+</div>
+<div class="bg-[#F7F4EE] p-4 rounded border border-[#DDD6CC]">
+<label class="font-label-caps text-label-caps text-on-surface-variant block mb-2">SUGGESTED REVISION</label>
+<p class="font-body-md text-on-surface italic text-sm">
+                            "Led the migration... improving transaction speed by [X]% and increasing revenue by $[Y] compared to previous quarter."
+                        </p>
+</div>
+</div>
+<!-- Structured Claim Card - Verified -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-6 claim-card-verified relative shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<div class="font-section-title text-section-title text-on-surface">Frontend Performance Optimization</div>
+<span class="material-symbols-outlined text-primary" title="Verified Metric">check_circle</span>
+</div>
+<p class="font-body-md text-on-surface mb-4">
+                        "Optimized React component rendering, decreasing initial page load time from 3.2s to 1.1s and improving Lighthouse score to 98."
+                    </p>
+<div class="flex gap-2 flex-wrap">
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary-container font-mono-label text-mono-label border border-primary-container/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">timer</span>
+                            Metric: Load time 3.2s -&gt; 1.1s
+                        </span>
+<span class="px-2 py-1 rounded bg-primary-container/10 text-primary-container font-mono-label text-mono-label border border-primary-container/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">score</span>
+                            Metric: Lighthouse 98
+                        </span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

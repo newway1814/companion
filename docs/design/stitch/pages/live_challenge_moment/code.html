@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Main Interview Room - Live Challenge</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb95f",
+                        "outline": "#6e7977",
+                        "on-secondary-fixed": "#2a1700",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "on-background": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0047bf",
+                        "surface-tint": "#006a63",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#e6e9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#1e5fe7",
+                        "surface-container": "#e9edff",
+                        "inverse-surface": "#293040",
+                        "surface-bright": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-container": "#0f766e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-primary-fixed-variant": "#00504a",
+                        "secondary": "#855300",
+                        "on-primary-container": "#a3faef",
+                        "on-tertiary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "primary": "#005c55",
+                        "outline-variant": "#bdc9c6",
+                        "surface-dim": "#d3daef",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#9cf2e8",
+                        "warning-container": "#fef08a",
+                        "on-warning-container": "#713f12",
+                        "warning": "#eab308"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sidebar-width": "320px",
+                        "unit-base": "8px",
+                        "panel-gap": "1px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "section-title": ["IBM Plex Sans"],
+                        "display-md": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["IBM Plex Mono"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .split-resizer {
+            width: 1px;
+            background-color: #bdc9c6;
+            cursor: col-resize;
+            transition: background-color 0.2s, width 0.2s;
+        }
+        .split-resizer:hover, .split-resizer:active {
+            background-color: #0f766e;
+            width: 3px;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-[#F7F4EE] text-on-surface font-body-md min-h-screen flex flex-col overflow-hidden">
+<!-- TopNavBar (Hidden on Mobile due to suppression rules for focus, but rendering per requirements if needed. Will suppress here as it's a Live Interview Room - highly focused) -->
+<!-- Suppressed TopNavBar for Deep Focus -->
+<header class="h-16 flex items-center justify-between px-gutter bg-surface-container-lowest border-b border-outline-variant shrink-0 relative z-20">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-outline">arrow_back</span>
+<div>
+<h1 class="font-section-title text-section-title text-on-surface">Software Engineer - Backend (Mock)</h1>
+<div class="font-mono-label text-mono-label text-on-surface-variant flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-error animate-pulse"></span>
+                    Live Session • 14:22
+                </div>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="px-4 py-2 bg-surface-container-lowest border border-outline-variant text-on-surface rounded-lg font-body-md hover:bg-surface-container-low transition-colors">Pause</button>
+<button class="px-4 py-2 bg-error text-on-error rounded-lg font-body-md hover:bg-on-error-container transition-colors">End Session</button>
+</div>
+</header>
+<!-- Main Workspace - Split Panel Layout -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Panel: Navigation / Context (Suppressed for Main Room, replaced with Transcript Timeline) -->
+<aside class="w-64 bg-surface-container-lowest flex flex-col border-r border-outline-variant shrink-0">
+<div class="p-4 border-b border-outline-variant bg-surface-bright">
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4">Transcript Timeline</h2>
+<div class="relative pl-4 border-l-2 border-outline-variant space-y-6">
+<!-- Q1 -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 bg-primary-container rounded-full border-2 border-surface-container-lowest"></div>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Q1: Walk me through your background.</p>
+<span class="text-xs text-outline font-mono-label">0:00 - 3:15</span>
+</div>
+<!-- Q2 (Current, Challenged) -->
+<div class="relative">
+<div class="absolute -left-[21px] top-1 w-3 h-3 bg-error rounded-full border-2 border-surface-container-lowest"></div>
+<p class="font-body-md text-body-md text-on-surface font-medium">Q2: Deep dive into microservices migration.</p>
+<span class="text-xs text-error font-mono-label">3:15 - Current</span>
+<div class="mt-2 flex items-center gap-1 text-error bg-error-container px-2 py-1 rounded text-xs">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            Needs Evidence
+                        </div>
+</div>
+</div>
+</div>
+</aside>
+<!-- Center Panel: Main Interview Interaction -->
+<section class="flex-1 flex flex-col bg-[#F7F4EE] max-w-container-max mx-auto relative">
+<!-- Conversation Area -->
+<div class="flex-1 overflow-y-auto p-gutter space-y-6 pb-32">
+<!-- Interviewer Prompt -->
+<div class="flex gap-4">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">smart_toy</span>
+</div>
+<div class="flex-1 max-w-2xl bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm">
+<p class="font-body-md text-body-md text-on-surface">Can you elaborate on your experience scaling the backend architecture for the user growth phase?</p>
+</div>
+</div>
+<!-- User Answer (Vague) -->
+<div class="flex gap-4 flex-row-reverse">
+<div class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-sm">person</span>
+</div>
+<div class="flex-1 max-w-2xl bg-surface-container-lowest border border-outline-variant rounded-xl p-4 shadow-sm relative">
+<p class="font-body-md text-body-md text-on-surface leading-relaxed">
+                            Well, when we hit the sudden spike in users, the old monolith couldn't handle it. 
+                            <span class="bg-warning-container text-on-warning-container bg-opacity-40 px-1 py-0.5 rounded cursor-help border-b border-warning border-dashed relative group">
+                                I improved performance and made it scalable.
+                                <!-- Tooltip -->
+<span class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-48 bg-inverse-surface text-inverse-on-surface text-xs p-2 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none text-center">
+                                    Vague claim detected. Lacks quantifiable evidence.
+                                </span>
+</span>
+                            We broke it down into microservices and deployed on AWS.
+                        </p>
+</div>
+</div>
+<!-- AHA MOMENT: The Challenge -->
+<div class="flex gap-4 mt-8">
+<div class="w-8 h-8 rounded-full bg-error text-on-error flex items-center justify-center shrink-0 mt-2 shadow-[0_0_10px_rgba(186,26,26,0.3)]">
+<span class="material-symbols-outlined text-sm">psychology_alt</span>
+</div>
+<div class="flex-1 max-w-2xl bg-[#FFFDF5] border border-warning rounded-xl p-5 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-warning"></div>
+<div class="flex items-start justify-between mb-2">
+<span class="font-label-caps text-label-caps text-warning flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+                                Challenge
+                            </span>
+</div>
+<p class="font-section-title text-section-title text-on-surface mb-2">
+                            Your resume says you reduced latency by 40%. What was the original baseline and how did you measure it?
+                        </p>
+<p class="text-sm text-on-surface-variant font-body-md">
+                            You claimed you improved performance, but an interviewer will want specific numbers here to verify your impact.
+                        </p>
+</div>
+</div>
+</div>
+<!-- Composer Area -->
+<div class="absolute bottom-0 left-0 w-full bg-surface-container-lowest border-t border-outline-variant p-4">
+<div class="max-w-3xl mx-auto">
+<label class="font-label-caps text-label-caps text-on-surface-variant mb-2 block">Improve your answer</label>
+<!-- Guidance Chips -->
+<div class="flex gap-2 mb-3 overflow-x-auto scrollbar-hide">
+<button class="px-3 py-1 rounded-full border border-warning text-warning text-sm bg-warning-container bg-opacity-20 hover:bg-opacity-40 transition-colors flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[14px]">add</span> Add baseline
+                        </button>
+<button class="px-3 py-1 rounded-full border border-warning text-warning text-sm bg-warning-container bg-opacity-20 hover:bg-opacity-40 transition-colors flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[14px]">add</span> Add measurement method
+                        </button>
+<button class="px-3 py-1 rounded-full border border-warning text-warning text-sm bg-warning-container bg-opacity-20 hover:bg-opacity-40 transition-colors flex items-center gap-1 shrink-0">
+<span class="material-symbols-outlined text-[14px]">add</span> Add tradeoff
+                        </button>
+</div>
+<div class="relative">
+<textarea class="w-full h-24 p-3 border-2 border-primary-container rounded-lg focus:ring-0 focus:outline-none focus:border-primary-container bg-surface-bright font-body-md text-body-md text-on-surface resize-none shadow-[0_0_0_2px_rgba(15,118,110,0.1)]" placeholder="Before the migration, our p99 latency was..."></textarea>
+<div class="absolute bottom-3 right-3 flex gap-2">
+<button class="w-8 h-8 rounded bg-surface-container-high text-on-surface-variant flex items-center justify-center hover:bg-surface-variant transition-colors" title="Use Voice">
+<span class="material-symbols-outlined text-[18px]">mic</span>
+</button>
+<button class="px-4 py-1.5 rounded bg-primary-container text-on-primary font-body-md font-medium flex items-center gap-2 hover:bg-primary transition-colors">
+                                Send <span class="material-symbols-outlined text-[16px]">send</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Resizer -->
+<div class="split-resizer"></div>
+<!-- Right Panel: Evidence & Notes (Highlighted in soft amber) -->
+<aside class="w-80 bg-[#FFFDF5] flex flex-col border-l border-warning border-opacity-30 shrink-0 relative transition-colors duration-500">
+<!-- Subtle pulsing glow effect to draw attention -->
+<div class="absolute inset-0 bg-warning opacity-5 animate-pulse pointer-events-none"></div>
+<div class="p-4 border-b border-warning border-opacity-20 flex justify-between items-center bg-white bg-opacity-50">
+<h2 class="font-section-title text-section-title text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-warning">folder_open</span>
+                    Evidence Room
+                </h2>
+</div>
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Resume Context Card -->
+<div class="bg-surface-container-lowest rounded-lg border-l-4 border-warning shadow-sm p-3">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">From Resume</span>
+<span class="material-symbols-outlined text-warning text-[16px]">priority_high</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface">"...architected microservices migration, reducing system latency by <strong class="bg-warning-container text-on-warning-container px-1 rounded">40%</strong> and supporting 2x user growth."</p>
+</div>
+<div class="h-px w-full bg-outline-variant my-4"></div>
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-2">Related Projects</h3>
+<!-- Structured Claim Cards -->
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-3 hover:border-primary-container transition-colors cursor-pointer group">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-primary-container">verified</span>
+<span class="font-body-md font-medium text-sm text-on-surface">AWS Migration (2022)</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Moved monolith to ECS, implemented Redis caching.</p>
+</div>
+<div class="bg-surface-container-lowest rounded-lg border border-outline-variant p-3 hover:border-primary-container transition-colors cursor-pointer group mt-2 opacity-60">
+<div class="flex items-center gap-2 mb-1">
+<span class="material-symbols-outlined text-[16px] text-outline">description</span>
+<span class="font-body-md font-medium text-sm text-on-surface">Q3 Performance Review</span>
+</div>
+<p class="text-xs text-on-surface-variant truncate">Notes on handling peak traffic events.</p>
+</div>
+</div>
+</aside>
+</main>
+</body></html>

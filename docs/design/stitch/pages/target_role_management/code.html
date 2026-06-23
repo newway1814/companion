@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Target Role Management - Companion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-fixed-dim": "#ffb95f",
+                        "outline": "#6e7977",
+                        "on-secondary-fixed": "#2a1700",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "on-background": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0047bf",
+                        "surface-tint": "#006a63",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#e6e9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#1e5fe7",
+                        "surface-container": "#e9edff",
+                        "inverse-surface": "#293040",
+                        "surface-bright": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-container": "#0f766e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-primary-fixed-variant": "#00504a",
+                        "secondary": "#855300",
+                        "on-primary-container": "#a3faef",
+                        "on-tertiary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "primary": "#005c55",
+                        "outline-variant": "#bdc9c6",
+                        "surface-dim": "#d3daef",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#9cf2e8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "gutter": "24px",
+                        "sidebar-width": "320px",
+                        "unit-base": "8px",
+                        "panel-gap": "1px",
+                        "container-max": "1440px"
+                    },
+                    "fontFamily": {
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "section-title": ["IBM Plex Sans"],
+                        "display-md": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["IBM Plex Mono"]
+                    },
+                    "fontSize": {
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F7F4EE; /* Level 0 Background */
+            color: #141b2b; /* on-surface */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden antialiased font-body-md">
+<!-- Left Navigation: SideNavBar -->
+<nav class="hidden md:flex bg-surface dark:bg-surface-dim font-body-md text-body-md docked h-screen w-sidebar-width left-0 top-0 border-r border-outline-variant dark:border-outline flat no shadows fixed flex-col py-gutter z-50">
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-highest border border-outline-variant flex items-center justify-center shrink-0">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A sophisticated, minimalist abstract avatar representing a professional user in a high-fidelity research environment. The image should feature geometric shapes in warm gray and teal tones, resembling a modernized academic crest or monogram. Lighting is soft and bright, emphasizing a light-mode aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAezqVNtwyn8LvosLqbEQYaGrXnlkCQrLngS9N18LwdAvksBuZtAxBrMIxl-2zmcPhk1WKJFQLASby7jUM9_t_7QFuqLw1qCauFNnXbZlBQXMcl5rAmFSXnnLbYRWt_nQ7ZLkBxYMk_eqORVNcn4tCQtvtO6KrMAnuAJfB4fVRQGGPSMdpGKnt_Ltww8SMW1c01zeReKGUIa_wPHn4aip9EmkXmbGv56IZ3SdZTnHaHfeI8SU_me-fkaa41PdpQTVkbbp2kYKCOCW7W"/>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed tracking-tight">Companion</h1>
+<p class="text-xs text-on-surface-variant">Interview Research Studio</p>
+</div>
+</div>
+<button class="mt-6 w-full py-2 px-4 bg-[#0F766E] text-white rounded-[4px] font-label-caps text-label-caps uppercase tracking-wider flex items-center justify-center gap-2 hover:bg-primary-container/90 transition-colors">
+<span class="material-symbols-outlined filled text-sm">add</span>
+                New Session
+            </button>
+</div>
+<ul class="flex-1 px-3 space-y-1 overflow-y-auto">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+                    Dashboard
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">description</span>
+                    Resumes
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-primary dark:text-primary-fixed font-bold border-r-2 border-primary dark:border-primary-fixed bg-surface-container-lowest shadow-sm opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined filled">assignment_ind</span>
+                    Target Roles
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">history</span>
+                    Session History
+                </a>
+</li>
+</ul>
+<div class="px-3 mt-auto border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm text-on-surface-variant hover:bg-surface-container-low transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px]">help_outline</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Top Navigation (Mobile Only) -->
+<header class="md:hidden flex bg-surface dark:bg-surface-dim font-label-caps text-label-caps docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md">
+<div class="font-display-md text-display-md font-semibold text-primary dark:text-primary-fixed">Companion</div>
+<div class="flex items-center gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined hover:text-primary transition-all cursor-pointer">notifications</span>
+<span class="material-symbols-outlined hover:text-primary transition-all cursor-pointer">account_circle</span>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col md:ml-[320px] bg-[#F7F4EE] h-screen overflow-hidden">
+<!-- Header -->
+<header class="h-16 flex items-center justify-between px-gutter border-b border-outline-variant bg-surface-container-lowest shrink-0">
+<h2 class="font-section-title text-section-title text-on-surface">Target Role: Senior Backend Engineer</h2>
+<div class="flex items-center gap-3">
+<button class="py-1.5 px-3 bg-white border border-[#DDD6CC] text-[#111827] rounded-[4px] text-sm font-medium hover:border-[#0F766E] transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span> Edit Role
+                </button>
+<button class="py-1.5 px-4 bg-[#0F766E] text-white rounded-[4px] text-sm font-medium hover:bg-primary-container/90 transition-colors">
+                    Analyze Fit
+                </button>
+</div>
+</header>
+<!-- Split Panel Content -->
+<div class="flex-1 flex overflow-hidden max-w-container-max w-full mx-auto">
+<!-- Left Pane: Saved Roles List -->
+<div class="w-1/3 min-w-[280px] max-w-[400px] border-r border-[#DDD6CC] bg-surface-container-lowest flex flex-col overflow-hidden">
+<div class="p-4 border-b border-[#DDD6CC] bg-surface-container-low/50">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-white border border-[#DDD6CC] rounded-[4px] text-sm focus:outline-none focus:border-[#0F766E] focus:ring-1 focus:ring-[#0F766E]/20 transition-all text-on-surface placeholder:text-outline" placeholder="Search roles..." type="text"/>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto p-2 space-y-1">
+<!-- Active Item -->
+<div class="p-3 bg-surface-container-low border-l-[3px] border-[#0F766E] rounded-r-[4px] cursor-pointer">
+<h3 class="font-medium text-on-surface mb-0.5">Senior Backend Engineer</h3>
+<p class="text-sm text-on-surface-variant">Stripe • Applied 2d ago</p>
+</div>
+<!-- Inactive Items -->
+<div class="p-3 hover:bg-[#ECE7DF] rounded-[4px] cursor-pointer transition-colors border-l-[3px] border-transparent">
+<h3 class="font-medium text-on-surface mb-0.5">Infrastructure Engineer</h3>
+<p class="text-sm text-on-surface-variant">Cloudflare • Saved 1w ago</p>
+</div>
+<div class="p-3 hover:bg-[#ECE7DF] rounded-[4px] cursor-pointer transition-colors border-l-[3px] border-transparent">
+<h3 class="font-medium text-on-surface mb-0.5">Staff Software Engineer</h3>
+<p class="text-sm text-on-surface-variant">Airbnb • Saved 2w ago</p>
+</div>
+<div class="p-3 hover:bg-[#ECE7DF] rounded-[4px] cursor-pointer transition-colors border-l-[3px] border-transparent">
+<h3 class="font-medium text-on-surface mb-0.5">Platform Architect</h3>
+<p class="text-sm text-on-surface-variant">Datadog • Draft</p>
+</div>
+</div>
+</div>
+<!-- Resizer -->
+<div class="w-[1px] bg-[#DDD6CC] hover:bg-[#0F766E] cursor-col-resize shrink-0 transition-colors z-10 relative"></div>
+<!-- Center Pane: Requirements & Analysis -->
+<div class="flex-1 overflow-y-auto bg-[#F7F4EE] p-gutter relative">
+<div class="max-w-3xl mx-auto space-y-8 pb-12">
+<!-- Section Title -->
+<div>
+<h3 class="font-section-title text-section-title text-on-surface flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-[#0F766E]">rule</span>
+                            Extracted Requirements
+                        </h3>
+<!-- Bento Grid of Requirements -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<!-- Verified Claim Card (Teal Bar) -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-5 relative overflow-hidden shadow-sm group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#0F766E]"></div>
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono-label text-mono-label text-[#0F766E] bg-[#0F766E]/10 px-2 py-0.5 rounded uppercase tracking-wider">Core Skill</span>
+<span class="material-symbols-outlined text-outline text-[20px] opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">more_horiz</span>
+</div>
+<p class="text-on-surface font-medium mb-4 leading-relaxed">
+                                    Experience building scalable backend APIs in Go or Rust.
+                                </p>
+<!-- Companion Note -->
+<div class="bg-surface-container p-3 rounded-lg border border-surface-dim mt-auto relative">
+<div class="absolute -top-2 left-4 bg-white px-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-tertiary">smart_toy</span>
+<span class="text-[10px] font-bold text-tertiary uppercase tracking-wider">Companion Note</span>
+</div>
+<p class="text-sm text-on-surface-variant leading-snug mt-1">
+                                        Your project mentions API optimization but doesn't explain scale or bottlenecks. Consider adding specific QPS metrics to your Resume variant A.
+                                    </p>
+</div>
+</div>
+<!-- Hypothesis Claim Card (Amber Bar) -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-5 relative overflow-hidden shadow-sm group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#F59E0B]"></div>
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono-label text-mono-label text-[#92400E] bg-[#F59E0B]/15 px-2 py-0.5 rounded uppercase tracking-wider">Implied Need</span>
+<span class="material-symbols-outlined text-outline text-[20px] opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">more_horiz</span>
+</div>
+<p class="text-on-surface font-medium mb-4 leading-relaxed">
+                                    Strong understanding of distributed systems and microservices architecture.
+                                </p>
+<!-- Evidence Chips -->
+<div class="flex flex-wrap gap-2 mt-auto">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-[#F59E0B]/15 text-[#92400E] text-xs font-medium rounded-[4px]">
+<span class="material-symbols-outlined text-[12px]">search</span> Transcript #42
+                                    </span>
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-surface-container-highest text-on-surface-variant text-xs font-medium rounded-[4px]">
+<span class="material-symbols-outlined text-[12px]">description</span> Base Resume
+                                    </span>
+</div>
+</div>
+<!-- Verified Claim Card (Teal Bar) -->
+<div class="bg-white rounded-xl border border-[#DDD6CC] p-5 relative overflow-hidden shadow-sm md:col-span-2 group">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-[#0F766E]"></div>
+<div class="flex justify-between items-start mb-3">
+<span class="font-mono-label text-mono-label text-[#0F766E] bg-[#0F766E]/10 px-2 py-0.5 rounded uppercase tracking-wider">Leadership</span>
+</div>
+<p class="text-on-surface font-medium mb-4 leading-relaxed text-lg">
+                                    Track record of mentoring junior engineers and leading cross-functional technical initiatives.
+                                </p>
+<!-- Detailed Companion Note -->
+<div class="bg-[#f1f3ff] p-4 rounded-lg border border-[#dce2f7] flex items-start gap-3">
+<div class="bg-white p-1.5 rounded-md border border-[#dce2f7] shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-tertiary">lightbulb</span>
+</div>
+<div>
+<p class="text-sm text-on-surface-variant leading-relaxed">
+                                            This is a critical gap. Your current "Target Roles" profile emphasizes individual contributions. Prepare specific STAR stories around the "Q3 Payment Gateway Rewrite" where you led a team of 3.
+                                        </p>
+<div class="mt-3 flex gap-2">
+<button class="text-xs font-semibold text-tertiary bg-white border border-[#dce2f7] px-2 py-1 rounded hover:bg-surface-container-highest transition-colors">Draft STAR Story</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

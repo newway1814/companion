@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Companion - Sign In</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=IBM+Plex+Sans:wght@500;600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb95f",
+                      "outline": "#6e7977",
+                      "on-secondary-fixed": "#2a1700",
+                      "background": "#f9f9ff",
+                      "inverse-primary": "#80d5cb",
+                      "on-surface": "#141b2b",
+                      "on-background": "#141b2b",
+                      "secondary-container": "#fea619",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00174b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#0047bf",
+                      "surface-tint": "#006a63",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dce2f7",
+                      "on-tertiary-container": "#e6e9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#1e5fe7",
+                      "surface-container": "#e9edff",
+                      "inverse-surface": "#293040",
+                      "surface-bright": "#f9f9ff",
+                      "surface": "#f9f9ff",
+                      "on-surface-variant": "#3e4947",
+                      "on-primary-fixed": "#00201d",
+                      "inverse-on-surface": "#edf0ff",
+                      "on-secondary-container": "#684000",
+                      "surface-variant": "#dce2f7",
+                      "secondary-fixed": "#ffddb8",
+                      "primary-container": "#0f766e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f1f3ff",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e1e8fd",
+                      "tertiary-fixed": "#dbe1ff",
+                      "tertiary-fixed-dim": "#b4c5ff",
+                      "primary-fixed-dim": "#80d5cb",
+                      "on-primary-fixed-variant": "#00504a",
+                      "secondary": "#855300",
+                      "on-primary-container": "#a3faef",
+                      "on-tertiary-fixed-variant": "#003ea8",
+                      "on-primary": "#ffffff",
+                      "primary": "#005c55",
+                      "outline-variant": "#bdc9c6",
+                      "surface-dim": "#d3daef",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#9cf2e8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sidebar-width": "320px",
+                      "unit-base": "8px",
+                      "panel-gap": "1px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "section-title": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "mono-label": [
+                              "IBM Plex Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "mono-label": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+          font-variation-settings:
+          'FILL' 0,
+          'wght' 400,
+          'GRAD' 0,
+          'opsz' 24
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-[#F7F4EE] text-on-surface min-h-screen flex items-center justify-center font-body-md relative overflow-hidden">
+<!-- Decorative background elements -->
+<div class="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40">
+<div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-surface-variant blur-3xl opacity-50"></div>
+<div class="absolute bottom-[-10%] right-[-5%] w-[50%] h-[50%] rounded-full bg-primary-fixed-dim blur-3xl opacity-20"></div>
+</div>
+<!-- Main Content Canvas -->
+<main class="relative z-10 w-full max-w-[480px] px-gutter">
+<!-- Brand Header -->
+<div class="text-center mb-10">
+<h1 class="font-display-lg text-display-lg text-primary mb-2">Companion</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Interview Research Studio</p>
+</div>
+<!-- Authentication Card -->
+<div class="bg-surface-container-lowest border border-[#DDD6CC] rounded-xl shadow-[0px_4px_20px_rgba(0,0,0,0.05)] p-8 md:p-10">
+<div class="text-center mb-8">
+<h2 class="font-headline-sm text-headline-sm text-on-surface mb-2">Welcome Back</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Sign in to access your interview workspace.</p>
+</div>
+<!-- Action Buttons -->
+<div class="space-y-4">
+<button class="w-full flex items-center justify-center gap-3 bg-primary-container hover:bg-primary text-on-primary font-body-md text-body-md py-3 px-4 rounded-lg transition-colors border border-transparent focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="material-symbols-outlined">school</span>
+                    Continue with university email
+                </button>
+<div class="relative py-4 flex items-center">
+<div class="flex-grow border-t border-[#DDD6CC]"></div>
+<span class="flex-shrink-0 mx-4 font-mono-label text-mono-label text-outline uppercase">or</span>
+<div class="flex-grow border-t border-[#DDD6CC]"></div>
+</div>
+<button class="w-full flex items-center justify-center gap-3 bg-surface-container-lowest hover:bg-surface-container-low text-on-surface font-body-md text-body-md py-3 px-4 rounded-lg transition-colors border border-[#DDD6CC] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<!-- Embedded minimal Google SVG icon for aesthetic -->
+<svg class="w-5 h-5" fill="none" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
+</svg>
+                    Continue with Google
+                </button>
+</div>
+<!-- Privacy Reassurance -->
+<div class="mt-8 flex items-start gap-3 p-4 rounded-lg bg-[#F7F4EE] border border-[#DDD6CC]">
+<span class="material-symbols-outlined text-primary-container fill mt-0.5">lock</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface font-semibold mb-1">Privacy Guaranteed</p>
+<p class="font-body-md text-[14px] leading-[20px] text-on-surface-variant">Your resumes and transcripts stay private. We do not use your data to train public models.</p>
+</div>
+</div>
+</div>
+<!-- Footer Links -->
+<div class="mt-8 text-center flex flex-col sm:flex-row justify-center gap-4 sm:gap-8">
+<a class="font-body-md text-body-md text-outline hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-outline hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-outline hover:text-on-surface transition-colors" href="#">Help Center</a>
+</div>
+</main>
+</body></html>

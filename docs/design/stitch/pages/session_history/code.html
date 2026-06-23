@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Session History - Companion</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#ffb95f",
+                        "outline": "#6e7977",
+                        "on-secondary-fixed": "#2a1700",
+                        "background": "#f9f9ff",
+                        "inverse-primary": "#80d5cb",
+                        "on-surface": "#141b2b",
+                        "on-background": "#141b2b",
+                        "secondary-container": "#fea619",
+                        "on-secondary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#00174b",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0047bf",
+                        "surface-tint": "#006a63",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dce2f7",
+                        "on-tertiary-container": "#e6e9ff",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#1e5fe7",
+                        "surface-container": "#e9edff",
+                        "inverse-surface": "#293040",
+                        "surface-bright": "#f9f9ff",
+                        "surface": "#f9f9ff",
+                        "on-surface-variant": "#3e4947",
+                        "on-primary-fixed": "#00201d",
+                        "inverse-on-surface": "#edf0ff",
+                        "on-secondary-container": "#684000",
+                        "surface-variant": "#dce2f7",
+                        "secondary-fixed": "#ffddb8",
+                        "primary-container": "#0f766e",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f1f3ff",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e1e8fd",
+                        "tertiary-fixed": "#dbe1ff",
+                        "tertiary-fixed-dim": "#b4c5ff",
+                        "primary-fixed-dim": "#80d5cb",
+                        "on-primary-fixed-variant": "#00504a",
+                        "secondary": "#855300",
+                        "on-primary-container": "#a3faef",
+                        "on-tertiary-fixed-variant": "#003ea8",
+                        "on-primary": "#ffffff",
+                        "primary": "#005c55",
+                        "outline-variant": "#bdc9c6",
+                        "surface-dim": "#d3daef",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#9cf2e8"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "gutter": "24px",
+                        "sidebar-width": "320px",
+                        "unit-base": "8px",
+                        "panel-gap": "1px",
+                        "container-max": "1440px"
+                    },
+                    fontFamily: {
+                        "headline-sm": ["IBM Plex Sans"],
+                        "body-md": ["Inter"],
+                        "display-lg": ["IBM Plex Sans"],
+                        "section-title": ["IBM Plex Sans"],
+                        "display-md": ["IBM Plex Sans"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "mono-label": ["IBM Plex Mono"]
+                    },
+                    fontSize: {
+                        "headline-sm": ["24px", { "lineHeight": "32px", "fontWeight": "500" }],
+                        "body-md": ["15px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "section-title": ["18px", { "lineHeight": "24px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "display-md": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+                        "mono-label": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #F7F4EE;
+        }
+    </style>
+</head>
+<body class="h-full flex antialiased text-on-surface">
+<!-- SideNavBar -->
+<aside class="bg-surface dark:bg-surface-dim font-body-md text-body-md docked h-screen w-sidebar-width left-0 top-0 border-r border-outline-variant dark:border-outline flat no shadows fixed left-0 top-0 h-full flex flex-col py-gutter z-30 hidden md:flex">
+<!-- Brand -->
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined text-[20px]" data-icon="lightbulb" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+</div>
+<div>
+<h1 class="font-headline-sm text-headline-sm font-bold text-primary dark:text-primary-fixed">Companion</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Interview Research Studio</p>
+</div>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-gutter mb-6">
+<button class="w-full bg-primary text-on-primary font-body-md text-body-md font-medium py-2 px-4 rounded flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                New Session
+            </button>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 px-4 flex flex-col gap-1 overflow-y-auto">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex items-center gap-3 py-2 px-4 rounded-lg opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex items-center gap-3 py-2 px-4 rounded-lg opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Resumes
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex items-center gap-3 py-2 px-4 rounded-lg opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_ind">assignment_ind</span>
+                Target Roles
+            </a>
+<a class="text-primary dark:text-primary-fixed font-bold border-r-2 border-primary dark:border-primary-fixed flex items-center gap-3 py-2 px-4 rounded-lg bg-surface-container-low opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="history" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history</span>
+                Session History
+            </a>
+</nav>
+<!-- Footer Navigation -->
+<div class="mt-auto px-4 flex flex-col gap-1 border-t border-outline-variant pt-4">
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex items-center gap-3 py-2 px-4 rounded-lg opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="text-on-surface-variant dark:text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low dark:hover:bg-surface-container-highest transition-colors flex items-center gap-3 py-2 px-4 rounded-lg opacity-80 transition-opacity duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+                Support
+            </a>
+</div>
+</aside>
+<!-- Main Workspace Area -->
+<main class="flex-1 flex flex-col ml-0 md:ml-[320px] min-h-screen">
+<!-- TopNavBar (Mobile Only) -->
+<header class="bg-surface dark:bg-surface-dim font-label-caps text-label-caps docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-gutter h-16 sticky top-0 z-40 bg-surface/80 backdrop-blur-md md:hidden">
+<div class="font-display-md text-display-md font-semibold text-primary dark:text-primary-fixed text-xl">Companion</div>
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A small circular avatar placeholder image with a soft light gray background and a generic human silhouette icon in a darker gray, typical for a user profile in a modern web application." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb50oAmCMMXMEJ9sByPWVovEDZesIdTDZxvmsYyHqILoqt-IJpqnB53dJik7wuStSsbHWIZge4Cm5e4Z5pN-lefmekRqvMV0flHPaIpW37m2VgDcdj0ealIfFAZeb49MiRb8X1eknv2L7_rZPj6qBGxx-Ha1Ygjg8p633g8dlgL5I_GjysbrXPK6FZGibfQ1thldHIBXtQKjflDw-7cAxpZQATJf-X27l2L1dw8KcqVPm_zTX_YVG9lED6zu6Vz-YgovDwf5YoW7uK"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<div class="flex-1 overflow-auto p-gutter max-w-[1440px] mx-auto w-full">
+<!-- Page Header -->
+<div class="mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+<div>
+<h2 class="font-display-md text-display-md text-on-surface">Session History</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Review past mock interviews and deep-dive reports.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]" data-icon="search">search</span>
+<input class="w-full pl-9 pr-3 py-2 bg-surface-container-lowest border border-outline-variant rounded font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all" placeholder="Search sessions..." type="text"/>
+</div>
+<button class="flex items-center gap-2 px-3 py-2 bg-surface-container-lowest border border-outline-variant rounded text-on-surface font-label-caps text-label-caps hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="filter_list">filter_list</span>
+                        Filter
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden shadow-sm shadow-black/5">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse whitespace-nowrap">
+<thead>
+<tr class="border-b border-outline-variant bg-surface-container-low/50">
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider">Date</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider">Resume</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider">Target Role</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider">Readiness Score</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider">Status</th>
+<th class="py-3 px-4 font-label-caps text-label-caps text-on-surface-variant font-semibold uppercase tracking-wider text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant font-body-md text-body-md text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-4 px-4 font-mono-label text-mono-label text-on-surface-variant">
+                                    Oct 24, 2023
+                                </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="description">description</span>
+<span>UX_Designer_v4.pdf</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-tertiary"></div>
+<span>Senior Product Designer</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 82%"></div>
+</div>
+<span class="font-mono-label text-mono-label font-medium text-primary">82%</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        Complete
+                                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-colors" title="Open report">
+<span class="material-symbols-outlined text-[20px]" data-icon="open_in_new">open_in_new</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-colors" title="Delete session">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer">
+<td class="py-4 px-4 font-mono-label text-mono-label text-on-surface-variant">
+                                    Oct 22, 2023
+                                </td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-[18px]" data-icon="description">description</span>
+<span>Frontend_Dev_2023.pdf</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+<span>UI Engineer</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<div class="w-16 h-2 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary-container" style="width: 65%"></div>
+</div>
+<span class="font-mono-label text-mono-label font-medium text-secondary-container">65%</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        Complete
+                                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-primary hover:bg-primary/10 rounded transition-colors" title="Open report">
+<span class="material-symbols-outlined text-[20px]" data-icon="open_in_new">open_in_new</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-colors" title="Delete session">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors group cursor-pointer bg-surface-container-low/30">
+<td class="py-4 px-4 font-mono-label text-mono-label text-on-surface-variant">
+                                    Oct 15, 2023
+                                </td>
+<td class="py-4 px-4 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-[18px]" data-icon="description">description</span>
+<span>General_Resume_Old.pdf</span>
+</div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant">
+<div class="flex items-center gap-2">
+<div class="w-2 h-2 rounded-full bg-outline-variant"></div>
+<span>Product Manager</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="text-on-surface-variant italic text-sm">--</span>
+</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-surface-variant text-on-surface-variant border border-outline-variant">
+                                        Aborted
+                                    </span>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1.5 text-on-surface-variant hover:text-error hover:bg-error/10 rounded transition-colors" title="Delete session">
+<span class="material-symbols-outlined text-[20px]" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="border-t border-outline-variant px-4 py-3 flex items-center justify-between bg-surface-container-lowest">
+<span class="font-body-md text-sm text-on-surface-variant">Showing 1 to 3 of 12 sessions</span>
+<div class="flex items-center gap-1">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined" data-icon="chevron_left">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded flex items-center justify-center bg-primary/10 text-primary font-medium text-sm">1</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low text-sm transition-colors">2</button>
+<button class="w-8 h-8 rounded flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low text-sm transition-colors">3</button>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Empty State (Hidden by default, structure provided for demonstration) -->
+<!-- 
+            <div class="mt-12 flex flex-col items-center justify-center text-center max-w-md mx-auto p-8 border border-dashed border-outline-variant rounded-xl bg-surface-container-lowest/50">
+                <div class="w-16 h-16 rounded-full bg-surface-variant flex items-center justify-center mb-4 text-outline">
+                    <span class="material-symbols-outlined text-3xl" data-icon="history_toggle_off">history_toggle_off</span>
+                </div>
+                <h3 class="font-section-title text-section-title text-on-surface mb-2">No sessions yet</h3>
+                <p class="font-body-md text-body-md text-on-surface-variant mb-6">Start a project deep-dive to get your first report.</p>
+                <button class="bg-primary text-on-primary font-body-md text-body-md font-medium py-2 px-6 rounded flex items-center justify-center gap-2 hover:bg-surface-tint transition-colors">
+                    <span class="material-symbols-outlined" data-icon="add">add</span>
+                    New Session
+                </button>
+            </div>
+            -->
+</div>
+</main>
+</body></html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Interview Complete - Companion</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;family=IBM+Plex+Sans:wght@500;600&amp;family=IBM+Plex+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-fixed-dim": "#ffb95f",
+                      "outline": "#6e7977",
+                      "on-secondary-fixed": "#2a1700",
+                      "background": "#f9f9ff",
+                      "inverse-primary": "#80d5cb",
+                      "on-surface": "#141b2b",
+                      "on-background": "#141b2b",
+                      "secondary-container": "#fea619",
+                      "on-secondary-fixed-variant": "#653e00",
+                      "on-tertiary-fixed": "#00174b",
+                      "on-tertiary": "#ffffff",
+                      "tertiary": "#0047bf",
+                      "surface-tint": "#006a63",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dce2f7",
+                      "on-tertiary-container": "#e6e9ff",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#1e5fe7",
+                      "surface-container": "#e9edff",
+                      "inverse-surface": "#293040",
+                      "surface-bright": "#f9f9ff",
+                      "surface": "#f9f9ff",
+                      "on-surface-variant": "#3e4947",
+                      "on-primary-fixed": "#00201d",
+                      "inverse-on-surface": "#edf0ff",
+                      "on-secondary-container": "#684000",
+                      "surface-variant": "#dce2f7",
+                      "secondary-fixed": "#ffddb8",
+                      "primary-container": "#0f766e",
+                      "on-secondary": "#ffffff",
+                      "surface-container-low": "#f1f3ff",
+                      "on-error": "#ffffff",
+                      "error-container": "#ffdad6",
+                      "surface-container-high": "#e1e8fd",
+                      "tertiary-fixed": "#dbe1ff",
+                      "tertiary-fixed-dim": "#b4c5ff",
+                      "primary-fixed-dim": "#80d5cb",
+                      "on-primary-fixed-variant": "#00504a",
+                      "secondary": "#855300",
+                      "on-primary-container": "#a3faef",
+                      "on-tertiary-fixed-variant": "#003ea8",
+                      "on-primary": "#ffffff",
+                      "primary": "#005c55",
+                      "outline-variant": "#bdc9c6",
+                      "surface-dim": "#d3daef",
+                      "on-error-container": "#93000a",
+                      "primary-fixed": "#9cf2e8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "gutter": "24px",
+                      "sidebar-width": "320px",
+                      "unit-base": "8px",
+                      "panel-gap": "1px",
+                      "container-max": "1440px"
+              },
+              "fontFamily": {
+                      "headline-sm": [
+                              "IBM Plex Sans"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "IBM Plex Sans"
+                      ],
+                      "section-title": [
+                              "IBM Plex Sans"
+                      ],
+                      "display-md": [
+                              "IBM Plex Sans"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "mono-label": [
+                              "IBM Plex Mono"
+                      ]
+              },
+              "fontSize": {
+                      "headline-sm": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "15px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "48px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "section-title": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-md": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "16px",
+                              {
+                                      "lineHeight": "26px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "mono-label": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-[#F7F4EE] text-on-surface min-h-screen flex items-center justify-center font-body-md font-body-md">
+<!-- Top Navigation Omitted for Transactional/Linear screen as per guidelines -->
+<main class="w-full max-w-container-max mx-auto px-gutter flex items-center justify-center py-16">
+<!-- Centered Completion Card -->
+<div class="w-full max-w-lg bg-surface-container-lowest rounded-xl border border-outline-variant/30 shadow-[0px_4px_20px_rgba(0,0,0,0.05)] overflow-hidden relative">
+<!-- Subtle Top Accent -->
+<div class="h-1 bg-primary-container w-full"></div>
+<div class="p-8 md:p-10 text-center flex flex-col items-center">
+<!-- Icon/Relief Visual -->
+<div class="w-20 h-20 bg-primary-fixed-dim/20 rounded-full flex items-center justify-center mb-6 border border-primary-fixed-dim/40 relative">
+<!-- Subtle pulse animation ring -->
+<div class="absolute inset-0 rounded-full border border-primary-fixed-dim/50 animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]"></div>
+<span class="material-symbols-outlined text-4xl text-primary-container" style="font-variation-settings: 'FILL' 1;">
+                        check_circle
+                    </span>
+</div>
+<!-- Headline -->
+<h1 class="font-display-md text-display-md text-on-surface mb-3 tracking-tight">Interview complete</h1>
+<!-- Summary Text -->
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-sm mb-8 leading-relaxed">
+                    You completed a 5-question deep-dive. Found <span class="font-semibold text-on-surface">3 claim-defense issues</span> and <span class="font-semibold text-on-surface">2 missing metrics</span>.
+                </p>
+<!-- Actions -->
+<div class="w-full flex flex-col gap-3">
+<button class="w-full bg-primary-container text-on-primary font-body-md text-body-md font-medium py-3 px-6 rounded-lg hover:bg-primary transition-colors duration-200 shadow-sm flex items-center justify-center gap-2 group">
+<span>View coaching report</span>
+<span class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+<button class="w-full bg-surface-container-lowest text-on-surface border border-[#DDD6CC] font-body-md text-body-md font-medium py-3 px-6 rounded-lg hover:bg-surface-container-low transition-colors duration-200">
+                        Practice again
+                    </button>
+</div>
+</div>
+<!-- Decorative Subtle Pattern Bottom -->
+<div class="h-4 w-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-surface-container-low to-surface-container-lowest opacity-50"></div>
+</div>
+</main>
+</body></html>
