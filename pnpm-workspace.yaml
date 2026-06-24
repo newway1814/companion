@@ -1,0 +1,8 @@
+# pnpm v11 build-script review (replaces onlyBuiltDependencies/ignoredBuiltDependencies).
+# true = allow the dependency's build script to run; false = reviewed, do not run.
+allowBuilds:
+  "@prisma/client": true
+  "@prisma/engines": true
+  prisma: true
+  sharp: false
+  unrs-resolver: false
