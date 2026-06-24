@@ -33,16 +33,16 @@ export default async function SignInPage() {
           <SignInForm />
         </div>
 
-        <div className="mt-8 flex justify-center gap-6 text-body-md text-outline">
-          <a href="#" className="hover:text-on-surface">
-            Terms of Service
-          </a>
-          <a href="#" className="hover:text-on-surface">
-            Privacy Policy
-          </a>
-          <a href="#" className="hover:text-on-surface">
-            Help Center
-          </a>
+        <div className="mt-8 flex justify-center gap-6 text-body-md text-on-surface-variant">
+          {["Terms of Service", "Privacy Policy", "Help Center"].map((label) => (
+            <a
+              key={label}
+              href="#"
+              className="rounded hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              {label}
+            </a>
+          ))}
         </div>
       </div>
     </main>

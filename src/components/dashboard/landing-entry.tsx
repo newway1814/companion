@@ -48,11 +48,11 @@ export function LandingEntry() {
         </div>
 
         {/* Challenge-mechanic preview */}
-        <Card className="bg-surface-container-lowest">
+        <Card className="border-l-4 border-l-evidence bg-surface-container-lowest">
           <EvidenceChip>Challenge identified</EvidenceChip>
           <p className="mt-3 text-body-md text-on-surface">
             Your resume says you{" "}
-            <mark className="rounded bg-evidence/20 px-1 text-on-evidence">
+            <mark className="rounded bg-evidence/20 px-1 text-on-evidence underline decoration-2 underline-offset-2">
               reduced API latency by 40%
             </mark>
             .
