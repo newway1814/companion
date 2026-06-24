@@ -1,0 +1,328 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`AppShell > matches the shell snapshot 1`] = `
+<div>
+  <div
+    class="flex min-h-full"
+  >
+    <header
+      class="fixed inset-x-0 top-0 z-40 flex h-14 items-center gap-3 border-b border-outline-variant bg-surface px-4 md:hidden"
+    >
+      <button
+        aria-controls="app-sidebar"
+        aria-expanded="false"
+        aria-label="Open navigation"
+        class="rounded p-1 text-on-surface-variant hover:bg-surface-container-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        type="button"
+      >
+        <svg
+          aria-hidden="true"
+          class="lucide lucide-menu size-6"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4 5h16"
+          />
+          <path
+            d="M4 12h16"
+          />
+          <path
+            d="M4 19h16"
+          />
+        </svg>
+      </button>
+      <span
+        class="font-heading text-section-title font-semibold text-primary"
+      >
+        Companion
+      </span>
+    </header>
+    <aside
+      class="fixed inset-y-0 left-0 z-50 flex w-sidebar-width flex-col border-r border-outline-variant bg-surface py-gutter transition-transform md:static md:z-auto md:translate-x-0 -translate-x-full"
+      id="app-sidebar"
+    >
+      <div
+        class="mb-8 px-gutter"
+      >
+        <div
+          class="flex items-center gap-3"
+        >
+          <div
+            class="flex size-8 items-center justify-center rounded-full bg-primary-container text-on-primary-container"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-lightbulb size-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"
+              />
+              <path
+                d="M9 18h6"
+              />
+              <path
+                d="M10 22h4"
+              />
+            </svg>
+          </div>
+          <div>
+            <p
+              class="font-heading text-section-title font-bold text-primary"
+            >
+              Companion
+            </p>
+            <p
+              class="text-label-caps uppercase tracking-wider text-on-surface-variant"
+            >
+              Interview Research Studio
+            </p>
+          </div>
+        </div>
+      </div>
+      <div
+        class="mb-6 px-gutter"
+      >
+        <a
+          class="flex w-full items-center justify-center gap-2 rounded bg-primary-container px-4 py-2 text-body-md font-medium text-on-primary transition-colors hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          href="/setup"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-plus size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5 12h14"
+            />
+            <path
+              d="M12 5v14"
+            />
+          </svg>
+          New session
+        </a>
+      </div>
+      <nav
+        aria-label="Primary"
+        class="flex flex-1 flex-col gap-1 px-4"
+      >
+        <a
+          class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+          href="/"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-layout-dashboard size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="3"
+              y="3"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="14"
+              y="3"
+            />
+            <rect
+              height="9"
+              rx="1"
+              width="7"
+              x="14"
+              y="12"
+            />
+            <rect
+              height="5"
+              rx="1"
+              width="7"
+              x="3"
+              y="16"
+            />
+          </svg>
+          Dashboard
+        </a>
+        <a
+          aria-current="page"
+          class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary bg-surface-container-low font-semibold text-primary"
+          href="/resumes"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-file-text size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"
+            />
+            <path
+              d="M14 2v5a1 1 0 0 0 1 1h5"
+            />
+            <path
+              d="M10 9H8"
+            />
+            <path
+              d="M16 13H8"
+            />
+            <path
+              d="M16 17H8"
+            />
+          </svg>
+          Resumes
+        </a>
+        <a
+          class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+          href="/roles"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-target size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="6"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="2"
+            />
+          </svg>
+          Target roles
+        </a>
+        <a
+          class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+          href="/sessions"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-history size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"
+            />
+            <path
+              d="M3 3v5h5"
+            />
+            <path
+              d="M12 7v5l4 2"
+            />
+          </svg>
+          Session history
+        </a>
+      </nav>
+      <div
+        class="mt-auto flex flex-col gap-1 border-t border-outline-variant px-4 pt-4"
+      >
+        <a
+          class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
+          href="/settings"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-settings size-5"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+            />
+            <circle
+              cx="12"
+              cy="12"
+              r="3"
+            />
+          </svg>
+          Settings
+        </a>
+      </div>
+    </aside>
+    <div
+      class="flex min-w-0 flex-1 flex-col pt-14 md:pt-0"
+    >
+      <main
+        class="flex-1"
+      >
+        <p>
+          Page content
+        </p>
+      </main>
+    </div>
+  </div>
+</div>
+`;
