@@ -5,6 +5,7 @@ import {
   History,
   LayoutDashboard,
   Lightbulb,
+  LogOut,
   Menu,
   Plus,
   Settings,
@@ -144,6 +145,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
         <div className="mt-auto flex flex-col gap-1 border-t border-outline-variant px-4 pt-4">
           {footerNav.map(navLink)}
+          <form action="/auth/sign-out" method="post">
+            <button
+              type="submit"
+              className="flex w-full items-center gap-3 rounded-lg px-4 py-2 text-body-md text-on-surface-variant transition-colors hover:bg-surface-container-low hover:text-on-surface focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            >
+              <LogOut className="size-5" aria-hidden="true" />
+              Sign out
+            </button>
+          </form>
         </div>
       </aside>
 
