@@ -2,652 +2,376 @@
 
 ## 1. Product Summary
 
-Companion is a desktop-first, free MVP for university candidates preparing for software internship interviews. It is a private practice partner, not a hiring tool.
+Companion is a private, desktop-first AI interview sparring partner for university candidates preparing for software internship interviews. The MVP focuses on one flagship interview mode: a technical project deep-dive that helps the user defend resume project claims with ownership, implementation detail, tradeoffs, baselines, and measured results.
 
-The flagship MVP experience is a technical project deep-dive: a five-question, 10-12 minute speech-first interview room where the user answers by speaking, Companion transcribes the answer, and Companion challenges vague resume claims and missing metrics with resume and target-role-grounded follow-ups. The product's core differentiator is the live challenge moment: Companion catches a weak answer during the practice session, references the exact resume claim or target-role requirement being tested, and asks a sharper evidence-seeking question while the user is still in interview mode.
+The MVP experience is a bounded five-question practice session. The user starts from a resume and target role, reviews what Companion extracted, enters an interview workspace, answers questions, receives adaptive follow-up pressure when answers are vague or unsupported, and ends with a performance report that turns the session into concrete coaching.
 
-Companion does not verify whether claims are objectively true; it judges how defensible and well-supported an answer is during the session.
-
-The MVP should feel like a focused interview workspace: calm, polished, slightly high-pressure, and organized around an interviewer panel, subtle evidence panel, transcript timeline, and practical coaching report.
+Stitch is the MVP UI source of truth. The production UI must implement the Stitch-generated design under `docs/design/stitch/pages/` faithfully. Codex should not revive or borrow from the rejected earlier Codex-generated prototype UI.
 
 ## 2. Target User
 
-The initial target user is a university candidate preparing for a software internship interview.
+The initial target user is a university candidate preparing for a software internship or early-career software engineering interview.
 
 Primary traits:
 
-- Applying to internships or early-career software roles.
-- Has at least one resume project that sounds impressive but may be hard to defend under follow-up.
-- Wants realistic practice before speaking to a real interviewer.
-- May use ChatGPT, friends, career centers, LeetCode, YouTube, or generic interview platforms today.
-- Needs a fast practice loop that exposes vague claims, missing metrics, unclear ownership, and shallow implementation detail.
+- Has at least one resume project that may be difficult to defend under skeptical follow-up.
+- Wants realistic practice before speaking with a real interviewer.
+- Uses preparation alternatives such as friends, career centers, LeetCode, YouTube, ChatGPT roleplay, or generic interview platforms.
+- Needs pressure on their actual resume and target role, not generic interview questions.
+- Values privacy because resumes, transcripts, and reports contain sensitive career data.
 
-Secondary users, out of immediate MVP focus:
+Secondary users such as bootcamp students, new graduates, career centers, and non-software candidates are not the MVP target.
 
-- New graduates.
-- International students practicing English-language interviews.
-- Bootcamp students.
-- Career centers.
-- Candidates preparing for HR, system design, product, consulting, or sales interviews.
+## 3. MVP Scope
 
-## 3. Problem Statement
+The MVP includes:
 
-University candidates often prepare by memorizing answers, practicing with friends, watching videos, doing LeetCode, or asking ChatGPT for a mock interview. These preparation alternatives are useful, but they usually fail at one or both of these jobs:
+- Sign-in for private saved history.
+- Resume upload or resume entry.
+- Target role entry and saved target role management.
+- Extraction of resume claims, project claims, metrics, gaps, and target-role requirements.
+- Extraction review when parsing is uncertain or before a session starts.
+- A technical project deep-dive practice session with five primary questions and a maximum of one or two adaptive follow-ups per question.
+- A speech-first interview room with interviewer presence, transcript timeline, answer entry, current target claim, required evidence, and interviewer notes.
+- A live challenge moment that identifies vague claims, missing metrics, or unsupported assertions during the session.
+- A final coaching report with readiness, technical depth, claim-defense vulnerabilities, suggested reframing, and next practice guidance.
+- Saved resumes, saved target roles, saved practice sessions, reports, and deletion controls.
+- Desktop-first implementation that remains usable on mobile for sign-in, report review, short practice, and basic management flows.
 
-- They do not challenge the student's actual resume claims and target-role requirements in real time.
-- They do not create the pressure of a one-on-one interviewer asking skeptical, evidence-seeking follow-ups.
-
-As a result, students can overestimate answer quality. A resume bullet like "built a scalable backend" feels strong until a real interviewer asks what the student personally built, what tradeoffs they made, what the baseline was, and how they measured improvement.
-
-Companion should help users discover these weaknesses before the real interview.
-
-## 4. MVP Goals
-
-1. Let a university candidate start a technical project deep-dive from a resume and target role.
-2. Extract resume claims and target-role requirements well enough to build a relevant practice session.
-3. Provide an extraction review when parsing is uncertain or before the session starts.
-4. Show a test preview that explains what Companion plans to test.
-5. Run a speech-first interview room with interviewer presence, microphone capture, answer transcription, speaking states, transcript timeline, and subtle evidence panel.
-6. Trigger live challenge moments for vague resume claims and missing metrics/results.
-7. Keep each practice session bounded to five primary questions and at most two follow-ups per primary question.
-8. Produce answer evaluations that are specific, fair, transcript-grounded, and actionable, with explicit evidence spans.
-9. Produce a performance report that quickly shows overall readiness, claim-defense issues, missing metrics, strongest/weakest answers, transcript highlights, improved answer rewrites, and the next practice drill.
-10. Support sign-in, saved resumes, saved target roles, saved practice sessions, saved reports, deletion controls, and private-by-default data.
-11. Measure whether users complete sessions, view reports, read improved answers, start drills, and return within 7 days.
-
-## 5. Non-Goals
+## 4. Non-Goals
 
 The MVP will not include:
 
-- Fully realtime two-way voice conversation.
 - Animated avatar.
+- Fully realtime two-way voice conversation.
 - Coding editor.
 - Video analysis.
 - Facial or body-language scoring.
 - Employer workflows.
-- Candidate ranking.
-- Hiring recommendations.
+- Candidate ranking or hiring recommendations.
 - Payments or subscriptions.
 - Career-center admin.
-- Public sharing by default.
-- Social features.
+- Social sharing or public reports by default.
 - Multi-user mock interviews.
-- Full HR, system design, coding-round, consulting, product, or sales modes as first-class experiences.
+- Full HR, coding-round, system design, consulting, product, or sales modes as first-class experiences.
+- Any UI direction based on the rejected Codex-generated prototype.
 
-### 5.a Clarifying Decisions from Review
+## 5. Core User Journey
 
-- The MVP mode is singular: technical project deep-dive for software internships.
-- Input is speech-first by default. Text is recovery-only and only available when audio capture/transcription fails.
-- A session is complete only when 5 primary questions are attempted and at most 10 total interviewer turns are emitted.
-- A session with ambiguous extraction must not start until user confirms the extraction review.
-- The "live challenge moment" is only valid when Companion references the exact claim/requirement from parsed context and asks a single follow-up.
-- Reporting output can be generated without claiming truth or employability.
-- No voice avatar, no face/body scoring, no coding editor, no employer workflows in MVP.
-
-## 6. Core User Journey
-
-1. User signs in.
-2. User lands on a dashboard where "Start practice" is the dominant action.
-3. User uploads or enters a resume.
-4. User pastes or selects a target role. The empty state may offer a sample target role for demo or testing.
-5. Companion enters an interview preparation state with visible progress language:
-   - "Extracting project claims"
-   - "Matching to role requirements"
-   - "Preparing follow-up strategy"
-6. If extraction is uncertain (confidence below threshold or contradictions found), Companion shows extraction review where the user must confirm or edit extracted claims and requirements.
-7. Companion shows a test preview summarizing what it will test.
-8. User starts the five-question technical project deep-dive.
-9. Companion asks primary question #1.
-10. User answers by speaking into microphone.
-11. Companion transcribes answer and displays it in transcript timeline.
-12. Companion evaluates whether to emit 0-2 follow-ups based on ambiguity rules.
-13. If answer is vague or missing metrics, Companion creates a live challenge moment by referencing the relevant resume claim or target-role requirement.
-14. User completes all 5 primaries (and any follow-ups).
-15. Companion generates performance report.
-16. User reviews overall readiness, claim-defense issues, missing metrics, strongest and weakest answers, transcript highlights, improved answer rewrites, and next practice drill.
-17. User can return later to reuse saved resumes and target roles, view saved history, and start repeat practice.
+1. The user signs in from `pages/sign_in/`.
+2. The user reaches the entry/dashboard experience represented by `pages/landing_entry/`, where starting a project deep-dive is the dominant action.
+3. The user uploads or selects a resume in `pages/first_time_setup/` or manages existing resumes through `pages/resume_management/`.
+4. The user enters or selects a target role in `pages/first_time_setup/` or manages existing roles through `pages/target_role_management/`.
+5. Companion extracts project claims, metrics, target-role requirements, and likely challenge areas.
+6. If extraction is uncertain, the user must confirm or edit extracted claims and requirements before the session starts.
+7. The user reviews session parameters in `pages/interview_setup/`: source profile, target position, detected projects/requirements, five-question session framing, and start interview CTA.
+8. The user enters `pages/main_interview_room/` for the standard practice session.
+9. Companion asks evidence-seeking questions grounded in the resume and target role.
+10. The user answers by speaking where available, with text entry as an accessibility and recovery fallback.
+11. Companion updates the transcript timeline and required evidence state.
+12. When an answer is vague or unsupported, Companion enters the `pages/live_challenge_moment/` state and asks one sharper follow-up tied to a visible claim or requirement.
+13. After the five-question session, the user sees `pages/session_complete/`.
+14. The user opens `pages/final_coaching_report/` and reviews readiness, technical depth, vulnerabilities, and suggested reframing.
+15. The user can return through `pages/session_history/`, reuse saved resumes or target roles, delete sensitive artifacts, or start another practice session.
 
 Hard-stop behavior:
 
-- If extraction review is not confirmed, practice does not start.
-- If a microphone/transcription attempt fails twice on a single turn, the turn is accepted as typed fallback with a visible degraded quality indicator.
-- If the follow-up cap is reached (2), the system must move to the next primary question.
+- A session with unresolved extraction uncertainty must not start.
+- Follow-up pressure must stop at the per-question cap.
+- The interviewer must pressure the answer, not the person.
+- Companion must not claim the user is employable or unemployable.
+
+## 6. Exact Screen List from Stitch
+
+The exact MVP screen/page folders are:
+
+| Stitch page folder | Product meaning | Implementation obligation |
+| --- | --- | --- |
+| `pages/academic_precision/` | Design system and visual direction. | Implement shared tokens, typography, spacing, surfaces, borders, radius, and component tone from this reference. |
+| `pages/landing_entry/` | Product entry/dashboard gateway. | Preserve claim-defense positioning, start project deep-dive CTA, previous sessions access, privacy reassurance, and challenge preview. |
+| `pages/sign_in/` | Authentication entry. | Preserve centered sign-in, university email/Google options, and privacy reassurance. |
+| `pages/first_time_setup/` | Initial resume and target-context setup. | Preserve resume upload/parsed state, target role fields, save draft, and continue-to-setup CTA. |
+| `pages/interview_setup/` | Pre-session confirmation. | Preserve source profile, target position, detected projects/requirements, session framing, and start interview CTA. |
+| `pages/main_interview_room/` | Normal live practice session workspace. | Preserve the interviewer area, transcript timeline, answer composer, target claim, required evidence, and interviewer notes. |
+| `pages/live_challenge_moment/` | In-session challenge state. | Preserve challenge card, vague-claim highlight, improvement chips, and evidence room sidebar. |
+| `pages/session_complete/` | Post-session completion bridge. | Preserve concise completion summary, issue counts, view report CTA, and practice again action. |
+| `pages/final_coaching_report/` | Final coaching report. | Preserve readiness score, technical depth assessment, claim-defense vulnerabilities, suggested reframing, and report navigation. |
+| `pages/session_history/` | Saved practice sessions. | Preserve search/filter, session table, readiness/status columns, row actions, pagination, and empty state. |
+| `pages/resume_management/` | Saved resumes and claim analysis. | Preserve saved resume list, active resume detail, extracted project claims, metric badges, warnings, and suggested revisions. |
+| `pages/target_role_management/` | Saved target roles and role-fit analysis. | Preserve target role list, extracted requirements, Companion notes, linked evidence references, and STAR-story prompts. |
+| `pages/privacy_settings/` | Privacy and account settings. | Preserve privacy guarantee, data controls, export, clear workspace data, and account deletion hierarchy. |
+
+Every future UI issue must reference one or more of these Stitch page folders.
+
+## 7. Main Interview Room Requirements
 
-## 7. Main Screens
+Source of truth: `docs/design/stitch/pages/main_interview_room/`.
+
+Functional requirements:
+
+- Show Companion brand and session context.
+- Show the session type as project deep-dive.
+- Show current question progress, such as question 2 of 5.
+- Show remaining time or session timing state.
+- Show interviewer presence with role framing, such as senior engineer.
+- Show the current interviewer question prominently.
+- Show a transcript timeline with completed, active, and upcoming questions.
+- Show an answer composer that supports the MVP answer mode.
+- Support speech-first answer capture where available; text entry is allowed as accessibility and recovery fallback.
+- Show the current target claim being tested.
+- Show required evidence, including baseline measurement, measurement method, and tradeoffs.
+- Show interviewer notes without exposing internal reasoning or chain-of-thought.
+- Keep the layout desktop-first and workspace-like, not chat-like.
 
-### Sign-In
+Visual and interaction requirements:
 
-- Allows users to access private saved history.
-- Sets expectation that resumes, target roles, transcripts, and reports are private by default.
+- Match Stitch composition, panel density, typography, off-white academic surface, teal actions, and restrained borders.
+- Preserve the three-area mental model: interviewer/work area, transcript timeline, and evidence/notes panel.
+- Use visible focus states and keyboard-accessible controls.
+- Deviation from Stitch is allowed only for accessibility, responsiveness, or technical feasibility.
+
+## 8. Live Challenge Moment Requirements
 
-### Dashboard
+Source of truth: `docs/design/stitch/pages/live_challenge_moment/`.
 
-- Makes "Start practice" the dominant action.
-- Shows saved history below once it exists.
-- Shows recent practice sessions, reports, resumes, and target roles without competing with the main practice action.
+Functional requirements:
 
-### Guided Setup
+- Trigger when an answer contains a vague claim, missing metric, missing baseline, missing measurement method, unclear ownership, shallow implementation detail, or role-fit gap.
+- Reference the exact resume claim or target-role requirement being challenged.
+- Ask one evidence-seeking follow-up at a time.
+- Show why the answer is being challenged in user-facing language.
+- Highlight the weak answer span or vague claim without shaming the user.
+- Provide improvement chips such as adding a baseline, adding a measurement method, or adding a tradeoff.
+- Show the evidence room with relevant resume snippet, related projects, and notes.
+- Keep challenge pressure on the answer rather than the person.
+- Respect the follow-up cap and move forward when the cap is reached.
 
-- Supports resume upload or resume text entry.
-- Supports target-role paste or sample target role.
-- Lets the user confirm the flagship interview mode: technical project deep-dive.
-- Shows what will be tested before interview starts.
+Visual and interaction requirements:
 
-### Interview Preparation State
+- Preserve the red/error challenge treatment from Stitch for critical gaps.
+- Preserve amber/evidence highlighting for claims or transcript spans.
+- Preserve the transcript timeline context so the user remains in interview mode.
+- Do not turn this into a post-session report card; it is an in-session moment.
 
-- Replaces generic loading with meaningful progress states.
-- Shows clear explanation: extracting project claims, matching requirements, preparing follow-up strategy.
+## 9. Final Coaching Report Requirements
 
-### Extraction Review
+Source of truth: `docs/design/stitch/pages/final_coaching_report/`.
 
-- Shows extracted resume claims, project claims, target-role requirements, and uncertainty areas.
-- Lets the user confirm or edit extracted details before starting.
-- Prevents silent fallback from uncertain extraction.
+Functional requirements:
 
-### Test Preview
+- Show post-session context, date/session metadata, role target, and report title.
+- Show overall readiness as preparation quality, not hireability.
+- Show technical depth assessment with statuses such as missing, verified, and incomplete.
+- Show claim-defense vulnerabilities linked to resume claims and interview responses.
+- Identify missing metrics, missing tradeoffs, vague execution, unclear ownership, and shallow technical reasoning.
+- Show suggested reframing with original weak answer and improved structure.
+- Avoid fabricating metrics, achievements, or experience in improved answer rewrites.
+- Provide clear next-practice guidance or drills.
+- Allow navigation back to saved history, resumes, target roles, and new session entry.
 
-- Shows what Companion plans to test.
-- Builds trust by proving Companion understood the resume and target role.
-- Keeps wording concise and non-threatening.
+Visual and interaction requirements:
 
-### Speech-First Interview Room
+- Preserve Stitch report hierarchy and sidebar navigation.
+- Prioritize coaching intelligence over chart-heavy analytics.
+- Make the report valuable within 30 seconds of reading.
+- Do not include employability predictions, hiring recommendations, or comparisons to other candidates.
 
-- Desktop-first layout.
-- Interviewer panel with interviewer presence and speaking states.
-- Microphone controls for spoken answers.
-- Live or near-live transcription of the spoken answer.
-- Manual transcript correction before answer submission when speech recognition is inaccurate.
-- Transcript timeline.
-- Subtle evidence panel showing current probing focus and relevant resume or target-role snippet.
-- No full chain-of-thought or internal reasoning.
-- Keeps the session focused and slightly high-pressure without becoming hostile.
+## 10. Resume Management Requirements
 
-### Performance Report
+Source of truth: `docs/design/stitch/pages/resume_management/`.
 
-- Shows report summary within 30 seconds.
-- Prioritizes coaching intelligence over chart overload.
-- Includes answer-level detail for deeper review.
-- Provides improved answer rewrites and a next practice drill.
+Functional requirements:
 
-### Saved History
+- Show saved resumes with upload date and last-used metadata.
+- Let the user upload, select, edit, and delete resumes.
+- Show active resume detail.
+- Extract and display project claims.
+- Identify concrete metrics already present in a claim.
+- Identify missing baselines, vague impact, or missing evidence.
+- Show suggested revisions without inventing facts.
+- Support clear-all-data controls where appropriate.
 
-- Lets users revisit resumes, target roles, practice sessions, performance reports, and practice drills.
-- Includes deletion controls for sensitive artifacts.
+Visual and interaction requirements:
 
-## 8. Data Objects
+- Preserve saved-resume list plus active-detail layout.
+- Preserve claim analysis cards, metric badges, warning treatment, and suggested revision area.
+- Keep resume data private by default.
 
-### User
+## 11. Target Role Management Requirements
 
-Represents the account holder using Companion.
+Source of truth: `docs/design/stitch/pages/target_role_management/`.
 
-Key fields:
+Functional requirements:
 
-- id
-- email
-- name
-- createdAt
-- updatedAt
+- Show saved target roles with company/status metadata where available.
+- Let the user create, edit, select, and delete target roles.
+- Extract role requirements, implied needs, core skills, and leadership expectations.
+- Show Companion notes that connect target-role requirements to resume gaps.
+- Link relevant transcript or resume references where useful.
+- Suggest preparation prompts such as drafting a STAR story when the target role exposes a gap.
+- Support analyzing fit without claiming the user will or will not get hired.
 
-### Resume
+Visual and interaction requirements:
 
-Represents a user's uploaded or entered career document.
+- Preserve target role list plus selected-role analysis layout.
+- Preserve extracted requirement cards and Companion note treatment.
+- Keep role-fit analysis grounded in uploaded resume, target role, and session evidence.
 
-Key fields:
+## 12. Session History Requirements
 
-- id
-- userId
-- title
-- rawText
-- fileUrl, if uploaded
-- parsedProfileJson
-- extractedClaims
-- createdAt
-- updatedAt
-- deletedAt, if soft deletion is used
+Source of truth: `docs/design/stitch/pages/session_history/`.
 
-### TargetRole
+Functional requirements:
 
-Represents the job, internship, or role description the user is preparing for.
+- Show saved practice sessions in a table-first desktop layout.
+- Include date, resume, target role, readiness score, status, and actions.
+- Support search and filtering.
+- Support opening reports from completed sessions.
+- Support deleting sessions.
+- Show pagination or equivalent navigation for longer histories.
+- Show an empty state that directs the user to start a project deep-dive.
 
-Key fields:
-
-- id
-- userId
-- title
-- company
-- rawText
-- parsedRequirementsJson
-- requiredSkills
-- responsibilities
-- createdAt
-- updatedAt
-- deletedAt, if soft deletion is used
-
-### PracticeSession
-
-Represents one simulated interview.
-
-Key fields:
-
-- id
-- userId
-- resumeId
-- targetRoleId
-- mode
-- difficulty
-- status
-- testPreviewJson
-- followUpCapReached (bool)
-- startedAt
-- completedAt
-- createdAt
-- updatedAt
-
-### InterviewTurn
-
-Represents one question, answer, follow-up, or interviewer response.
-
-Key fields:
-
-- id
-- practiceSessionId
-- turnType
-- questionText
-- answerText
-- answerAudioUrl, if stored
-- transcriptionStatus
-- evidenceFocus
-- relatedResumeClaimId
-- relatedTargetRequirementId
-- followUpIndex
-- orderIndex
-- qualityState (normal | degradedInput)
-- createdAt
-
-### AnswerEvaluation
-
-Represents structured assessment of a user answer.
-
-Key fields:
-
-- id
-- practiceSessionId
-- interviewTurnId
-- rubricVersion
-- overallReadinessSignal
-- claimDefenseIssues
-- missingMetrics
-- strengths
-- improvements
-- evidence
-- confidenceScore
-- createdAt
-
-### PerformanceReport
-
-Represents the post-session coaching artifact.
-
-Key fields:
-
-- id
-- practiceSessionId
-- summary
-- overallReadiness
-- strongestAnswerId
-- weakestAnswerId
-- transcriptHighlights
-- improvedAnswerRewrites
-- practicePlan
-- createdAt
-
-### PracticeDrill
-
-Represents a concrete recommended exercise after a session.
-
-Key fields:
-
-- id
-- userId
-- practiceSessionId
-- focusArea
-- instructions
-- status
-- createdAt
-- completedAt
-
-## 9. AI Behavior Requirements
-
-### Resume and Target-Role Extraction
-
-- Extract project claims, skills, experience, responsibilities, and requirements.
-- Identify vague resume claims worth probing.
-- Identify missing metrics or weak evidence in resume claims.
-- Track extraction confidence per claim and per requirement on 0-1 confidence scale.
-- Trigger extraction review when confidence < 0.78, contradictions occur, or required fields are missing.
-- Persist extraction uncertainty flags for user-visible review.
-
-### Interview Planning
-
-- Build a five-question technical project deep-dive.
-- Ground questions in the user's resume and target role.
-- Prioritize vague resume claims, missing metrics, personal ownership, implementation detail, and tradeoffs.
-- Produce a concise test preview before the session starts.
-
-### Interviewer Behavior
-
-- Act like a direct, skeptical, professional virtual interviewer.
-- Let the user answer by speaking, then use the transcript for follow-ups and evaluation.
-- Pressure the answer, not the person.
-- Ask evidence-seeking questions.
-- Use adaptive follow-up pressure when an answer is vague or unsupported.
-- Ask for:
-  - personal contribution
-  - implementation details
-  - tradeoffs
-  - baselines
-  - measured results
-  - role relevance
-- Never insult, shame, or belittle the user.
-- Never diagnose personality.
-- Never infer protected traits.
-- Never claim the user is employable or unemployable.
-- Never make hiring recommendations.
-- Never expose chain-of-thought or internal reasoning.
-- Stop follow-up escalation if user gives two failed responses and progress to next primary question.
-
-#### Trigger definitions (must be explicit)
-
-- Vague claim trigger: no ownership verb, no artifact name/version, no concrete implementation reasoning, or an answer without specifics after 12 seconds of response time.
-- Missing-metrics trigger: claim includes outcome language without a numeric baseline, period, scale, or validation method.
-- Role-fit trigger: answer omits a required capability currently in the parsed role requirements.
-- Follow-up necessity threshold: trigger only if evidence relevance confidence is at least 0.72.
-
-### Answer Evaluation
-
-- Evaluate answer quality against a mode-specific rubric.
-- Keep evaluation specific, fair, and grounded in transcript evidence.
-- Prefer actionable feedback over judgment.
-- Identify claim-defense issues and missing metrics.
-- Explain the evidence behind feedback.
-- Avoid generic advice like "be more confident" unless tied to a concrete behavior.
-- Output should include evidence-linked references to the transcript and extracted context.
-- Never fabricate achievements, metrics, or project details.
-
-### Report Generation
-
-- Summarize the session in student-facing coaching language.
-- Generate improved answer rewrites without fabricating achievements.
-- Recommend one or more practice drills tied to observed weaknesses.
-- Keep overall readiness framed as preparation quality, not hireability.
-
-## 10. Privacy and Data Handling Requirements
-
-Companion handles sensitive career data. MVP privacy requirements are mandatory:
+Visual and interaction requirements:
+
+- Preserve the Stitch navigation/sidebar pattern.
+- Keep history subordinate to starting the next practice session.
+- On mobile, table data may stack into cards if needed, but must retain the same data meaning.
+
+## 13. Privacy/Delete Controls
+
+Source of truth: `docs/design/stitch/pages/privacy_settings/`, plus privacy guidance in `docs/agents/domain.md`.
+
+Functional requirements:
 
 - Require sign-in for saved history.
 - Keep resumes, target roles, transcripts, reports, and practice drills private by default.
 - Do not provide public sharing by default.
-- Provide deletion controls for resumes and practice sessions.
-- Do not train on user data.
-- Minimize logging of raw resumes and transcripts.
-- Redact sensitive values in debugging logs where possible.
-- Store only what is necessary for saved history and product usefulness.
-- Never commit real resumes, transcripts, or user data to the repository.
+- State that user data is not used to train public models.
+- Provide controls to clear workspace data.
+- Provide export for session history.
+- Provide account deletion.
+- Provide delete controls for resumes, target roles, practice sessions, transcripts, reports, and related artifacts where surfaced.
+- Avoid logging full raw resumes, target-role text, audio, or transcripts in normal telemetry.
+- Store sensitive artifacts encrypted at rest where persisted.
+- Preserve deletion intent with an audit event or timestamp if soft deletion is used.
+
+Safety/privacy restrictions:
+
 - Do not evaluate protected traits.
 - Do not score facial appearance, body language, accent, race, gender, age, disability, religion, health, politics, sexuality, or other sensitive attributes.
-- Store raw resume and transcript text encrypted at rest.
-- Exclude raw resume, role text, and transcript from analytics/telemetry by default.
-- Keep answer audio only when needed for transcription recovery; expire by default within 30 days unless user extends.
-- Preserve deletion intent and audit event for user-initiated deletions (soft-delete timestamp is acceptable in MVP).
+- Do not claim employability or make hiring recommendations.
 
-## 11. UX Requirements
+## 14. Accessibility Requirements
 
-### Overall Feel
+Accessibility is a valid reason to deviate from Stitch, but deviations must preserve the product meaning and visual tone.
 
-- Desktop-first.
-- Calm, polished, focused, and slightly high-pressure.
-- More like an interview workspace than a playful study app or generic SaaS dashboard.
-- Mobile should remain usable for report review and short practice, but not drive MVP design.
+Requirements:
 
-### Dashboard
-
-- "Start practice" is dominant.
-- Saved history appears below after it exists.
-- Empty state invites resume upload and target-role paste.
-
-### Setup
-
-- Use meaningful progress states instead of generic spinners.
-- Show extraction review when uncertainty exists.
-- Show test preview before entering the session.
-- Show explicit reason text for uncertainty instead of a binary pass/fail.
-
-### Interview Room
-
-- Speech-first experience with interviewer presence.
-- Include interviewer panel, microphone controls, answer transcription, transcript timeline, and subtle evidence panel.
-- Let users correct transcription errors before submitting an answer when needed.
-- Evidence panel should show current focus and relevant snippet, not internal reasoning.
-- Keep the session bounded and clear.
-- On degraded input (retries exhausted), switch to a compact recovery layout that keeps interviewer context visible.
-
-### Error States
-
-- Resume upload failure should explain accepted formats and let users retry or paste text.
-- Target-role parsing failure should let users edit or paste a clearer role description.
-- Microphone permission failure should explain how to grant access and offer typed fallback for recovery.
-- Transcription failure should show confidence score and suggest re-record vs typed correction.
-- AI response failure should offer retry without losing the session state.
-- Report generation failure should preserve transcript and allow regeneration.
-- Auth/session expiry should preserve unsaved setup data where feasible.
-
-### Success States
-
-- Extraction success leads to test preview.
-- Session completion leads directly to report generation.
-- Report success highlights what the user should do next.
-
-## 12. Report Requirements
-
-The performance report must communicate value within 30 seconds.
-
-Required sections:
-
-1. Overall readiness for the selected technical project deep-dive.
-2. Claim-defense issues.
-3. Missing metrics/results.
-4. Strongest answer.
-5. Weakest answer.
-6. Transcript highlights.
-7. Improved answer rewrites.
-8. Next practice drill.
-
-The report should avoid chart overload in the first version. Use charts only when they improve comprehension.
-
-The report must not:
-
-- Predict whether the user will get hired.
-- Rank the user against other candidates.
-- Claim to verify whether a project was truly completed.
-- Fabricate achievements, metrics, or experience.
-
-## 13. Success Metrics
-
-Primary MVP success signals:
-
-- First-session completion rate.
-- Report viewed.
-- At least one improved answer read.
-- Practice drill started.
-- Repeat practice session within 7 days.
-
-Supporting quality metrics:
-
-- Extraction review completion rate.
-- Percentage of sessions with at least one live challenge moment.
-- User rating of feedback usefulness.
-- User rating of interview realism.
-- Number of sessions abandoned during setup.
-- Number of sessions abandoned during the interview room.
-- Report regeneration or error rate.
-- P95 setup-to-report time <= 20 minutes.
-
-## 14. Risks and Mitigations
-
-### Risk: Poor Evaluation Quality
-
-If answer evaluations are generic, unfair, or poorly grounded, users will not trust Companion.
-
-Mitigations:
-
-- Require structured evaluations tied to transcript evidence.
-- Version rubrics and prompts.
-- Test against fixture transcripts for strong answers, vague answers, missing metrics, unclear ownership, and shallow technical explanations.
-- Prefer specific feedback and improved answer rewrites over broad scores.
-
-### Risk: Poor Extraction Quality
-
-Bad resume or target-role extraction will produce bad questions and bad follow-ups.
-
-Mitigations:
-
-- Use extraction confidence with explicit threshold.
-- Show extraction review before sessions.
-- Allow users to edit extracted claims and requirements.
-- Test extraction with varied student resumes and internship descriptions.
-
-### Risk: Speech-First Room Feels Unreliable
-
-If microphone capture or transcription feels unreliable, users may lose trust before the interview becomes useful.
-
-Mitigations:
-
-- Use clear microphone states, retry controls, transcript correction, interviewer panel, speaking states, transcript timeline, and subtle evidence panel.
-- Keep session rhythm bounded and interview-like.
-- Use direct interviewer copy and evidence-seeking follow-ups.
-
-### Risk: Scope Creep
-
-Fully realtime two-way voice conversation, avatar, coding editor, and multiple modes could overwhelm MVP.
-
-Mitigations:
-
-- Enforce the technical project deep-dive ADR.
-- Keep animated avatar, fully realtime two-way voice conversation, coding editor, and additional modes out of MVP.
-- Measure success on the core practice loop first.
-
-### Risk: Privacy Trust
-
-Students may hesitate to upload resumes or transcripts.
-
-Mitigations:
-
-- Make privacy promises visible.
-- Require sign-in for saved history.
-- Provide deletion controls.
-- Avoid public sharing by default.
-- Avoid unnecessary raw-data logging.
-
-### Risk: Prompt Drift and Safety Violations
-
-The interviewer may produce prohibited claims or unsafe output due to prompt drift.
-
-Mitigations:
-
-- Enforce strict system-level safety instructions for each model call.
-- Schema-validate every AI output; safe-fail invalid outputs.
-- Unit tests for forbidden outputs (employability statements, protected trait inferences, insults).
+- All interactive controls are keyboard reachable.
+- Focus states are visible and consistent with the Stitch design system.
+- Buttons and icon-only actions have accessible names.
+- Form fields have labels and useful error messages.
+- Color is not the only signal for missing, verified, incomplete, warning, or challenge states.
+- Text contrast meets WCAG AA for normal and large text.
+- Transcript timeline, challenge state, and report sections use semantic structure that screen readers can navigate.
+- Microphone permission failures and transcription failures provide accessible recovery paths.
+- Speech-first flows support typed fallback for accessibility and recovery.
+- Tables in session history remain navigable; mobile card adaptations must preserve labels.
+- Destructive actions such as delete account, delete resume, clear workspace data, and delete session require confirmation.
+- Motion, if added later, must respect reduced-motion preferences.
 
 ## 15. Testing Strategy
 
-Because there is not yet production code, this PRD proposes testing seams at the highest product boundaries:
+Because this PRD is docs-only and production code does not yet exist, tests should be planned at the highest product boundaries first.
 
-### Highest-Seam Tests
+Product flow tests:
 
-- Guided setup from resume and target role to test preview.
-- Practice session from first question through final answer.
-- Speech capture and transcription through answer submission.
-- Report generation from completed transcript and answer evaluations.
-- Deletion flow for sensitive artifacts.
+- Sign-in to landing entry.
+- First-time setup from resume and target role to interview setup.
+- Interview setup to main interview room.
+- Main interview room through five-question completion.
+- Main interview room into live challenge moment for vague claim fixture.
+- Main interview room into live challenge moment for missing metric fixture.
+- Session complete to final coaching report.
+- Session history opening a completed report.
+- Resume management upload/select/delete flow.
+- Target role management create/select/delete flow.
+- Privacy settings export, clear workspace data, and account deletion confirmation flows.
 
-### Domain Logic Tests
+AI and domain behavior tests:
 
-- Resume extraction identifies vague claims.
-- Target-role extraction identifies requirements.
-- Interview planner creates five primary questions for technical project deep-dive.
-- Follow-up selector triggers adaptive follow-up pressure for vague claims and missing metrics.
-- Answer evaluation produces transcript-grounded feedback.
-- Report generator includes required sections and avoids hiring claims.
-- Follow-up cap prevents >2 follow-ups on one primary question.
+- Resume extraction identifies project claims and missing baselines.
+- Target-role extraction identifies requirements and implied needs.
+- Interview planner creates five technical project deep-dive questions.
+- Follow-up selector respects one or two adaptive follow-ups per primary question.
+- Challenge generation references exact resume claim or target-role requirement.
+- Answer evaluation is grounded in transcript evidence.
+- Report generation includes readiness, technical depth, vulnerabilities, suggested reframing, and next practice guidance.
+- Generated copy never makes hiring predictions or protected-trait inferences.
 
-### AI Contract Tests
+UI fidelity tests:
 
-- All AI outputs consumed by code must be schema-validated.
-- Invalid AI JSON should trigger safe retry or recoverable error states.
-- Prompt fixtures should cover:
-  - strong answer with metrics
-  - vague answer without ownership
-  - missing result
-  - shallow technical explanation
-  - answer unrelated to target role
-  - user admits uncertainty appropriately
-  - low-confidence ASR scenarios
+- Each implemented screen has a visual review against the relevant Stitch `screen.png`.
+- Shared theme matches `pages/academic_precision/DESIGN.md` for typography, surface colors, borders, radius, and accent usage.
+- Desktop layouts preserve Stitch information density and panel hierarchy.
+- Mobile adaptations preserve task order and semantic meaning.
 
-### UX Flow Tests
+Accessibility and privacy tests:
 
-- First empty dashboard shows "Start practice" dominantly.
-- Setup loading shows interview preparation states.
-- Uncertain extraction shows extraction review.
-- Test preview appears before the session.
-- Microphone permission, recording, transcription, retry, and transcript correction states work.
-- Evidence panel shows focus and snippet without internal reasoning.
-- Report communicates core insights quickly and clearly.
+- Keyboard navigation works across all core flows.
+- Screen-reader labels exist for icon buttons and destructive actions.
+- Challenge, warning, and status states are not color-only.
+- Users cannot access another user's private artifacts.
+- Deletion controls remove or mark artifacts according to the chosen retention design.
+- Logs do not contain full raw resumes, target-role text, transcripts, or audio payloads in normal operation.
 
-### Privacy and Safety Tests
-
-- Users cannot access other users' resumes, target roles, sessions, transcripts, or reports.
-- Deletion controls remove or mark sensitive artifacts according to the data retention design.
-- Logs do not contain full raw resumes or transcripts in normal operation.
-- Evaluation and report copy do not include hiring recommendations, protected-trait inference, insults, or employability claims.
-
-## 16. Acceptance Criteria for MVP
+## 16. MVP Acceptance Criteria
 
 The MVP is accepted when:
 
-1. A user can sign in.
-2. A user can create and save multiple resumes.
-3. A user can create and save multiple target roles.
-4. A user can start a technical project deep-dive from one resume and one target role.
-5. The system extracts project claims and target-role requirements.
-6. The system shows extraction review when extraction confidence is low or parsing is conflicting.
-7. The system shows a test preview before the session.
-8. The system runs a five-question speech-first practice session with max 10 turns.
-9. Each primary question allows no more than one or two adaptive follow-ups.
-10. The system creates at least one live challenge moment for vague resume claims in controlled test cases.
-11. The system creates at least one live challenge moment for missing metrics/results in controlled test cases.
-12. The interview room includes an interviewer panel, microphone controls, answer transcription, transcript timeline, and subtle evidence panel.
-13. The evidence panel shows current probing focus and relevant snippet without exposing internal reasoning.
-14. Interview turns and answer evaluations are stored with required traceability IDs.
-15. The system generates a performance report after session completion.
-16. The report includes required sections and no employability or hiring claims.
-17. The user can view and navigate saved history.
-18. The user can delete resumes, roles, sessions, and reports.
-19. Raw resumes/transcripts are not logged as full payloads in normal app telemetry/logging.
-20. The product has defined loading, empty, error, and success states for the main flow.
-21. The MVP works on desktop and remains usable on mobile for report reading.
-22. No payment or subscription flow exists.
-23. MVP feature scope excludes fully realtime two-way voice, animated avatar, coding editor, video analysis, facial/body-language scoring, employer workflow, public sharing, career-center admin, and multi-user mock interviews.
-24. Interviewing stays speech-first, with text mode allowed only for recovery and marked to user.
+1. The implemented UI references and substantially matches the Stitch page folders listed in this PRD.
+2. The previous Codex-generated prototype UI is not used as the production baseline.
+3. A user can sign in.
+4. A user can start a project deep-dive from the entry/dashboard experience.
+5. A user can upload, select, edit, and delete resumes.
+6. A user can create, select, edit, and delete target roles.
+7. Companion extracts project claims, metrics, gaps, and target-role requirements.
+8. Companion blocks session start when unresolved extraction uncertainty requires review.
+9. The interview setup screen shows source profile, target position, detected context, five-question framing, and start interview CTA.
+10. The main interview room includes interviewer presence, transcript timeline, answer composer, target claim, required evidence, and interviewer notes.
+11. The session supports speech-first answering where available and typed fallback for accessibility or recovery.
+12. A practice session contains five primary questions and no more than one or two adaptive follow-ups per primary question.
+13. Controlled vague-claim fixtures trigger the live challenge moment.
+14. Controlled missing-metric fixtures trigger the live challenge moment.
+15. The live challenge moment references the exact claim or requirement being challenged.
+16. The live challenge moment pressures the answer, not the person.
+17. Session completion leads to a final coaching report.
+18. The final coaching report includes readiness, technical depth assessment, claim-defense vulnerabilities, suggested reframing, and next practice guidance.
+19. Reports do not make employability predictions, hiring recommendations, or protected-trait inferences.
+20. Session history lists saved sessions and supports opening and deleting session artifacts.
+21. Resume management shows extracted project claims, metrics, warnings, and suggested revisions.
+22. Target role management shows extracted requirements, Companion notes, role gaps, and preparation prompts.
+23. Privacy settings provide private-by-default messaging, export, clear workspace data, and account deletion controls.
+24. Users can delete sensitive artifacts exposed in the MVP.
+25. Core flows pass keyboard navigation and accessible-name checks.
+26. Mobile adaptations remain usable for sign-in, report review, short practice, and management basics.
+27. No payment, subscription, employer workflow, public sharing default, animated avatar, fully realtime two-way voice, coding editor, video analysis, or body-language scoring exists in the MVP.
 
 ## Open Questions / Assumptions
 
-- Assumption: The MVP will use a web app architecture, likely with TypeScript-first frontend and shared types, but this PRD does not mandate a specific framework.
-- Assumption: The first implementation should test at high product seams because there is no existing application code yet.
-- Assumption: "Target role" is the canonical term for pasted job descriptions and selected role descriptions.
-- Assumption: Difficulty can exist as a field, but MVP should not expose difficulty as a high-friction initial choice.
-- Assumption: Saved history requires persistent auth and database storage from MVP.
-- Assumption: Users answer by speaking in the MVP; typed answer entry remains only as an accessibility and recovery fallback for microphone or transcription failures.
-- Open question: Should deletion be immediate hard delete or soft delete with short retention?
+- Assumption: Stitch is authoritative over earlier UI wording when screen layout or component hierarchy differs.
+- Assumption: Stitch is authoritative for composition, hierarchy, and interaction shape; `CONTEXT.md`, ADRs, and this PRD remain authoritative for product behavior and MVP scope when static mock copy conflicts.
+- Assumption: Existing domain docs remain authoritative for product behavior when Stitch only shows static sample data.
+- Assumption: The `landing_entry` page functions as the initial entry/dashboard gateway until a separate dashboard design exists.
+- Assumption: The `first_time_setup` page covers initial setup, while `resume_management` and `target_role_management` cover ongoing library management.
+- Assumption: Speech-first remains a product requirement even though the Stitch `main_interview_room` export visibly includes a text composer; typed entry is treated as accessibility/recovery unless a later ADR changes the input model.
+- Assumption: Until Stitch includes a dedicated extraction-review page, unresolved extraction review should reuse the visual language of `first_time_setup` and `interview_setup` while still blocking session start.
+- Assumption: Suppress the static Billing tab shown in `privacy_settings` for MVP because payments and subscriptions are non-goals.
+- Assumption: Session history readiness scores are preparation signals, not hiring predictions.
+- Resolved conflict: Stitch `interview_setup` includes the phrase "Text-first" while domain guidance says speech-first. This PRD resolves the conflict in favor of speech-first per `CONTEXT.md` and `docs/agents/domain.md`, with typed entry as fallback.
+- Resolved conflict: Some Stitch sample copy references system design. This PRD resolves the conflict in favor of the technical project deep-dive MVP; system design remains outside first-class MVP scope.
+- Open question: Should a dedicated Stitch extraction-review page be generated before implementation, or should the first implementation adapt the existing setup pages?
+- Open question: Should deletion be immediate hard delete or soft delete with a short retention period?
 - Open question: Which resume formats are supported first: PDF only, PDF + DOCX, or paste-first?
-- Open question: Should extracted claim edits in review be persisted as a permanent user edit or session-only for the current run?
-- Open question: What exact rubric scale should answer evaluations use in the UI: numeric score, qualitative labels, or both?
+- Open question: Should extracted claim edits persist permanently to the resume/target role or only to the current practice session?
+- Open question: What exact readiness scale should the report use: numeric, qualitative, or both?
