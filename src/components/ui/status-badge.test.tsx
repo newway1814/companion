@@ -16,4 +16,20 @@ describe("StatusBadge", () => {
 
     expect(screen.getByText("Baseline verified")).toBeInTheDocument();
   });
+
+  it("renders every status with its own text label", () => {
+    render(
+      <>
+        <StatusBadge status="verified" />
+        <StatusBadge status="missing" />
+        <StatusBadge status="incomplete" />
+        <StatusBadge status="warning" />
+      </>,
+    );
+
+    expect(screen.getByText("Verified")).toBeInTheDocument();
+    expect(screen.getByText("Missing")).toBeInTheDocument();
+    expect(screen.getByText("Incomplete")).toBeInTheDocument();
+    expect(screen.getByText("Warning")).toBeInTheDocument();
+  });
 });

@@ -30,7 +30,7 @@ export function TranscriptRow({
       )}
       {...props}
     >
-      <span className="font-label-caps text-label-caps uppercase tracking-wide text-on-surface-variant">
+      <span className="text-label-caps uppercase tracking-wide text-on-surface-variant">
         {speaker}
       </span>
       <span className="text-body-md text-on-surface">{children}</span>

@@ -26,13 +26,28 @@ const primaryNav = [
 
 const footerNav = [{ href: "/settings", label: "Settings", icon: Settings }] as const;
 
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+export function isActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  // Match the exact route or a nested child, but not prefix siblings
+  // (e.g. "/roles" must not light up for "/roles-archive").
+  return pathname === href || pathname.startsWith(`${href}/`);
 }
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() ?? "/";
   const [open, setOpen] = React.useState(false);
+  const firstNavRef = React.useRef<HTMLAnchorElement>(null);
+
+  // When the mobile drawer opens, move focus into it and allow Escape to close.
+  React.useEffect(() => {
+    if (!open) return;
+    firstNavRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [open]);
 
   const navLink = (item: (typeof primaryNav)[number] | (typeof footerNav)[number]) => {
     const active = isActive(pathname, item.href);
@@ -113,6 +128,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {/* Primary CTA */}
         <div className="mb-6 px-gutter">
           <Link
+            ref={firstNavRef}
             href="/setup"
             onClick={() => setOpen(false)}
             className="flex w-full items-center justify-center gap-2 rounded bg-primary-container px-4 py-2 text-body-md font-medium text-on-primary transition-colors hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"

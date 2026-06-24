@@ -14,4 +14,17 @@ describe("Button", () => {
 
     expect(onClick).toHaveBeenCalledOnce();
   });
+
+  it("does not fire its click handler when disabled", async () => {
+    const onClick = vi.fn();
+    render(
+      <Button disabled onClick={onClick}>
+        Save
+      </Button>,
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Save" }));
+
+    expect(onClick).not.toHaveBeenCalled();
+  });
 });

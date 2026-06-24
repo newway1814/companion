@@ -4,7 +4,7 @@ import { describe, expect, it, vi } from "vitest";
 
 vi.mock("next/navigation", () => ({ usePathname: () => "/resumes" }));
 
-import { AppShell } from "./app-shell";
+import { AppShell, isActive } from "./app-shell";
 
 describe("AppShell", () => {
   it("renders primary navigation and marks the active route", () => {
@@ -46,5 +46,52 @@ describe("AppShell", () => {
 
     await userEvent.click(toggle);
     expect(toggle).toHaveAttribute("aria-expanded", "true");
+  });
+
+  it("moves focus into the drawer when it opens", async () => {
+    render(
+      <AppShell>
+        <p>Page content</p>
+      </AppShell>,
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: /navigation/i }));
+
+    expect(screen.getByRole("link", { name: "New session" })).toHaveFocus();
+  });
+
+  it("closes the drawer when Escape is pressed", async () => {
+    render(
+      <AppShell>
+        <p>Page content</p>
+      </AppShell>,
+    );
+
+    const toggle = screen.getByRole("button", { name: /navigation/i });
+    await userEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-expanded", "true");
+
+    await userEvent.keyboard("{Escape}");
+    expect(toggle).toHaveAttribute("aria-expanded", "false");
+  });
+
+  it("matches the shell snapshot", () => {
+    const { container } = render(
+      <AppShell>
+        <p>Page content</p>
+      </AppShell>,
+    );
+
+    expect(container).toMatchSnapshot();
+  });
+});
+
+describe("isActive", () => {
+  it("matches the exact route and nested children but not prefix siblings", () => {
+    expect(isActive("/", "/")).toBe(true);
+    expect(isActive("/resumes", "/")).toBe(false);
+    expect(isActive("/roles", "/roles")).toBe(true);
+    expect(isActive("/roles/123", "/roles")).toBe(true);
+    expect(isActive("/roles-archive", "/roles")).toBe(false);
   });
 });
