@@ -1,12 +1,11 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import type { z } from "zod";
+import { GoogleGenAI } from "@google/genai";
+import { z } from "zod";
 
 import { buildAiLogRecord, type AiOutcome } from "./logging";
 import { SAFETY_SYSTEM_PROMPT, findSafetyViolations } from "./safety";
 
-/** Default model. Override per call, or globally via ANTHROPIC_MODEL. */
-export const DEFAULT_AI_MODEL = process.env.ANTHROPIC_MODEL ?? "claude-opus-4-8";
+/** Default model. Override per call, or globally via GEMINI_MODEL. */
+export const DEFAULT_AI_MODEL = process.env.GEMINI_MODEL ?? "gemini-2.5-flash";
 const MAX_ATTEMPTS = 2;
 const DEFAULT_MAX_TOKENS = 8192;
 
@@ -41,7 +40,16 @@ export class AiSafetyError extends Error {
   }
 }
 
-let client: Anthropic | undefined;
+let client: GoogleGenAI | undefined;
+
+// Finish reasons that mean the model declined rather than answered.
+const REFUSAL_FINISH_REASONS = new Set([
+  "SAFETY",
+  "PROHIBITED_CONTENT",
+  "BLOCKLIST",
+  "SPII",
+  "IMAGE_SAFETY",
+]);
 
 const defaultParseFn: AiParseFn = async ({
   model,
@@ -50,20 +58,41 @@ const defaultParseFn: AiParseFn = async ({
   schema,
   maxTokens,
 }) => {
-  client ??= new Anthropic();
-  const response = await client.messages.parse({
+  client ??= new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+  const response = await client.models.generateContent({
     model,
-    max_tokens: maxTokens,
-    thinking: { type: "adaptive" },
-    system,
-    messages: [{ role: "user", content: user }],
-    output_config: { format: zodOutputFormat(schema) },
+    contents: user,
+    config: {
+      systemInstruction: system,
+      maxOutputTokens: maxTokens,
+      responseMimeType: "application/json",
+      responseJsonSchema: z.toJSONSchema(schema),
+    },
   });
+
+  const finishReason = response.candidates?.[0]?.finishReason;
+  const refused =
+    response.promptFeedback?.blockReason != null ||
+    (finishReason != null && REFUSAL_FINISH_REASONS.has(String(finishReason)));
+
+  let parsedOutput: unknown = null;
+  if (!refused && response.text) {
+    try {
+      const result = schema.safeParse(JSON.parse(response.text));
+      if (result.success) parsedOutput = result.data;
+    } catch {
+      // Non-JSON output → leave null so the gateway retries.
+    }
+  }
+
   return {
-    parsedOutput: response.parsed_output ?? null,
-    stopReason: response.stop_reason,
-    model: response.model,
-    usage: response.usage,
+    parsedOutput,
+    stopReason: refused ? "refusal" : finishReason ? String(finishReason) : null,
+    model,
+    usage: {
+      input_tokens: response.usageMetadata?.promptTokenCount,
+      output_tokens: response.usageMetadata?.candidatesTokenCount,
+    },
   };
 };
 
