@@ -14,6 +14,7 @@ const role: TargetRoleSummary = {
   isActive: true,
   createdAt: new Date(),
   lastUsedAt: null,
+  requirements: null,
 };
 
 describe("RoleForm", () => {

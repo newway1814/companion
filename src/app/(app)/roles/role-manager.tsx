@@ -2,19 +2,26 @@
 
 import * as React from "react";
 
+import { RoleAnalysis } from "./role-analysis";
 import { RoleDetail } from "./role-detail";
 import { RoleForm } from "./role-form";
 import { RoleList } from "./role-list";
-import type { SaveTargetRoleAction, TargetRoleSummary } from "./types";
+import type {
+  AnalyzeRoleAction,
+  SaveTargetRoleAction,
+  TargetRoleSummary,
+} from "./types";
 
 export function RoleManager({
   roles,
   saveAction,
+  analyzeAction,
   onSelect,
   onDelete,
 }: {
   roles: TargetRoleSummary[];
   saveAction: SaveTargetRoleAction;
+  analyzeAction: AnalyzeRoleAction;
   onSelect: (id: string) => void;
   onDelete: (id: string) => void;
 }) {
@@ -64,6 +71,13 @@ export function RoleManager({
         className="md:border-l md:border-outline-variant md:pl-gutter"
       >
         <RoleDetail role={active} />
+        {active ? (
+          <RoleAnalysis
+            roleId={active.id}
+            requirements={active.requirements}
+            action={analyzeAction}
+          />
+        ) : null}
       </section>
     </div>
   );

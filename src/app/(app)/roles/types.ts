@@ -1,4 +1,13 @@
+import type { RoleRequirements } from "@/lib/target-role/extraction";
+
 export type TargetRoleFormState = { ok: true } | { error: string } | null;
+
+export type AnalyzeRoleState = { error?: string } | null;
+
+export type AnalyzeRoleAction = (
+  state: AnalyzeRoleState,
+  formData: FormData,
+) => Promise<AnalyzeRoleState>;
 
 export type SaveTargetRoleAction = (
   state: TargetRoleFormState,
@@ -15,4 +24,5 @@ export type TargetRoleSummary = {
   isActive: boolean;
   createdAt: Date;
   lastUsedAt: Date | null;
+  requirements: RoleRequirements | null;
 };
