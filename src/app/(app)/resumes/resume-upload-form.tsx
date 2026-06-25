@@ -11,6 +11,7 @@ import type { AddResumeAction } from "./types";
 export function ResumeUploadForm({ action }: { action: AddResumeAction }) {
   const [state, formAction, pending] = useActionState(action, null);
   const [fileError, setFileError] = React.useState<string | null>(null);
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -22,8 +23,13 @@ export function ResumeUploadForm({ action }: { action: AddResumeAction }) {
     setFileError(result.ok ? null : result.error);
   }
 
+  function handleRemoveFile() {
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    setFileError(null);
+  }
+
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} aria-busy={pending} className="space-y-4">
       <div className="space-y-1.5">
         <label
           htmlFor="resume-file"
@@ -32,6 +38,7 @@ export function ResumeUploadForm({ action }: { action: AddResumeAction }) {
           Upload a PDF
         </label>
         <input
+          ref={fileInputRef}
           id="resume-file"
           name="file"
           type="file"
@@ -42,9 +49,19 @@ export function ResumeUploadForm({ action }: { action: AddResumeAction }) {
       </div>
 
       {fileError ? (
-        <p role="alert" className="text-body-md text-on-error-container">
-          {fileError}
-        </p>
+        <div className="flex items-center gap-3">
+          <p role="alert" className="text-body-md text-on-error-container">
+            {fileError}
+          </p>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={handleRemoveFile}
+          >
+            Remove file
+          </Button>
+        </div>
       ) : null}
 
       <div className="space-y-1.5">
@@ -76,6 +93,10 @@ export function ResumeUploadForm({ action }: { action: AddResumeAction }) {
       >
         {pending ? "Adding…" : "Add resume"}
       </Button>
+
+      <p role="status" className="sr-only">
+        {pending ? "Adding your resume…" : ""}
+      </p>
     </form>
   );
 }

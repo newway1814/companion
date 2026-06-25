@@ -50,8 +50,13 @@ export async function addResumeAction(
     try {
       const path = await uploadResumeFile(user.id, resume.id, file);
       await setResumeStoragePath(user.id, resume.id, path);
-    } catch {
-      // The raw text is already saved; the stored file is best-effort.
+    } catch (error) {
+      // The raw text is already saved; the stored file is best-effort. Log the
+      // message (not the file) so a missing PDF is diagnosable.
+      console.error(
+        `Resume file storage failed for resume ${resume.id}:`,
+        error instanceof Error ? error.message : error,
+      );
     }
   } else if (pasted) {
     await createResume({

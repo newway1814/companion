@@ -75,13 +75,18 @@ export function ResumeList({
             ) : null}
 
             {confirmingId === resume.id ? (
-              <span className="flex items-center gap-2" role="alertdialog">
+              <span
+                role="group"
+                aria-label={`Delete ${resume.filename}?`}
+                className="flex items-center gap-2"
+              >
                 <span className="text-body-md text-on-surface-variant">
                   Delete this resume?
                 </span>
                 <Button
                   variant="secondary"
                   size="sm"
+                  autoFocus
                   className="border-error text-error"
                   onClick={() => {
                     onDelete(resume.id);
