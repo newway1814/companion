@@ -15,9 +15,21 @@ function createPrismaClient(): PrismaClient {
   return new PrismaClient({ adapter });
 }
 
-export const prisma: PrismaClient =
-  globalForPrisma.prisma ?? createPrismaClient();
-
-if (process.env.NODE_ENV !== "production") {
-  globalForPrisma.prisma = prisma;
+function getPrismaClient(): PrismaClient {
+  if (!globalForPrisma.prisma) {
+    globalForPrisma.prisma = createPrismaClient();
+  }
+  return globalForPrisma.prisma;
 }
+
+// Lazy proxy: the client (and its env validation) is constructed on first use
+// at request time, not at module load — so `next build` needs no DB secrets.
+export const prisma: PrismaClient = new Proxy({} as PrismaClient, {
+  get(_target, prop) {
+    const client = getPrismaClient();
+    const value = client[prop as keyof PrismaClient];
+    // Bind methods (e.g. $transaction) so `this` is the real client, not the
+    // proxy — Prisma relies on private fields that the proxy can't forward.
+    return typeof value === "function" ? value.bind(client) : value;
+  },
+});
