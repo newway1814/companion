@@ -2,19 +2,23 @@
 
 import { revalidatePath } from "next/cache";
 
+import { AiSafetyError } from "@/lib/ai/gateway";
 import { getUser } from "@/lib/auth";
 import { extractPdfText } from "@/lib/resume/extract-pdf";
+import { extractResumeProfile } from "@/lib/resume/extraction";
 import {
   createResume,
   deleteResume,
+  getResumeForUser,
   setActiveResume,
+  setResumeProfile,
   setResumeStoragePath,
 } from "@/lib/resume/repository";
 import { uploadResumeFile } from "@/lib/resume/storage";
 import { validateResumeUpload } from "@/lib/resume/validation";
 import { getOrCreateUser } from "@/lib/user";
 
-import type { AddResumeState } from "./types";
+import type { AddResumeState, AnalyzeResumeState } from "./types";
 
 export async function addResumeAction(
   _prev: AddResumeState,
@@ -67,6 +71,31 @@ export async function addResumeAction(
     });
   } else {
     return { error: "Add a PDF or paste your resume text." };
+  }
+
+  revalidatePath("/resumes");
+  return { error: undefined };
+}
+
+export async function analyzeResumeAction(
+  _prev: AnalyzeResumeState,
+  formData: FormData,
+): Promise<AnalyzeResumeState> {
+  const user = await getUser();
+  if (!user) return { error: "You need to be signed in." };
+
+  const id = String(formData.get("id"));
+  const resume = await getResumeForUser(user.id, id);
+  if (!resume) return { error: "Resume not found." };
+
+  try {
+    const profile = await extractResumeProfile(resume.rawText);
+    await setResumeProfile(user.id, id, profile);
+  } catch (error) {
+    if (error instanceof AiSafetyError) {
+      return { error: "The analysis was blocked by a safety check." };
+    }
+    return { error: "Could not analyze this resume. Please try again." };
   }
 
   revalidatePath("/resumes");

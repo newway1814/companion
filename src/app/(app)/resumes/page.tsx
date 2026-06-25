@@ -1,7 +1,14 @@
 import { getUser } from "@/lib/auth";
+import { ResumeProfileSchema } from "@/lib/resume/extraction";
 import { listResumes } from "@/lib/resume/repository";
 
-import { addResumeAction, deleteResumeAction, selectResumeAction } from "./actions";
+import {
+  addResumeAction,
+  analyzeResumeAction,
+  deleteResumeAction,
+  selectResumeAction,
+} from "./actions";
+import { ResumeAnalysis } from "./resume-analysis";
 import { ResumeDetail } from "./resume-detail";
 import { ResumeList } from "./resume-list";
 import { ResumeUploadForm } from "./resume-upload-form";
@@ -11,14 +18,18 @@ export default async function ResumesPage() {
   const user = await getUser();
   const rows = user ? await listResumes(user.id) : [];
 
-  const resumes: ResumeSummary[] = rows.map((resume) => ({
-    id: resume.id,
-    filename: resume.filename,
-    rawText: resume.rawText,
-    isActive: resume.isActive,
-    createdAt: resume.createdAt,
-    lastUsedAt: resume.lastUsedAt,
-  }));
+  const resumes: ResumeSummary[] = rows.map((resume) => {
+    const parsed = ResumeProfileSchema.safeParse(resume.parsedProfile);
+    return {
+      id: resume.id,
+      filename: resume.filename,
+      rawText: resume.rawText,
+      isActive: resume.isActive,
+      createdAt: resume.createdAt,
+      lastUsedAt: resume.lastUsedAt,
+      profile: parsed.success ? parsed.data : null,
+    };
+  });
   const active = resumes.find((resume) => resume.isActive) ?? null;
 
   return (
@@ -42,8 +53,18 @@ export default async function ResumesPage() {
         </div>
       </section>
 
-      <section aria-label="Active resume" className="md:border-l md:border-outline-variant md:pl-gutter">
+      <section
+        aria-label="Active resume"
+        className="md:border-l md:border-outline-variant md:pl-gutter"
+      >
         <ResumeDetail resume={active} />
+        {active ? (
+          <ResumeAnalysis
+            resumeId={active.id}
+            profile={active.profile}
+            action={analyzeResumeAction}
+          />
+        ) : null}
       </section>
     </div>
   );

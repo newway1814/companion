@@ -35,6 +35,7 @@ model Resume {
   source      ResumeSource
   rawText     String
   storagePath String?
+  parsedProfile Json?
   isActive    Boolean      @default(false)
   createdAt   DateTime     @default(now())
   lastUsedAt  DateTime?

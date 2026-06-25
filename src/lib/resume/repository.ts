@@ -1,5 +1,8 @@
+import { Prisma } from "@/generated/prisma/client";
 import { ResumeSource } from "@/generated/prisma/enums";
 import { prisma } from "@/lib/prisma";
+
+import type { ResumeProfile } from "./extraction";
 
 /**
  * Data access for resumes. Every query is scoped by `userId`, which is the
@@ -34,6 +37,21 @@ export function setResumeStoragePath(
   storagePath: string,
 ) {
   return prisma.resume.updateMany({ where: { id, userId }, data: { storagePath } });
+}
+
+export function getResumeForUser(userId: string, id: string) {
+  return prisma.resume.findFirst({ where: { id, userId } });
+}
+
+export function setResumeProfile(
+  userId: string,
+  id: string,
+  profile: ResumeProfile,
+) {
+  return prisma.resume.updateMany({
+    where: { id, userId },
+    data: { parsedProfile: profile as unknown as Prisma.InputJsonValue },
+  });
 }
 
 export function deleteResume(userId: string, id: string) {

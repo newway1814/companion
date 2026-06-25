@@ -13,6 +13,7 @@ const resumes: ResumeSummary[] = [
     isActive: true,
     createdAt: new Date("2023-10-24T00:00:00Z"),
     lastUsedAt: null,
+    profile: null,
   },
   {
     id: "r2",
@@ -21,6 +22,7 @@ const resumes: ResumeSummary[] = [
     isActive: false,
     createdAt: new Date("2023-09-12T00:00:00Z"),
     lastUsedAt: null,
+    profile: null,
   },
 ];
 
