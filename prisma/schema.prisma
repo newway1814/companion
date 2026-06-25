@@ -11,3 +11,33 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum ResumeSource {
+  UPLOAD
+  PASTE
+}
+
+/// A signed-in account. `id` mirrors the Supabase auth user id.
+model User {
+  id        String   @id @db.Uuid
+  email     String?
+  createdAt DateTime @default(now())
+
+  resumes Resume[]
+}
+
+/// A user's uploaded or pasted resume.
+model Resume {
+  id          String       @id @default(uuid()) @db.Uuid
+  userId      String       @db.Uuid
+  user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  filename    String
+  source      ResumeSource
+  rawText     String
+  storagePath String?
+  isActive    Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  lastUsedAt  DateTime?
+
+  @@index([userId])
+}
