@@ -23,7 +23,8 @@ model User {
   email     String?
   createdAt DateTime @default(now())
 
-  resumes Resume[]
+  resumes     Resume[]
+  targetRoles TargetRole[]
 }
 
 /// A user's uploaded or pasted resume.
@@ -39,6 +40,23 @@ model Resume {
   isActive    Boolean      @default(false)
   createdAt   DateTime     @default(now())
   lastUsedAt  DateTime?
+
+  @@index([userId])
+}
+
+/// A job/role the user is preparing for.
+model TargetRole {
+  id                 String    @id @default(uuid()) @db.Uuid
+  userId             String    @db.Uuid
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title              String
+  company            String?
+  status             String?
+  rawText            String
+  parsedRequirements Json?
+  isActive           Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  lastUsedAt         DateTime?
 
   @@index([userId])
 }
