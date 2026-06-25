@@ -1,4 +1,7 @@
+import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/prisma";
+
+import type { RoleRequirements } from "./extraction";
 
 /**
  * Data access for target roles. Every query is scoped by `userId` — the
@@ -42,6 +45,19 @@ export function updateTargetRole(
   },
 ) {
   return prisma.targetRole.updateMany({ where: { id, userId }, data });
+}
+
+export function setRoleRequirements(
+  userId: string,
+  id: string,
+  requirements: RoleRequirements,
+) {
+  return prisma.targetRole.updateMany({
+    where: { id, userId },
+    data: {
+      parsedRequirements: requirements as unknown as Prisma.InputJsonValue,
+    },
+  });
 }
 
 export function deleteTargetRole(userId: string, id: string) {

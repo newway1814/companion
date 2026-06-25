@@ -15,6 +15,7 @@ const roles: TargetRoleSummary[] = [
     isActive: true,
     createdAt: new Date(),
     lastUsedAt: null,
+    requirements: null,
   },
   {
     id: "r2",
@@ -25,6 +26,7 @@ const roles: TargetRoleSummary[] = [
     isActive: false,
     createdAt: new Date(),
     lastUsedAt: null,
+    requirements: null,
   },
 ];
 

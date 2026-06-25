@@ -15,6 +15,7 @@ const roles: TargetRoleSummary[] = [
     isActive: true,
     createdAt: new Date(),
     lastUsedAt: null,
+    requirements: null,
   },
 ];
 
@@ -26,6 +27,7 @@ describe("RoleManager", () => {
       <RoleManager
         roles={roles}
         saveAction={noopSave}
+        analyzeAction={vi.fn()}
         onSelect={vi.fn()}
         onDelete={vi.fn()}
       />,
