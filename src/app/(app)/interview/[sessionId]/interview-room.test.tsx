@@ -9,12 +9,13 @@ const view = buildRoomView({
   status: "PLANNED",
   mode: "technical-project-deep-dive",
   questions: [
-    { orderIndex: 0, questionText: "Walk me through the realtime pipeline." },
-    { orderIndex: 1, questionText: "What was the latency before and after?" },
-    { orderIndex: 2, questionText: "Which part did you build yourself?" },
-    { orderIndex: 3, questionText: "How did you evaluate quality?" },
-    { orderIndex: 4, questionText: "What would you change now?" },
+    { id: "q0", orderIndex: 0, questionText: "Walk me through the realtime pipeline." },
+    { id: "q1", orderIndex: 1, questionText: "What was the latency before and after?" },
+    { id: "q2", orderIndex: 2, questionText: "Which part did you build yourself?" },
+    { id: "q3", orderIndex: 3, questionText: "How did you evaluate quality?" },
+    { id: "q4", orderIndex: 4, questionText: "What would you change now?" },
   ],
+  turns: [],
 });
 
 describe("InterviewRoom shell", () => {

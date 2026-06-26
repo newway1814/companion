@@ -25,6 +25,20 @@ enum InterviewSessionStatus {
   COMPLETED
 }
 
+/// Who produced a transcript turn.
+enum InterviewTurnSpeaker {
+  INTERVIEWER
+  CANDIDATE
+}
+
+/// What a transcript turn is: the primary question, the candidate's answer, or
+/// an adaptive follow-up.
+enum InterviewTurnKind {
+  QUESTION
+  ANSWER
+  FOLLOW_UP
+}
+
 /// A signed-in account. `id` mirrors the Supabase auth user id.
 model User {
   id        String   @id @db.Uuid
@@ -91,6 +105,7 @@ model InterviewSession {
   completedAt  DateTime?
 
   questions    InterviewQuestion[]
+  turns        InterviewTurn[]
 
   @@index([userId])
 }
@@ -107,6 +122,27 @@ model InterviewQuestion {
   objective    String
   rubric       Json
 
+  turns        InterviewTurn[]
+
   @@unique([sessionId, orderIndex])
   @@index([sessionId])
+}
+
+/// One turn in a session's transcript: a question asked, an answer given, or an
+/// adaptive follow-up. Ordered within the session to form the timeline.
+model InterviewTurn {
+  id         String               @id @default(uuid()) @db.Uuid
+  sessionId  String               @db.Uuid
+  session    InterviewSession     @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  questionId String               @db.Uuid
+  question   InterviewQuestion    @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  speaker    InterviewTurnSpeaker
+  kind       InterviewTurnKind
+  content    String
+  orderIndex Int
+  createdAt  DateTime             @default(now())
+
+  @@unique([sessionId, orderIndex])
+  @@index([sessionId])
+  @@index([questionId])
 }

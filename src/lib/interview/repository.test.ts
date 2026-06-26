@@ -61,7 +61,7 @@ describe("interview session repository", () => {
     });
   });
 
-  it("reads a session only for its owner, with questions in order", async () => {
+  it("reads a session only for its owner, with questions and turns in order", async () => {
     session.findFirst.mockResolvedValue(null as never);
 
     await getInterviewSessionForUser("user-1", "sess-9");
@@ -69,7 +69,10 @@ describe("interview session repository", () => {
     expect(session.findFirst).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: "sess-9", userId: "user-1" },
-        include: { questions: { orderBy: { orderIndex: "asc" } } },
+        include: {
+          questions: { orderBy: { orderIndex: "asc" } },
+          turns: { orderBy: { orderIndex: "asc" } },
+        },
       }),
     );
   });
