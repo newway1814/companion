@@ -17,6 +17,14 @@ enum ResumeSource {
   PASTE
 }
 
+/// Lifecycle of a practice session. Planned once questions are generated and
+/// persisted; in progress once the room opens; completed after the five-question run.
+enum InterviewSessionStatus {
+  PLANNED
+  IN_PROGRESS
+  COMPLETED
+}
+
 /// A signed-in account. `id` mirrors the Supabase auth user id.
 model User {
   id        String   @id @db.Uuid
@@ -25,6 +33,7 @@ model User {
 
   resumes     Resume[]
   targetRoles TargetRole[]
+  sessions    InterviewSession[]
 }
 
 /// A user's uploaded or pasted resume.
@@ -40,6 +49,8 @@ model Resume {
   isActive    Boolean      @default(false)
   createdAt   DateTime     @default(now())
   lastUsedAt  DateTime?
+
+  sessions    InterviewSession[]
 
   @@index([userId])
 }
@@ -58,5 +69,44 @@ model TargetRole {
   createdAt          DateTime  @default(now())
   lastUsedAt         DateTime?
 
+  sessions           InterviewSession[]
+
   @@index([userId])
+}
+
+/// A planned technical project deep-dive practice session: a resume + target
+/// role frozen into an ordered set of questions before the interview room opens.
+model InterviewSession {
+  id           String                 @id @default(uuid()) @db.Uuid
+  userId       String                 @db.Uuid
+  user         User                   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resumeId     String                 @db.Uuid
+  resume       Resume                 @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+  targetRoleId String                 @db.Uuid
+  targetRole   TargetRole             @relation(fields: [targetRoleId], references: [id], onDelete: Cascade)
+  mode         String                 @default("technical-project-deep-dive")
+  status       InterviewSessionStatus @default(PLANNED)
+  createdAt    DateTime               @default(now())
+  startedAt    DateTime?
+  completedAt  DateTime?
+
+  questions    InterviewQuestion[]
+
+  @@index([userId])
+}
+
+/// One primary question in a session's ordered plan, with the objective it tests
+/// and a rubric (evaluation criteria) for grading the eventual answer.
+model InterviewQuestion {
+  id           String           @id @default(uuid()) @db.Uuid
+  sessionId    String           @db.Uuid
+  session      InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  orderIndex   Int
+  questionText String
+  questionType String           @default("project-deep-dive")
+  objective    String
+  rubric       Json
+
+  @@unique([sessionId, orderIndex])
+  @@index([sessionId])
 }
