@@ -1,0 +1,316 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`InterviewRoom shell > matches the three-area workspace composition 1`] = `
+<div
+  class="flex h-full min-h-full flex-col bg-surface-dim/40"
+>
+  <header
+    class="sticky top-0 z-10 flex h-16 items-center justify-between gap-4 border-b border-outline-variant bg-surface/80 px-gutter backdrop-blur-md"
+  >
+    <div
+      class="flex items-center gap-4"
+    >
+      <span
+        class="font-heading text-section-title font-semibold text-primary"
+      >
+        Companion
+      </span>
+      <span
+        aria-hidden="true"
+        class="h-6 w-px bg-outline-variant"
+      />
+      <div
+        class="flex items-center gap-2"
+      >
+        <span
+          class="font-heading text-section-title text-on-surface"
+        >
+          Session: 
+          Project Deep-Dive
+        </span>
+        <span
+          class="rounded bg-surface-variant px-2 py-1 font-mono text-mono-label text-on-surface-variant"
+        >
+          Question 
+          1
+           of 
+          5
+        </span>
+      </div>
+    </div>
+    <div
+      class="flex items-center gap-4"
+    >
+      <span
+        class="flex items-center gap-2 rounded-full border border-primary-container bg-primary-container/10 px-3 py-1.5 text-label-caps font-bold uppercase tracking-wide text-primary-container"
+      >
+        <span
+          aria-hidden="true"
+          class="size-2 rounded-full bg-primary-container"
+        />
+        Ready
+      </span>
+      <span
+        class="flex items-center gap-2 rounded border border-outline-variant bg-surface px-3 py-1.5 font-mono text-mono-label text-on-surface-variant"
+      >
+        <svg
+          aria-hidden="true"
+          class="lucide lucide-timer size-4"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="10"
+            x2="14"
+            y1="2"
+            y2="2"
+          />
+          <line
+            x1="12"
+            x2="15"
+            y1="14"
+            y2="11"
+          />
+          <circle
+            cx="12"
+            cy="14"
+            r="8"
+          />
+        </svg>
+        10–12 min
+      </span>
+    </div>
+  </header>
+  <main
+    class="mx-auto flex w-full max-w-container-max flex-1 overflow-hidden"
+  >
+    <section
+      aria-label="Interviewer"
+      class="flex w-1/3 min-w-[320px] max-w-[480px] flex-col border-r border-outline-variant bg-surface-container-lowest"
+    >
+      <div
+        class="border-b border-outline-variant p-gutter"
+      >
+        <div
+          class="mb-6 flex items-center gap-3"
+        >
+          <span
+            class="flex size-10 items-center justify-center rounded-full bg-surface-variant text-primary"
+          >
+            <svg
+              aria-hidden="true"
+              class="lucide lucide-user size-5"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="12"
+                cy="7"
+                r="4"
+              />
+            </svg>
+          </span>
+          <div>
+            <h2
+              class="font-heading text-section-title text-on-surface"
+            >
+              Interviewer
+            </h2>
+            <p
+              class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+            >
+              Senior Engineer
+            </p>
+          </div>
+        </div>
+        <div
+          class="relative rounded border border-outline-variant bg-surface p-4"
+        >
+          <span
+            aria-hidden="true"
+            class="absolute inset-y-0 left-0 w-1 rounded-l bg-primary-container"
+          />
+          <p
+            class="ml-2 text-body-lg leading-relaxed text-on-surface"
+          >
+            Walk me through the realtime pipeline.
+          </p>
+        </div>
+      </div>
+      <section
+        aria-label="Transcript timeline"
+        class="mt-auto border-t border-outline-variant bg-surface-bright p-gutter"
+      >
+        <h3
+          class="mb-4 text-label-caps uppercase tracking-wide text-on-surface-variant"
+        >
+          Transcript timeline
+        </h3>
+        <ol
+          class="flex flex-col gap-3"
+        >
+          <li
+            class="flex items-start gap-3"
+          >
+            <span
+              class="mt-0.5 flex size-6 items-center justify-center rounded-full bg-primary font-mono text-mono-label text-on-primary"
+            >
+              1
+            </span>
+            <div
+              class="min-w-0"
+            >
+              <p
+                class="font-mono font-bold text-primary"
+              >
+                Question 
+                1
+              </p>
+              <p
+                class="mt-1 text-label-caps uppercase tracking-wide text-on-surface-variant"
+              >
+                Active
+              </p>
+            </div>
+          </li>
+          <li
+            class="flex items-start gap-3 opacity-50"
+          >
+            <span
+              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+            >
+              2
+            </span>
+            <div
+              class="min-w-0"
+            >
+              <p
+                class="font-mono text-on-surface"
+              >
+                Question 
+                2
+              </p>
+            </div>
+          </li>
+          <li
+            class="flex items-start gap-3 opacity-50"
+          >
+            <span
+              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+            >
+              3
+            </span>
+            <div
+              class="min-w-0"
+            >
+              <p
+                class="font-mono text-on-surface"
+              >
+                Question 
+                3
+              </p>
+            </div>
+          </li>
+          <li
+            class="flex items-start gap-3 opacity-50"
+          >
+            <span
+              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+            >
+              4
+            </span>
+            <div
+              class="min-w-0"
+            >
+              <p
+                class="font-mono text-on-surface"
+              >
+                Question 
+                4
+              </p>
+            </div>
+          </li>
+          <li
+            class="flex items-start gap-3 opacity-50"
+          >
+            <span
+              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+            >
+              5
+            </span>
+            <div
+              class="min-w-0"
+            >
+              <p
+                class="font-mono text-on-surface"
+              >
+                Question 
+                5
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+    </section>
+    <section
+      aria-label="Your answer"
+      class="flex flex-1 flex-col p-gutter"
+    >
+      <div
+        class="flex flex-1 flex-col rounded-xl border border-outline-variant bg-surface-container-lowest"
+      >
+        <div
+          class="border-b border-outline-variant bg-surface px-4 py-3"
+        >
+          <h2
+            class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+          >
+            Your answer
+          </h2>
+        </div>
+        <div
+          class="flex flex-1 items-center justify-center p-6 text-center"
+        >
+          <p
+            class="max-w-prose text-body-md text-on-surface-variant"
+          >
+            The speech-first answer composer opens here when you respond.
+          </p>
+        </div>
+      </div>
+    </section>
+    <aside
+      aria-label="Evidence and notes"
+      class="flex w-[360px] flex-col border-l border-outline-variant bg-surface-container-lowest p-gutter"
+    >
+      <h2
+        class="mb-2 flex items-center gap-2 text-label-caps uppercase tracking-wide text-on-surface-variant"
+      >
+        Evidence and notes
+      </h2>
+      <p
+        class="text-body-md text-on-surface-variant"
+      >
+        The target claim, required evidence, and interviewer notes appear here as the session runs.
+      </p>
+    </aside>
+  </main>
+</div>
+`;
