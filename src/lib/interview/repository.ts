@@ -41,6 +41,9 @@ export function createInterviewSession(input: {
 export function getInterviewSessionForUser(userId: string, id: string) {
   return prisma.interviewSession.findFirst({
     where: { id, userId },
-    include: { questions: { orderBy: { orderIndex: "asc" } } },
+    include: {
+      questions: { orderBy: { orderIndex: "asc" } },
+      turns: { orderBy: { orderIndex: "asc" } },
+    },
   });
 }

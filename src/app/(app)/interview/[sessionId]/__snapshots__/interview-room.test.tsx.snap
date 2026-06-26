@@ -154,120 +154,178 @@ exports[`InterviewRoom shell > matches the three-area workspace composition 1`] 
           </p>
         </div>
       </div>
-      <section
-        aria-label="Transcript timeline"
-        class="mt-auto border-t border-outline-variant bg-surface-bright p-gutter"
+      <div
+        class="mt-auto"
       >
-        <h3
-          class="mb-4 text-label-caps uppercase tracking-wide text-on-surface-variant"
+        <section
+          aria-label="Transcript timeline"
+          class="border-t border-outline-variant bg-surface-bright p-gutter"
         >
-          Transcript timeline
-        </h3>
-        <ol
-          class="flex flex-col gap-3"
-        >
-          <li
-            class="flex items-start gap-3"
+          <h3
+            class="mb-4 text-label-caps uppercase tracking-wide text-on-surface-variant"
           >
-            <span
-              class="mt-0.5 flex size-6 items-center justify-center rounded-full bg-primary font-mono text-mono-label text-on-primary"
-            >
-              1
-            </span>
-            <div
-              class="min-w-0"
-            >
-              <p
-                class="font-mono font-bold text-primary"
-              >
-                Question 
-                1
-              </p>
-              <p
-                class="mt-1 text-label-caps uppercase tracking-wide text-on-surface-variant"
-              >
-                Active
-              </p>
-            </div>
-          </li>
-          <li
-            class="flex items-start gap-3 opacity-50"
+            Transcript timeline
+          </h3>
+          <ol
+            class="flex flex-col gap-3"
           >
-            <span
-              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+            <li
+              aria-current="step"
+              class=""
             >
-              2
-            </span>
-            <div
-              class="min-w-0"
-            >
-              <p
-                class="font-mono text-on-surface"
+              <div
+                class="flex items-start gap-3"
               >
-                Question 
-                2
-              </p>
-            </div>
-          </li>
-          <li
-            class="flex items-start gap-3 opacity-50"
-          >
-            <span
-              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-mono bg-primary text-on-primary"
+                >
+                  1
+                </span>
+                <div
+                  class="min-w-0 flex-1"
+                >
+                  <p
+                    class="font-mono font-bold text-primary"
+                  >
+                    Question 1
+                  </p>
+                  <p
+                    class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+                  >
+                    <span>
+                      Active
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              class="opacity-60"
             >
-              3
-            </span>
-            <div
-              class="min-w-0"
-            >
-              <p
-                class="font-mono text-on-surface"
+              <div
+                class="flex items-start gap-3"
               >
-                Question 
-                3
-              </p>
-            </div>
-          </li>
-          <li
-            class="flex items-start gap-3 opacity-50"
-          >
-            <span
-              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-mono border border-outline-variant text-on-surface-variant"
+                >
+                  2
+                </span>
+                <div
+                  class="min-w-0 flex-1"
+                >
+                  <p
+                    class="font-mono text-on-surface"
+                  >
+                    Question 2
+                  </p>
+                  <p
+                    class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Upcoming
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              class="opacity-60"
             >
-              4
-            </span>
-            <div
-              class="min-w-0"
-            >
-              <p
-                class="font-mono text-on-surface"
+              <div
+                class="flex items-start gap-3"
               >
-                Question 
-                4
-              </p>
-            </div>
-          </li>
-          <li
-            class="flex items-start gap-3 opacity-50"
-          >
-            <span
-              class="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant"
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-mono border border-outline-variant text-on-surface-variant"
+                >
+                  3
+                </span>
+                <div
+                  class="min-w-0 flex-1"
+                >
+                  <p
+                    class="font-mono text-on-surface"
+                  >
+                    Question 3
+                  </p>
+                  <p
+                    class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Upcoming
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              class="opacity-60"
             >
-              5
-            </span>
-            <div
-              class="min-w-0"
-            >
-              <p
-                class="font-mono text-on-surface"
+              <div
+                class="flex items-start gap-3"
               >
-                Question 
-                5
-              </p>
-            </div>
-          </li>
-        </ol>
-      </section>
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-mono border border-outline-variant text-on-surface-variant"
+                >
+                  4
+                </span>
+                <div
+                  class="min-w-0 flex-1"
+                >
+                  <p
+                    class="font-mono text-on-surface"
+                  >
+                    Question 4
+                  </p>
+                  <p
+                    class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Upcoming
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li
+              class="opacity-60"
+            >
+              <div
+                class="flex items-start gap-3"
+              >
+                <span
+                  class="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full font-mono border border-outline-variant text-on-surface-variant"
+                >
+                  5
+                </span>
+                <div
+                  class="min-w-0 flex-1"
+                >
+                  <p
+                    class="font-mono text-on-surface"
+                  >
+                    Question 5
+                  </p>
+                  <p
+                    class="text-label-caps uppercase tracking-wide text-on-surface-variant"
+                  >
+                    <span
+                      class="sr-only"
+                    >
+                      Upcoming
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
     </section>
     <section
       aria-label="Your answer"

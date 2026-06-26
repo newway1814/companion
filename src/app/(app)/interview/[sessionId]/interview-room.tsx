@@ -1,37 +1,7 @@
-import { Check, Timer, User } from "lucide-react";
-import * as React from "react";
+import { Timer, User } from "lucide-react";
 
-import { cn } from "@/lib/utils";
-
-import type { InterviewRoomView, RoomQuestionState } from "./room-view";
-
-function TimelineMarker({
-  state,
-  position,
-}: {
-  state: RoomQuestionState;
-  position: number;
-}) {
-  if (state === "done") {
-    return (
-      <span className="mt-0.5 flex size-6 items-center justify-center rounded-full bg-surface-variant text-on-surface-variant">
-        <Check className="size-3.5" aria-hidden="true" />
-      </span>
-    );
-  }
-  if (state === "active") {
-    return (
-      <span className="mt-0.5 flex size-6 items-center justify-center rounded-full bg-primary font-mono text-mono-label text-on-primary">
-        {position}
-      </span>
-    );
-  }
-  return (
-    <span className="mt-0.5 flex size-6 items-center justify-center rounded-full border border-outline-variant font-mono text-mono-label text-on-surface-variant">
-      {position}
-    </span>
-  );
-}
+import type { InterviewRoomView } from "./room-view";
+import { TranscriptTimeline } from "./transcript-timeline";
 
 export function InterviewRoom({ view }: { view: InterviewRoomView }) {
   return (
@@ -101,43 +71,9 @@ export function InterviewRoom({ view }: { view: InterviewRoomView }) {
             ) : null}
           </div>
 
-          <section
-            aria-label="Transcript timeline"
-            className="mt-auto border-t border-outline-variant bg-surface-bright p-gutter"
-          >
-            <h3 className="mb-4 text-label-caps uppercase tracking-wide text-on-surface-variant">
-              Transcript timeline
-            </h3>
-            <ol className="flex flex-col gap-3">
-              {view.timeline.map((item, index) => (
-                <li
-                  key={item.orderIndex}
-                  className={cn(
-                    "flex items-start gap-3",
-                    item.state === "done" && "opacity-60",
-                    item.state === "upcoming" && "opacity-50",
-                  )}
-                >
-                  <TimelineMarker state={item.state} position={index + 1} />
-                  <div className="min-w-0">
-                    <p
-                      className={cn(
-                        "font-mono text-mono-label text-on-surface",
-                        item.state === "active" && "font-bold text-primary",
-                      )}
-                    >
-                      Question {index + 1}
-                    </p>
-                    {item.state === "active" ? (
-                      <p className="mt-1 text-label-caps uppercase tracking-wide text-on-surface-variant">
-                        Active
-                      </p>
-                    ) : null}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
+          <div className="mt-auto">
+            <TranscriptTimeline items={view.timeline} />
+          </div>
         </section>
 
         {/* Center: answer work area (composer is a later slice) */}
