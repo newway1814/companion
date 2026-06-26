@@ -94,10 +94,11 @@ export function InterviewRoom({
         >
           {view.currentQuestion ? (
             <AnswerComposer
-              key={view.currentQuestion.id}
+              key={view.composerKey}
               sessionId={sessionId}
               questionId={view.currentQuestion.id}
               submitAction={submitAction}
+              challenge={view.challenge}
             />
           ) : (
             <div className="flex flex-1 items-center justify-center rounded-xl border border-outline-variant bg-surface-container-lowest p-6 text-center">
