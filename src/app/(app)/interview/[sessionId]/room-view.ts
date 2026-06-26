@@ -33,7 +33,7 @@ export type InterviewRoomView = {
   timingLabel: string;
   /** The interviewer's role framing (MVP: a senior engineer). */
   interviewerRole: string;
-  currentQuestion: { orderIndex: number; text: string } | null;
+  currentQuestion: { id: string; orderIndex: number; text: string } | null;
   timeline: TranscriptItem[];
 };
 
@@ -122,7 +122,7 @@ export function buildRoomView(session: {
     timingLabel: "10–12 min",
     interviewerRole: "Senior Engineer",
     currentQuestion: current
-      ? { orderIndex: current.orderIndex, text: current.questionText }
+      ? { id: current.id, orderIndex: current.orderIndex, text: current.questionText }
       : null,
     timeline,
   };

@@ -5,16 +5,27 @@ vi.mock("@/lib/prisma", () => ({
     interviewSession: {
       create: vi.fn(),
       findFirst: vi.fn(),
+      updateMany: vi.fn(),
     },
+    interviewTurn: {
+      count: vi.fn(),
+      create: vi.fn(),
+    },
+    $transaction: vi.fn(async (ops: unknown[]) => Promise.all(ops)),
   },
 }));
 
 import { prisma } from "@/lib/prisma";
 
 import type { InterviewPlan } from "./planner";
-import { createInterviewSession, getInterviewSessionForUser } from "./repository";
+import {
+  createInterviewSession,
+  getInterviewSessionForUser,
+  recordAnswer,
+} from "./repository";
 
 const session = vi.mocked(prisma.interviewSession);
+const turn = vi.mocked(prisma.interviewTurn);
 
 const plan: InterviewPlan = {
   questions: [
@@ -75,5 +86,63 @@ describe("interview session repository", () => {
         },
       }),
     );
+  });
+});
+
+describe("recordAnswer", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("appends a candidate answer turn at the next order index for the owner", async () => {
+    session.findFirst.mockResolvedValue({ id: "sess-1" } as never);
+    turn.count.mockResolvedValue(2 as never);
+    turn.create.mockResolvedValue({ id: "turn-3" } as never);
+
+    await recordAnswer({
+      userId: "user-1",
+      sessionId: "sess-1",
+      questionId: "q-1",
+      transcript: "I owned the ingestion path.",
+      durationSeconds: 30,
+    });
+
+    // Ownership is verified before any write.
+    expect(session.findFirst).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: "sess-1", userId: "user-1" } }),
+    );
+    expect(turn.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          sessionId: "sess-1",
+          questionId: "q-1",
+          speaker: "CANDIDATE",
+          kind: "ANSWER",
+          content: "I owned the ingestion path.",
+          durationSeconds: 30,
+          orderIndex: 2,
+        }),
+      }),
+    );
+    // The session moves into progress.
+    expect(session.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: "sess-1", userId: "user-1" },
+        data: expect.objectContaining({ status: "IN_PROGRESS" }),
+      }),
+    );
+  });
+
+  it("writes nothing when the session is not the user's", async () => {
+    session.findFirst.mockResolvedValue(null as never);
+
+    const result = await recordAnswer({
+      userId: "user-1",
+      sessionId: "sess-x",
+      questionId: "q-1",
+      transcript: "hello",
+      durationSeconds: 1,
+    });
+
+    expect(result).toBeNull();
+    expect(turn.create).not.toHaveBeenCalled();
   });
 });
