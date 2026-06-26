@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { getUser } from "@/lib/auth";
 import { getInterviewSessionForUser } from "@/lib/interview/repository";
@@ -24,6 +24,11 @@ export default async function InterviewRoomPage({
     : null;
 
   if (!session) notFound();
+
+  // A finished session belongs on the completion bridge, not the live room.
+  if (session.status === "COMPLETED") {
+    redirect(`/interview/${sessionId}/complete`);
+  }
 
   const view = buildRoomView(session);
 
