@@ -139,6 +139,8 @@ model InterviewTurn {
   speaker    InterviewTurnSpeaker
   kind       InterviewTurnKind
   content    String
+  /// Spoken/typed answer length in seconds; null for interviewer turns.
+  durationSeconds Int?
   orderIndex Int
   createdAt  DateTime             @default(now())
 

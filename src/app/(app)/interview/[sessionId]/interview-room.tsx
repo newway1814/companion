@@ -1,9 +1,19 @@
 import { Timer, User } from "lucide-react";
 
+import { AnswerComposer } from "./answer-composer";
 import type { InterviewRoomView } from "./room-view";
 import { TranscriptTimeline } from "./transcript-timeline";
+import type { SubmitAnswerAction } from "./types";
 
-export function InterviewRoom({ view }: { view: InterviewRoomView }) {
+export function InterviewRoom({
+  view,
+  sessionId,
+  submitAction,
+}: {
+  view: InterviewRoomView;
+  sessionId: string;
+  submitAction: SubmitAnswerAction;
+}) {
   return (
     <div className="flex h-full min-h-full flex-col bg-surface-dim/40">
       {/* Session chrome */}
@@ -76,23 +86,25 @@ export function InterviewRoom({ view }: { view: InterviewRoomView }) {
           </div>
         </section>
 
-        {/* Center: answer work area (composer is a later slice) */}
+        {/* Center: answer composer */}
         <section
           aria-label="Your answer"
           className="flex flex-1 flex-col p-gutter"
         >
-          <div className="flex flex-1 flex-col rounded-xl border border-outline-variant bg-surface-container-lowest">
-            <div className="border-b border-outline-variant bg-surface px-4 py-3">
-              <h2 className="text-label-caps uppercase tracking-wide text-on-surface-variant">
-                Your answer
-              </h2>
-            </div>
-            <div className="flex flex-1 items-center justify-center p-6 text-center">
+          {view.currentQuestion ? (
+            <AnswerComposer
+              key={view.currentQuestion.id}
+              sessionId={sessionId}
+              questionId={view.currentQuestion.id}
+              submitAction={submitAction}
+            />
+          ) : (
+            <div className="flex flex-1 items-center justify-center rounded-xl border border-outline-variant bg-surface-container-lowest p-6 text-center">
               <p className="max-w-prose text-body-md text-on-surface-variant">
-                The speech-first answer composer opens here when you respond.
+                This session has no questions to answer.
               </p>
             </div>
-          </div>
+          )}
         </section>
 
         {/* Right: evidence + interviewer notes (a later slice) */}
