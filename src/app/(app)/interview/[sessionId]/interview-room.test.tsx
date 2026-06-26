@@ -6,12 +6,23 @@ import { InterviewRoom } from "./interview-room";
 import { buildRoomView } from "./room-view";
 import type { SubmitAnswerState } from "./types";
 
+function question(id: string, orderIndex: number, questionText: string, targetClaim: string) {
+  return {
+    id,
+    orderIndex,
+    questionText,
+    objective: `Objective ${orderIndex}`,
+    targetClaim,
+    rubric: ["Gives a baseline", "Names a tradeoff"],
+  };
+}
+
 const questions = [
-  { id: "q0", orderIndex: 0, questionText: "Walk me through the realtime pipeline." },
-  { id: "q1", orderIndex: 1, questionText: "What was the latency before and after?" },
-  { id: "q2", orderIndex: 2, questionText: "Which part did you build yourself?" },
-  { id: "q3", orderIndex: 3, questionText: "How did you evaluate quality?" },
-  { id: "q4", orderIndex: 4, questionText: "What would you change now?" },
+  question("q0", 0, "Walk me through the realtime pipeline.", "Built a realtime pipeline"),
+  question("q1", 1, "What was the latency before and after?", "Reduced API latency by 40%"),
+  question("q2", 2, "Which part did you build yourself?", "Shipped the recommender"),
+  question("q3", 3, "How did you evaluate quality?", "Improved feedback quality"),
+  question("q4", 4, "What would you change now?", "Designed the caching layer"),
 ];
 
 const view = buildRoomView({
@@ -66,6 +77,18 @@ describe("InterviewRoom shell", () => {
     expect(
       screen.getByRole("complementary", { name: /evidence and notes/i }),
     ).toBeInTheDocument();
+  });
+
+  it("shows the active question's target claim in the evidence panel", () => {
+    renderRoom();
+
+    const evidence = screen.getByRole("complementary", {
+      name: /evidence and notes/i,
+    });
+    expect(
+      within(evidence).getByText(/built a realtime pipeline/i),
+    ).toBeInTheDocument();
+    expect(within(evidence).getByText(/target claim/i)).toBeInTheDocument();
   });
 
   it("reflects a submitted answer as a turn in the transcript timeline", () => {

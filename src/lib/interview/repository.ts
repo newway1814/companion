@@ -30,6 +30,7 @@ export function createInterviewSession(input: {
           orderIndex: index,
           questionText: question.questionText,
           objective: question.objective,
+          targetClaim: question.targetClaim,
           rubric: question.rubric as unknown as Prisma.InputJsonValue,
         })),
       },

@@ -1,6 +1,7 @@
 import { Timer, User } from "lucide-react";
 
 import { AnswerComposer } from "./answer-composer";
+import { EvidencePanel } from "./evidence-panel";
 import type { InterviewRoomView } from "./room-view";
 import { TranscriptTimeline } from "./transcript-timeline";
 import type { SubmitAnswerAction } from "./types";
@@ -107,18 +108,13 @@ export function InterviewRoom({
           )}
         </section>
 
-        {/* Right: evidence + interviewer notes (a later slice) */}
+        {/* Right: target claim, required evidence, interviewer notes */}
         <aside
           aria-label="Evidence and notes"
-          className="flex w-[360px] flex-col border-l border-outline-variant bg-surface-container-lowest p-gutter"
+          className="w-[360px] overflow-y-auto border-l border-outline-variant bg-surface-container-lowest p-gutter"
         >
-          <h2 className="mb-2 flex items-center gap-2 text-label-caps uppercase tracking-wide text-on-surface-variant">
-            Evidence and notes
-          </h2>
-          <p className="text-body-md text-on-surface-variant">
-            The target claim, required evidence, and interviewer notes appear
-            here as the session runs.
-          </p>
+          <h2 className="sr-only">Evidence and notes</h2>
+          <EvidencePanel evidence={view.evidence} />
         </aside>
       </main>
     </div>

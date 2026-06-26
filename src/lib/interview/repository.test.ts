@@ -29,11 +29,11 @@ const turn = vi.mocked(prisma.interviewTurn);
 
 const plan: InterviewPlan = {
   questions: [
-    { questionText: "Q1", objective: "O1", rubric: ["a"] },
-    { questionText: "Q2", objective: "O2", rubric: ["b"] },
-    { questionText: "Q3", objective: "O3", rubric: ["c"] },
-    { questionText: "Q4", objective: "O4", rubric: ["d"] },
-    { questionText: "Q5", objective: "O5", rubric: ["e"] },
+    { questionText: "Q1", objective: "O1", targetClaim: "C1", rubric: ["a"] },
+    { questionText: "Q2", objective: "O2", targetClaim: "C2", rubric: ["b"] },
+    { questionText: "Q3", objective: "O3", targetClaim: "C3", rubric: ["c"] },
+    { questionText: "Q4", objective: "O4", targetClaim: "C4", rubric: ["d"] },
+    { questionText: "Q5", objective: "O5", targetClaim: "C5", rubric: ["e"] },
   ],
 };
 
@@ -68,6 +68,7 @@ describe("interview session repository", () => {
     expect(created[0]).toMatchObject({
       questionText: "Q1",
       objective: "O1",
+      targetClaim: "C1",
       orderIndex: 0,
     });
   });
