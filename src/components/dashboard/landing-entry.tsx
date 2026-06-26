@@ -47,15 +47,16 @@ export function LandingEntry() {
           </p>
         </div>
 
-        {/* Challenge-mechanic preview */}
+        {/* Challenge-mechanic preview — an illustrative example, not the
+            signed-in user's real claim (their own claims drive real sessions). */}
         <Card className="border-l-4 border-l-evidence bg-surface-container-lowest">
-          <EvidenceChip>Challenge identified</EvidenceChip>
-          <p className="mt-3 text-body-md text-on-surface">
-            Your resume says you{" "}
+          <EvidenceChip>Example challenge</EvidenceChip>
+          <p className="mt-3 text-body-md text-on-surface-variant">
+            Here&apos;s how a deep-dive challenge works. A resume claim like{" "}
             <mark className="rounded bg-evidence/20 px-1 text-on-evidence underline decoration-2 underline-offset-2">
               reduced API latency by 40%
-            </mark>
-            .
+            </mark>{" "}
+            gets pressure-tested:
           </p>
           <p className="mt-2 font-semibold text-on-surface">
             What was the original baseline latency, and how did your change

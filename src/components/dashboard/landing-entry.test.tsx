@@ -26,6 +26,14 @@ describe("LandingEntry", () => {
     expect(screen.getByText(/no practice sessions yet/i)).toBeInTheDocument();
   });
 
+  it("frames the challenge preview as an illustrative example, not the user's real data", () => {
+    render(<LandingEntry />);
+
+    expect(screen.getByText(/example challenge/i)).toBeInTheDocument();
+    // It must not pose the hardcoded sample as the signed-in user's own claim.
+    expect(screen.queryByText(/your resume says you/i)).toBeNull();
+  });
+
   it("keeps claim-defense framing and private-by-default reassurance", () => {
     render(<LandingEntry />);
 
