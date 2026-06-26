@@ -120,6 +120,8 @@ model InterviewQuestion {
   questionText String
   questionType String           @default("project-deep-dive")
   objective    String
+  /// The resume claim this question pressure-tests (shown as the target claim).
+  targetClaim  String           @default("")
   rubric       Json
 
   turns        InterviewTurn[]

@@ -11,6 +11,8 @@ const QuestionSchema = z.object({
   questionText: z.string().min(1),
   /** What this question is trying to test (used to steer follow-ups). */
   objective: z.string().min(1),
+  /** The resume claim this question pressure-tests (shown as the target claim). */
+  targetClaim: z.string().min(1),
   /** Concrete evaluation criteria a strong answer should satisfy. */
   rubric: z.array(z.string().min(1)).min(1),
 });
@@ -35,7 +37,8 @@ Produce EXACTLY ${QUESTION_COUNT} primary questions for a roughly 10-12 minute s
 For each question:
 - questionText: a single, direct interviewer question grounded in the candidate's resume projects and the target role's requirements. Prefer evidence-seeking questions over trivia.
 - objective: one sentence naming what the question tests (e.g. ownership, baseline/measured result, tradeoff reasoning, implementation depth).
-- rubric: 1-4 concrete criteria a strong spoken answer should satisfy.
+- targetClaim: the specific resume claim this question pressure-tests, quoted closely from the resume context (e.g. "Reduced API latency by 40%").
+- rubric: 1-4 concrete criteria a strong spoken answer should satisfy (the required evidence).
 
 Sequence the questions to flow like a real interview: open broad on a project, then drill into ownership, evidence/metrics, tradeoffs, and reflection. Ground every question in facts from the resume context and target role; do not invent projects or numbers.
 

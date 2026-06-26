@@ -21,6 +21,19 @@ export type TranscriptItem = {
   turns: TranscriptTurn[];
 };
 
+export type EvidenceItem = { label: string; satisfied: boolean };
+
+export type EvidenceView = {
+  /** The resume claim under test for the active question. */
+  targetClaim: string | null;
+  /** The probing focus (the question's objective) — safe to show, not reasoning. */
+  probingFocus: string | null;
+  /** Required-evidence checklist (the active question's rubric). */
+  requiredEvidence: EvidenceItem[];
+  /** A short, user-safe interviewer note. Never internal reasoning. */
+  notes: string;
+};
+
 export type InterviewRoomView = {
   /** Human label for the session mode (e.g. "Project Deep-Dive"). */
   sessionType: string;
@@ -35,9 +48,24 @@ export type InterviewRoomView = {
   interviewerRole: string;
   currentQuestion: { id: string; orderIndex: number; text: string } | null;
   timeline: TranscriptItem[];
+  evidence: EvidenceView;
 };
 
-type QuestionInput = { id: string; orderIndex: number; questionText: string };
+type QuestionInput = {
+  id: string;
+  orderIndex: number;
+  questionText: string;
+  objective: string;
+  targetClaim: string;
+  // Persisted as JSON, so treat as unknown and coerce to string[] at the edge.
+  rubric: unknown;
+};
+
+function toRubric(rubric: unknown): string[] {
+  return Array.isArray(rubric)
+    ? rubric.filter((item): item is string => typeof item === "string")
+    : [];
+}
 type TurnInput = {
   questionId: string;
   speaker: InterviewTurnSpeaker;
@@ -113,6 +141,9 @@ export function buildRoomView(session: {
   }));
 
   const current = questions[currentIndex];
+  const currentAnswered = current
+    ? answeredQuestionIds.has(current.id)
+    : false;
 
   return {
     sessionType: SESSION_TYPE_LABELS[session.mode] ?? "Project Deep-Dive",
@@ -125,5 +156,39 @@ export function buildRoomView(session: {
       ? { id: current.id, orderIndex: current.orderIndex, text: current.questionText }
       : null,
     timeline,
+    evidence: buildEvidence(current ?? null, currentAnswered),
+  };
+}
+
+/**
+ * Builds the evidence panel from the focused question. Surfaces only user-safe
+ * fields — the resume claim under test, the probing focus (objective), and the
+ * required-evidence checklist (rubric). It never exposes scoring internals or
+ * chain-of-thought. Per-item satisfaction arrives with answer scoring; until
+ * then every item is outstanding.
+ */
+function buildEvidence(
+  question: QuestionInput | null,
+  answered: boolean,
+): EvidenceView {
+  if (!question) {
+    return {
+      targetClaim: null,
+      probingFocus: null,
+      requiredEvidence: [],
+      notes: "This session has no questions to probe.",
+    };
+  }
+
+  return {
+    targetClaim: question.targetClaim || null,
+    probingFocus: question.objective,
+    requiredEvidence: toRubric(question.rubric).map((label) => ({
+      label,
+      satisfied: false,
+    })),
+    notes: answered
+      ? "Answer recorded. Companion is evaluating the evidence."
+      : "Waiting for your response — listening for contribution, method, and tradeoffs.",
   };
 }
