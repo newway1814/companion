@@ -3,10 +3,14 @@ import { notFound } from "next/navigation";
 import { getUser } from "@/lib/auth";
 import { getInterviewSessionForUser } from "@/lib/interview/repository";
 
+import { InterviewRoom } from "./interview-room";
+import { buildRoomView } from "./room-view";
+
 /**
- * Minimal interview room entry. The full speech-first workspace
- * (`pages/main_interview_room/`) is a separate issue; this confirms the planned
- * session opens for its owner and surfaces the first persisted question.
+ * Interview room shell entry. Loads the persisted session (scoped to its owner)
+ * and renders the desktop three-area workspace. The transcript, answer composer,
+ * and evidence panels are later slices; this delivers the layout and the
+ * static-per-session chrome.
  */
 export default async function InterviewRoomPage({
   params,
@@ -21,21 +25,7 @@ export default async function InterviewRoomPage({
 
   if (!session) notFound();
 
-  const [firstQuestion] = session.questions;
+  const view = buildRoomView(session);
 
-  return (
-    <div className="mx-auto max-w-3xl p-gutter">
-      <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
-        Question 1 of {session.questions.length}
-      </p>
-      <h1 className="mt-2 font-heading text-display-md text-on-surface">
-        {firstQuestion?.questionText ?? "Your practice session is ready."}
-      </h1>
-      {firstQuestion ? (
-        <p className="mt-3 max-w-prose text-body-lg text-on-surface-variant">
-          {firstQuestion.objective}
-        </p>
-      ) : null}
-    </div>
-  );
+  return <InterviewRoom view={view} />;
 }
