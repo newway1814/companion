@@ -34,6 +34,19 @@ export type EvidenceView = {
   notes: string;
 };
 
+export type ChallengeView = {
+  /** The exact claim/requirement being challenged. */
+  challengedClaim: string;
+  /** User-facing reason for the challenge. */
+  reason: string;
+  /** The verbatim vague span from the prior answer to highlight. */
+  weakSpan: string;
+  /** Improvement prompts offered to the candidate. */
+  improvementChips: string[];
+  /** The adaptive follow-up question. */
+  followUpQuestion: string;
+};
+
 export type InterviewRoomView = {
   /** Human label for the session mode (e.g. "Project Deep-Dive"). */
   sessionType: string;
@@ -49,6 +62,10 @@ export type InterviewRoomView = {
   currentQuestion: { id: string; orderIndex: number; text: string } | null;
   timeline: TranscriptItem[];
   evidence: EvidenceView;
+  /** The active adaptive-follow-up challenge, if the room is in that state. */
+  challenge: ChallengeView | null;
+  /** Changes per exchange so the answer composer resets after each turn. */
+  composerKey: string;
 };
 
 type QuestionInput = {
@@ -72,7 +89,29 @@ type TurnInput = {
   kind: InterviewTurnKind;
   content: string;
   orderIndex: number;
+  challenge?: unknown;
 };
+
+type ChallengeMeta = {
+  reason: string;
+  weakSpan: string;
+  challengedClaim: string;
+  improvementChips: string[];
+};
+
+function toChallengeMeta(value: unknown): ChallengeMeta | null {
+  if (!value || typeof value !== "object") return null;
+  const v = value as Record<string, unknown>;
+  return {
+    reason: typeof v.reason === "string" ? v.reason : "",
+    weakSpan: typeof v.weakSpan === "string" ? v.weakSpan : "",
+    challengedClaim:
+      typeof v.challengedClaim === "string" ? v.challengedClaim : "",
+    improvementChips: Array.isArray(v.improvementChips)
+      ? v.improvementChips.filter((c): c is string => typeof c === "string")
+      : [],
+  };
+}
 
 const SESSION_TYPE_LABELS: Record<string, string> = {
   "technical-project-deep-dive": "Project Deep-Dive",
@@ -107,43 +146,59 @@ export function buildRoomView(session: {
   );
   const turns = [...session.turns].sort((a, b) => a.orderIndex - b.orderIndex);
 
-  const answeredQuestionIds = new Set(
-    turns
-      .filter((turn) => turn.kind === "ANSWER" && turn.speaker === "CANDIDATE")
-      .map((turn) => turn.questionId),
-  );
+  const turnsFor = (questionId: string) =>
+    turns.filter((turn) => turn.questionId === questionId);
 
-  const firstUnanswered = questions.findIndex(
-    (question) => !answeredQuestionIds.has(question.id),
+  // A question is resolved once its last turn is a candidate answer; a trailing
+  // interviewer follow-up means Companion is still waiting on the candidate.
+  const lastTurnFor = (questionId: string): TurnInput | undefined => {
+    const own = turnsFor(questionId);
+    return own[own.length - 1];
+  };
+  const isResolved = (questionId: string) => {
+    const last = lastTurnFor(questionId);
+    return last != null && last.speaker === "CANDIDATE" && last.kind === "ANSWER";
+  };
+
+  const firstUnresolved = questions.findIndex(
+    (question) => !isResolved(question.id),
   );
-  // All answered → focus the last question (the session-complete bridge is its
-  // own screen); otherwise focus the first unanswered question.
-  const activeIndex = firstUnanswered === -1 ? null : firstUnanswered;
-  const currentIndex =
-    activeIndex ?? Math.max(0, questions.length - 1);
+  // All resolved → focus the last question (the session-complete bridge is its
+  // own screen); otherwise focus the first unresolved question.
+  const activeIndex = firstUnresolved === -1 ? null : firstUnresolved;
+  const currentIndex = activeIndex ?? Math.max(0, questions.length - 1);
 
   const timeline: TranscriptItem[] = questions.map((question, index) => ({
     orderIndex: question.orderIndex,
     questionId: question.id,
     label: `Question ${index + 1}`,
-    state: answeredQuestionIds.has(question.id)
+    state: isResolved(question.id)
       ? "done"
       : index === activeIndex
         ? "active"
         : "upcoming",
-    turns: turns
-      .filter((turn) => turn.questionId === question.id)
-      .map((turn) => ({
-        speaker: SPEAKER_LABELS[turn.speaker],
-        kind: turn.kind,
-        content: turn.content,
-      })),
+    turns: turnsFor(question.id).map((turn) => ({
+      speaker: SPEAKER_LABELS[turn.speaker],
+      kind: turn.kind,
+      content: turn.content,
+    })),
   }));
 
   const current = questions[currentIndex];
-  const currentAnswered = current
-    ? answeredQuestionIds.has(current.id)
-    : false;
+  const currentAnswered = current ? isResolved(current.id) : false;
+
+  // Active challenge: the focused question's last turn is an interviewer
+  // follow-up carrying challenge metadata.
+  let challenge: ChallengeView | null = null;
+  if (current && activeIndex != null) {
+    const last = lastTurnFor(current.id);
+    if (last && last.kind === "FOLLOW_UP") {
+      const meta = toChallengeMeta(last.challenge);
+      if (meta) {
+        challenge = { ...meta, followUpQuestion: last.content };
+      }
+    }
+  }
 
   return {
     sessionType: SESSION_TYPE_LABELS[session.mode] ?? "Project Deep-Dive",
@@ -157,6 +212,10 @@ export function buildRoomView(session: {
       : null,
     timeline,
     evidence: buildEvidence(current ?? null, currentAnswered),
+    challenge,
+    composerKey: current
+      ? `${current.id}:${turnsFor(current.id).length}`
+      : "none",
   };
 }
 

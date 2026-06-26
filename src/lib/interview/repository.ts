@@ -86,6 +86,46 @@ export async function recordAnswer(input: {
   return turn;
 }
 
+/**
+ * Records an adaptive follow-up as an interviewer turn, scoped to the session
+ * owner, carrying the challenge metadata (reason, weak span, claim, chips).
+ * Returns the created turn, or null if the session is not the user's.
+ */
+export async function recordFollowUp(input: {
+  userId: string;
+  sessionId: string;
+  questionId: string;
+  question: string;
+  challenge: {
+    reason: string;
+    weakSpan: string;
+    challengedClaim: string;
+    improvementChips: string[];
+  };
+}) {
+  const session = await prisma.interviewSession.findFirst({
+    where: { id: input.sessionId, userId: input.userId },
+    select: { id: true },
+  });
+  if (!session) return null;
+
+  const orderIndex = await prisma.interviewTurn.count({
+    where: { sessionId: input.sessionId },
+  });
+
+  return prisma.interviewTurn.create({
+    data: {
+      sessionId: input.sessionId,
+      questionId: input.questionId,
+      speaker: "INTERVIEWER",
+      kind: "FOLLOW_UP",
+      content: input.question,
+      challenge: input.challenge as unknown as Prisma.InputJsonValue,
+      orderIndex,
+    },
+  });
+}
+
 /** Marks the owner's session complete once the five-question run resolves. */
 export function markSessionComplete(userId: string, id: string) {
   return prisma.interviewSession.updateMany({

@@ -114,6 +114,47 @@ describe("buildRoomView", () => {
     expect(view.evidence.targetClaim).toBe("Claim 1");
   });
 
+  it("surfaces an active challenge when the question's last turn is a follow-up", () => {
+    const view = buildRoomView({
+      ...baseSession,
+      turns: [
+        {
+          questionId: "q0",
+          speaker: "CANDIDATE",
+          kind: "ANSWER",
+          content: "I improved performance and made it scalable.",
+          orderIndex: 0,
+        },
+        {
+          questionId: "q0",
+          speaker: "INTERVIEWER",
+          kind: "FOLLOW_UP",
+          content: "What was the baseline and how did you measure it?",
+          orderIndex: 1,
+          challenge: {
+            reason: "You claimed improvement without a baseline.",
+            weakSpan: "I improved performance and made it scalable.",
+            challengedClaim: "Built a realtime data pipeline",
+            improvementChips: ["Add a baseline", "Add a measurement method"],
+          },
+        },
+      ],
+    });
+
+    // Still on q0 — the follow-up is unanswered.
+    expect(view.currentIndex).toBe(0);
+    expect(view.timeline[0].state).toBe("active");
+    expect(view.challenge).not.toBeNull();
+    expect(view.challenge?.followUpQuestion).toMatch(/baseline/i);
+    expect(view.challenge?.challengedClaim).toBe("Built a realtime data pipeline");
+    expect(view.challenge?.improvementChips).toContain("Add a baseline");
+  });
+
+  it("has no active challenge before any follow-up", () => {
+    const view = buildRoomView({ ...baseSession, turns: [] });
+    expect(view.challenge).toBeNull();
+  });
+
   it("nests answers and follow-ups as turns under their question, in order", () => {
     const view = buildRoomView({
       ...baseSession,

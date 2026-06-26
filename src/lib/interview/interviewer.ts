@@ -20,11 +20,36 @@ type TurnInput = {
   questionId: string;
   speaker: "INTERVIEWER" | "CANDIDATE";
   kind: "QUESTION" | "ANSWER" | "FOLLOW_UP";
+  orderIndex: number;
 };
+
+/** Adaptive follow-ups allowed per question (CONTEXT.md: one or two). */
+export const FOLLOW_UP_CAP = 1;
 
 export type InterviewerAction<Q extends QuestionInput = QuestionInput> =
   | { type: "ask"; questionIndex: number; question: Q }
   | { type: "complete" };
+
+/** How many adaptive follow-ups have already been asked for a question. */
+export function countFollowUps(turns: TurnInput[], questionId: string): number {
+  return turns.filter(
+    (turn) => turn.questionId === questionId && turn.kind === "FOLLOW_UP",
+  ).length;
+}
+
+/**
+ * A question is resolved once the candidate's most recent turn for it is an
+ * answer and no follow-up is pending — i.e. its last turn is a candidate
+ * answer. A trailing follow-up turn means Companion is still waiting on the
+ * candidate, so the question stays active.
+ */
+function isResolved(questionId: string, turns: TurnInput[]): boolean {
+  const own = turns
+    .filter((turn) => turn.questionId === questionId)
+    .sort((a, b) => a.orderIndex - b.orderIndex);
+  const last = own[own.length - 1];
+  return last != null && last.speaker === "CANDIDATE" && last.kind === "ANSWER";
+}
 
 export function nextInterviewerAction<Q extends QuestionInput>(session: {
   questions: Q[];
@@ -33,14 +58,9 @@ export function nextInterviewerAction<Q extends QuestionInput>(session: {
   const questions = [...session.questions].sort(
     (a, b) => a.orderIndex - b.orderIndex,
   );
-  const answeredQuestionIds = new Set(
-    session.turns
-      .filter((turn) => turn.kind === "ANSWER" && turn.speaker === "CANDIDATE")
-      .map((turn) => turn.questionId),
-  );
 
   const questionIndex = questions.findIndex(
-    (question) => !answeredQuestionIds.has(question.id),
+    (question) => !isResolved(question.id, session.turns),
   );
 
   if (questionIndex === -1) return { type: "complete" };

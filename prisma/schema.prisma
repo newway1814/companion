@@ -143,6 +143,8 @@ model InterviewTurn {
   content    String
   /// Spoken/typed answer length in seconds; null for interviewer turns.
   durationSeconds Int?
+  /// Challenge metadata for FOLLOW_UP turns (reason, weak span, claim, chips); null otherwise.
+  challenge  Json?
   orderIndex Int
   createdAt  DateTime             @default(now())
 

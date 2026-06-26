@@ -2,7 +2,11 @@ import { describe, expect, it } from "vitest";
 
 import { findSafetyViolations } from "@/lib/ai/safety";
 
-import { nextInterviewerAction } from "./interviewer";
+import {
+  FOLLOW_UP_CAP,
+  countFollowUps,
+  nextInterviewerAction,
+} from "./interviewer";
 
 function makeQuestions() {
   return Array.from({ length: 5 }, (_, index) => ({
@@ -17,6 +21,15 @@ function answer(questionId: string, orderIndex: number) {
     questionId,
     speaker: "CANDIDATE" as const,
     kind: "ANSWER" as const,
+    orderIndex,
+  };
+}
+
+function followUp(questionId: string, orderIndex: number) {
+  return {
+    questionId,
+    speaker: "INTERVIEWER" as const,
+    kind: "FOLLOW_UP" as const,
     orderIndex,
   };
 }
@@ -64,6 +77,33 @@ describe("nextInterviewerAction", () => {
 
     expect(asks).toBe(5);
     expect(nextInterviewerAction({ questions, turns })).toEqual({ type: "complete" });
+  });
+
+  it("stays on a question whose last turn is an unanswered follow-up", () => {
+    const questions = makeQuestions();
+    const action = nextInterviewerAction({
+      questions,
+      turns: [answer("q0", 0), followUp("q0", 1)],
+    });
+
+    expect(action).toMatchObject({ type: "ask", questionIndex: 0 });
+  });
+
+  it("advances once the follow-up is answered", () => {
+    const questions = makeQuestions();
+    const action = nextInterviewerAction({
+      questions,
+      turns: [answer("q0", 0), followUp("q0", 1), answer("q0", 2)],
+    });
+
+    expect(action).toMatchObject({ type: "ask", questionIndex: 1 });
+  });
+
+  it("counts follow-ups per question against the cap", () => {
+    expect(FOLLOW_UP_CAP).toBeGreaterThanOrEqual(1);
+    const turns = [answer("q0", 0), followUp("q0", 1)];
+    expect(countFollowUps(turns, "q0")).toBe(1);
+    expect(countFollowUps(turns, "q1")).toBe(0);
   });
 
   it("only surfaces interviewer copy that passes the safety layer", () => {

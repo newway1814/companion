@@ -5,6 +5,8 @@ import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 
+import { ChallengeBanner } from "./challenge-banner";
+import type { ChallengeView } from "./room-view";
 import type {
   SpeechRecognitionFactory,
   SpeechRecognitionLike,
@@ -44,12 +46,14 @@ export function AnswerComposer({
   sessionId,
   questionId,
   submitAction,
+  challenge = null,
   speechSupported = defaultSpeechSupported(),
   createRecognition = defaultCreateRecognition,
 }: {
   sessionId: string;
   questionId: string;
   submitAction: SubmitAnswerAction;
+  challenge?: ChallengeView | null;
   speechSupported?: boolean;
   createRecognition?: SpeechRecognitionFactory;
 }) {
@@ -126,6 +130,18 @@ export function AnswerComposer({
       <input type="hidden" name="sessionId" value={sessionId} />
       <input type="hidden" name="questionId" value={questionId} />
       <input type="hidden" name="durationSeconds" value={durationSeconds} />
+
+      {challenge ? (
+        <div className="p-4 pb-0">
+          <ChallengeBanner
+            challenge={challenge}
+            onUseChip={(chip) => {
+              setTranscript((prev) => (prev ? `${prev}\n${chip}: ` : `${chip}: `));
+              touchDuration();
+            }}
+          />
+        </div>
+      ) : null}
 
       <div className="flex items-center justify-between gap-2 border-b border-outline-variant bg-surface px-4 py-3">
         <label

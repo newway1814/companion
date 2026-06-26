@@ -91,6 +91,45 @@ describe("InterviewRoom shell", () => {
     expect(within(evidence).getByText(/target claim/i)).toBeInTheDocument();
   });
 
+  it("surfaces the live challenge in the answer area when one is active", () => {
+    const challenged = buildRoomView({
+      status: "IN_PROGRESS",
+      mode: "technical-project-deep-dive",
+      questions,
+      turns: [
+        {
+          questionId: "q0",
+          speaker: "CANDIDATE",
+          kind: "ANSWER",
+          content: "I improved performance.",
+          orderIndex: 0,
+        },
+        {
+          questionId: "q0",
+          speaker: "INTERVIEWER",
+          kind: "FOLLOW_UP",
+          content: "What was the baseline, and how did you measure it?",
+          orderIndex: 1,
+          challenge: {
+            reason: "You claimed improvement without a baseline.",
+            weakSpan: "I improved performance.",
+            challengedClaim: "Built a realtime pipeline",
+            improvementChips: ["Add a baseline"],
+          },
+        },
+      ],
+    });
+    renderRoom(challenged);
+
+    const answerArea = screen.getByRole("region", { name: /your answer/i });
+    expect(
+      within(answerArea).getByText(/what was the baseline/i),
+    ).toBeInTheDocument();
+    expect(
+      within(answerArea).getByRole("button", { name: /add a baseline/i }),
+    ).toBeInTheDocument();
+  });
+
   it("reflects a submitted answer as a turn in the transcript timeline", () => {
     const answered = buildRoomView({
       status: "IN_PROGRESS",

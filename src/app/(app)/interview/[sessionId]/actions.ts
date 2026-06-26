@@ -5,14 +5,26 @@ import { redirect } from "next/navigation";
 
 import { getUser } from "@/lib/auth";
 import { validateAnswer } from "@/lib/interview/answer";
-import { nextInterviewerAction } from "@/lib/interview/interviewer";
+import { analyzeAnswer } from "@/lib/interview/challenge";
+import {
+  countFollowUps,
+  FOLLOW_UP_CAP,
+  nextInterviewerAction,
+} from "@/lib/interview/interviewer";
 import {
   getInterviewSessionForUser,
   markSessionComplete,
   recordAnswer,
+  recordFollowUp,
 } from "@/lib/interview/repository";
 
 import type { SubmitAnswerState } from "./types";
+
+function toRubric(rubric: unknown): string[] {
+  return Array.isArray(rubric)
+    ? rubric.filter((item): item is string => typeof item === "string")
+    : [];
+}
 
 /**
  * Persists a candidate's answer (spoken or typed) against the active question
@@ -46,9 +58,44 @@ export async function submitAnswerAction(
   });
   if (!turn) return { error: "Could not save your answer. Please try again." };
 
-  // After the fifth primary question resolves, finish the session and hand off
-  // to the session-complete bridge.
   const session = await getInterviewSessionForUser(user.id, sessionId);
+  const question = session?.questions.find((q) => q.id === questionId);
+
+  // Adaptive follow-up: if the answer is vague/unsupported and the per-question
+  // cap isn't reached, challenge instead of advancing. A failed analysis must
+  // not block the session — fall through to normal progression.
+  if (session && question && countFollowUps(session.turns, questionId) < FOLLOW_UP_CAP) {
+    try {
+      const analysis = await analyzeAnswer({
+        questionText: question.questionText,
+        objective: question.objective,
+        targetClaim: question.targetClaim,
+        requiredEvidence: toRubric(question.rubric),
+        answer: validation.transcript,
+      });
+      if (analysis.shouldChallenge) {
+        await recordFollowUp({
+          userId: user.id,
+          sessionId,
+          questionId,
+          question: analysis.followUpQuestion,
+          challenge: {
+            reason: analysis.reason,
+            weakSpan: analysis.weakSpan,
+            challengedClaim: analysis.challengedClaim,
+            improvementChips: analysis.improvementChips,
+          },
+        });
+        revalidatePath(`/interview/${sessionId}`);
+        return { ok: true };
+      }
+    } catch {
+      // Challenge analysis unavailable — keep the session moving.
+    }
+  }
+
+  // No follow-up: after the fifth primary question resolves, finish the session
+  // and hand off to the session-complete bridge.
   if (session && nextInterviewerAction(session).type === "complete") {
     await markSessionComplete(user.id, sessionId);
     redirect(`/interview/${sessionId}/complete`);
