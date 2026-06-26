@@ -1,10 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { getUser } from "@/lib/auth";
 import { validateAnswer } from "@/lib/interview/answer";
-import { recordAnswer } from "@/lib/interview/repository";
+import { nextInterviewerAction } from "@/lib/interview/interviewer";
+import {
+  getInterviewSessionForUser,
+  markSessionComplete,
+  recordAnswer,
+} from "@/lib/interview/repository";
 
 import type { SubmitAnswerState } from "./types";
 
@@ -39,6 +45,14 @@ export async function submitAnswerAction(
     durationSeconds: validation.durationSeconds,
   });
   if (!turn) return { error: "Could not save your answer. Please try again." };
+
+  // After the fifth primary question resolves, finish the session and hand off
+  // to the session-complete bridge.
+  const session = await getInterviewSessionForUser(user.id, sessionId);
+  if (session && nextInterviewerAction(session).type === "complete") {
+    await markSessionComplete(user.id, sessionId);
+    redirect(`/interview/${sessionId}/complete`);
+  }
 
   revalidatePath(`/interview/${sessionId}`);
   return { ok: true };

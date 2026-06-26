@@ -86,6 +86,14 @@ export async function recordAnswer(input: {
   return turn;
 }
 
+/** Marks the owner's session complete once the five-question run resolves. */
+export function markSessionComplete(userId: string, id: string) {
+  return prisma.interviewSession.updateMany({
+    where: { id, userId },
+    data: { status: "COMPLETED", completedAt: new Date() },
+  });
+}
+
 /** Reads one session and its ordered questions, scoped to the owner. */
 export function getInterviewSessionForUser(userId: string, id: string) {
   return prisma.interviewSession.findFirst({

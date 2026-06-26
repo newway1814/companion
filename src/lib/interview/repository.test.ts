@@ -21,6 +21,7 @@ import type { InterviewPlan } from "./planner";
 import {
   createInterviewSession,
   getInterviewSessionForUser,
+  markSessionComplete,
   recordAnswer,
 } from "./repository";
 
@@ -145,5 +146,23 @@ describe("recordAnswer", () => {
 
     expect(result).toBeNull();
     expect(turn.create).not.toHaveBeenCalled();
+  });
+});
+
+describe("markSessionComplete", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("marks the owner's session complete with a completion time", () => {
+    markSessionComplete("user-1", "sess-1");
+
+    expect(session.updateMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: "sess-1", userId: "user-1" },
+        data: expect.objectContaining({
+          status: "COMPLETED",
+          completedAt: expect.any(Date),
+        }),
+      }),
+    );
   });
 });
