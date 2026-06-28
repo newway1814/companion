@@ -5,7 +5,9 @@ vi.mock("@/lib/prisma", () => ({
     interviewSession: {
       create: vi.fn(),
       findFirst: vi.fn(),
+      findMany: vi.fn(),
       updateMany: vi.fn(),
+      deleteMany: vi.fn(),
     },
     interviewTurn: {
       count: vi.fn(),
@@ -20,7 +22,9 @@ import { prisma } from "@/lib/prisma";
 import type { InterviewPlan } from "./planner";
 import {
   createInterviewSession,
+  deleteInterviewSession,
   getInterviewSessionForUser,
+  listSessionsForUser,
   markSessionComplete,
   recordAnswer,
   recordFollowUp,
@@ -147,6 +151,35 @@ describe("recordAnswer", () => {
 
     expect(result).toBeNull();
     expect(turn.create).not.toHaveBeenCalled();
+  });
+});
+
+describe("session history scoping", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("lists only the user's sessions, newest first, with resume/role/report", () => {
+    listSessionsForUser("user-1");
+
+    expect(session.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { userId: "user-1" },
+        orderBy: { createdAt: "desc" },
+      }),
+    );
+    const arg = session.findMany.mock.calls[0][0] as { include: object };
+    expect(arg.include).toMatchObject({
+      resume: expect.anything(),
+      targetRole: expect.anything(),
+      report: expect.anything(),
+    });
+  });
+
+  it("deletes only the owner's session", () => {
+    deleteInterviewSession("user-1", "sess-9");
+
+    expect(session.deleteMany).toHaveBeenCalledWith({
+      where: { id: "sess-9", userId: "user-1" },
+    });
   });
 });
 
