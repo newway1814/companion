@@ -144,3 +144,15 @@ export function getInterviewSessionForUser(userId: string, id: string) {
     },
   });
 }
+
+/** Reads a session with its target role for coaching-report generation. */
+export function getSessionForReport(userId: string, id: string) {
+  return prisma.interviewSession.findFirst({
+    where: { id, userId },
+    include: {
+      questions: { orderBy: { orderIndex: "asc" } },
+      turns: { orderBy: { orderIndex: "asc" } },
+      targetRole: { select: { title: true } },
+    },
+  });
+}
