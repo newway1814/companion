@@ -59,6 +59,25 @@ describe("analyzeAnswer", () => {
     expect(result.shouldChallenge).toBe(false);
   });
 
+  it("flags a missing-metric answer and references the required evidence", async () => {
+    const missingMetric: ChallengeAnalysis = {
+      shouldChallenge: true,
+      challengedClaim: "Reduced API latency by 40%",
+      reason: "You named the result but not the baseline it was measured against.",
+      weakSpan: "we made it 40% faster",
+      improvementChips: ["Add a baseline", "Add a measurement method"],
+      followUpQuestion: "40% faster than what baseline, and measured how?",
+    };
+    const result = await analyzeAnswer(
+      { ...baseInput, answer: "We made it 40% faster after the rewrite." },
+      parseReturning(missingMetric),
+    );
+
+    expect(result.shouldChallenge).toBe(true);
+    expect(result.challengedClaim).toMatch(/latency/i);
+    expect(result.improvementChips).toContain("Add a baseline");
+  });
+
   it("grounds the analysis in the answer, claim, and required evidence", async () => {
     const parseFn = parseReturning(vagueClaim);
     await analyzeAnswer(baseInput, parseFn);
