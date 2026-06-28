@@ -6,6 +6,7 @@ vi.mock("@/lib/prisma", () => ({
       create: vi.fn(),
       findFirst: vi.fn(),
       findMany: vi.fn(),
+      count: vi.fn(),
       updateMany: vi.fn(),
       deleteMany: vi.fn(),
     },
@@ -21,8 +22,10 @@ import { prisma } from "@/lib/prisma";
 
 import type { InterviewPlan } from "./planner";
 import {
+  countCompletedSessions,
   createInterviewSession,
   deleteInterviewSession,
+  findRecentSessionId,
   getInterviewSessionForUser,
   listSessionsForUser,
   markSessionComplete,
@@ -151,6 +154,37 @@ describe("recordAnswer", () => {
 
     expect(result).toBeNull();
     expect(turn.create).not.toHaveBeenCalled();
+  });
+});
+
+describe("analytics signals", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("counts only the user's completed sessions", () => {
+    countCompletedSessions("user-1");
+
+    expect(session.count).toHaveBeenCalledWith({
+      where: { userId: "user-1", status: "COMPLETED" },
+    });
+  });
+
+  it("finds a prior session within the window, scoped and excluding the current", async () => {
+    session.findFirst.mockResolvedValue({ id: "prev" } as never);
+
+    const id = await findRecentSessionId("user-1", 7, "current");
+
+    expect(id).toBe("prev");
+    const arg = session.findFirst.mock.calls[0][0] as {
+      where: { userId: string; id: { not: string }; createdAt: { gte: Date } };
+    };
+    expect(arg.where.userId).toBe("user-1");
+    expect(arg.where.id).toEqual({ not: "current" });
+    expect(arg.where.createdAt.gte).toBeInstanceOf(Date);
+  });
+
+  it("returns null when there is no recent prior session", async () => {
+    session.findFirst.mockResolvedValue(null as never);
+    expect(await findRecentSessionId("user-1", 7, "current")).toBeNull();
   });
 });
 

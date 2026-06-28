@@ -32,10 +32,29 @@ const meta = {
   completedAtISO: "2026-06-27T12:00:00.000Z",
 };
 
+const noop = vi.fn(async () => {});
+const genNoop = vi.fn(async (): Promise<GenerateReportState> => null);
+
+function renderReport(
+  overrides: Partial<Parameters<typeof ReportView>[0]> = {},
+) {
+  return render(
+    <ReportView
+      report={report}
+      sessionId="sess-1"
+      meta={meta}
+      generateAction={genNoop}
+      drillAction={noop}
+      improvedReadAction={noop}
+      {...overrides}
+    />,
+  );
+}
+
 describe("ReportView", () => {
   it("offers to generate the report when none exists yet", async () => {
     const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={null} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport({ report: null, generateAction: action });
 
     await userEvent.click(
       screen.getByRole("button", { name: /generate coaching report/i }),
@@ -50,7 +69,7 @@ describe("ReportView", () => {
         error: "Could not build your report. Please try again.",
       }),
     );
-    render(<ReportView report={null} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport({ report: null, generateAction: action });
 
     await userEvent.click(
       screen.getByRole("button", { name: /generate coaching report/i }),
@@ -63,8 +82,7 @@ describe("ReportView", () => {
   });
 
   it("renders readiness and the key coaching sections once generated", () => {
-    const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport();
 
     expect(screen.getByText(/68/)).toBeInTheDocument();
     expect(screen.getByText(/^solid$/i)).toBeInTheDocument();
@@ -75,8 +93,7 @@ describe("ReportView", () => {
   });
 
   it("shows session metadata and the readiness band/score in the header", () => {
-    const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport();
 
     expect(
       screen.getByRole("heading", { name: /final coaching report/i }),
@@ -86,8 +103,7 @@ describe("ReportView", () => {
   });
 
   it("renders the depth, vulnerability, and reframing sections with non-color status text", () => {
-    const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport();
 
     expect(
       screen.getByRole("heading", { name: /technical depth/i }),
@@ -101,9 +117,19 @@ describe("ReportView", () => {
     expect(screen.getByText(/^incomplete$/i)).toBeInTheDocument();
   });
 
+  it("records reading an improved answer when it is copied", async () => {
+    const read = vi.fn(async () => {});
+    renderReport({ improvedReadAction: read });
+
+    await userEvent.click(
+      screen.getByRole("button", { name: /copy improved answer/i }),
+    );
+
+    expect(read).toHaveBeenCalledOnce();
+  });
+
   it("offers navigation back to history, resumes, roles, and a new session", () => {
-    const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+    renderReport();
 
     expect(screen.getByRole("link", { name: /session history/i })).toHaveAttribute(
       "href",
@@ -124,8 +150,7 @@ describe("ReportView", () => {
   });
 
   it("has no axe violations", async () => {
-    const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    const { container } = render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+    const { container } = renderReport();
 
     expect(await axe(container)).toHaveNoViolations();
   });

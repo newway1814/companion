@@ -126,6 +126,31 @@ export async function recordFollowUp(input: {
   });
 }
 
+/** How many sessions the user has completed (for the first-completion signal). */
+export function countCompletedSessions(userId: string) {
+  return prisma.interviewSession.count({
+    where: { userId, status: "COMPLETED" },
+  });
+}
+
+/**
+ * Returns the id of a prior session the user started within `withinDays`
+ * (excluding the current one), or null — the repeat-session signal.
+ */
+export async function findRecentSessionId(
+  userId: string,
+  withinDays: number,
+  excludeId: string,
+): Promise<string | null> {
+  const since = new Date(Date.now() - withinDays * 24 * 60 * 60 * 1000);
+  const prior = await prisma.interviewSession.findFirst({
+    where: { userId, id: { not: excludeId }, createdAt: { gte: since } },
+    orderBy: { createdAt: "desc" },
+    select: { id: true },
+  });
+  return prior?.id ?? null;
+}
+
 /** Lists the user's sessions (newest first) with the data the history table shows. */
 export function listSessionsForUser(userId: string) {
   return prisma.interviewSession.findMany({
