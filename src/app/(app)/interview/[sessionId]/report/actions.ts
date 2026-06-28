@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 
+import { emitImprovedAnswerRead } from "@/lib/analytics";
 import { AiSafetyError } from "@/lib/ai/gateway";
 import { getUser } from "@/lib/auth";
 import { generateCoachingReport, buildReportContext } from "@/lib/interview/report";
@@ -9,6 +10,16 @@ import { saveFeedbackReport } from "@/lib/interview/report-repository";
 import { getSessionForReport } from "@/lib/interview/repository";
 
 import type { GenerateReportState } from "./types";
+
+/** Records that the user read an improved-answer reframing (a success signal). */
+export async function markImprovedAnswerReadAction(formData: FormData) {
+  const user = await getUser();
+  if (!user) return;
+  const sessionId = String(formData.get("sessionId") ?? "");
+  if (sessionId) {
+    await emitImprovedAnswerRead({ userId: user.id, sessionId });
+  }
+}
 
 /**
  * Generates and persists the coaching report for a completed session. Scoped to

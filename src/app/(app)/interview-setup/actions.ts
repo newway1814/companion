@@ -1,10 +1,14 @@
 "use server";
 
+import { emitRepeatSession } from "@/lib/analytics";
 import { AiSafetyError } from "@/lib/ai/gateway";
 import { getUser } from "@/lib/auth";
 import { buildResumeContext, buildRoleContext } from "@/lib/interview/context";
 import { generateInterviewPlan } from "@/lib/interview/planner";
-import { createInterviewSession } from "@/lib/interview/repository";
+import {
+  createInterviewSession,
+  findRecentSessionId,
+} from "@/lib/interview/repository";
 import { ResumeProfileSchema } from "@/lib/resume/extraction";
 import { listResumes } from "@/lib/resume/repository";
 import { RoleRequirementsSchema } from "@/lib/target-role/extraction";
@@ -53,6 +57,12 @@ export async function startInterviewAction(): Promise<StartInterviewState> {
       resumeId: activeResume.id,
       targetRoleId: activeRole.id,
       plan,
+    });
+    const priorSessionId = await findRecentSessionId(user.id, 7, session.id);
+    await emitRepeatSession({
+      userId: user.id,
+      sessionId: session.id,
+      priorSessionId,
     });
     return { sessionId: session.id };
   } catch (error) {

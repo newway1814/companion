@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, CircleAlert, Sparkles } from "lucide-react";
+import { ArrowRight, CircleAlert, Copy, Sparkles } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
@@ -10,6 +10,14 @@ import type { CoachingReport } from "@/lib/interview/report";
 import type { GenerateReportAction } from "./types";
 
 export type ReportMeta = { roleTitle: string; completedAtISO: string };
+
+export type ReportControlAction = (formData: FormData) => void | Promise<void>;
+
+function sessionForm(sessionId: string): FormData {
+  const data = new FormData();
+  data.set("sessionId", sessionId);
+  return data;
+}
 
 const REPORT_NAV = [
   { href: "/sessions", label: "Session history" },
@@ -102,9 +110,15 @@ function Section({
 function ReadyReport({
   report,
   meta,
+  sessionId,
+  drillAction,
+  improvedReadAction,
 }: {
   report: CoachingReport;
   meta: ReportMeta;
+  sessionId: string;
+  drillAction: ReportControlAction;
+  improvedReadAction: ReportControlAction;
 }) {
   const date = formatDate(meta.completedAtISO);
   return (
@@ -201,6 +215,17 @@ function ReadyReport({
                   </span>
                   {item.improved}
                 </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    void improvedReadAction(sessionForm(sessionId));
+                    navigator.clipboard?.writeText?.(item.improved);
+                  }}
+                  className="mt-2 inline-flex items-center gap-1 rounded text-body-md text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                >
+                  <Copy className="size-4" aria-hidden="true" />
+                  Copy improved answer
+                </button>
               </li>
             ))}
           </ul>
@@ -213,13 +238,16 @@ function ReadyReport({
             <span className="font-medium">{report.nextPractice.focus}:</span>{" "}
             {report.nextPractice.drill}
           </p>
-          <Link
-            href="/setup"
-            className="inline-flex shrink-0 items-center gap-2 rounded bg-primary-container px-5 py-2 text-body-md font-semibold text-on-primary transition-colors hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
-          >
-            Start focused drill
-            <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
+          <form action={drillAction} className="shrink-0">
+            <input type="hidden" name="sessionId" value={sessionId} />
+            <button
+              type="submit"
+              className="inline-flex shrink-0 items-center gap-2 rounded bg-primary-container px-5 py-2 text-body-md font-semibold text-on-primary transition-colors hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+            >
+              Start focused drill
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </button>
+          </form>
         </div>
       </Section>
 
@@ -246,14 +274,24 @@ export function ReportView({
   sessionId,
   meta,
   generateAction,
+  drillAction,
+  improvedReadAction,
 }: {
   report: CoachingReport | null;
   sessionId: string;
   meta: ReportMeta;
   generateAction: GenerateReportAction;
+  drillAction: ReportControlAction;
+  improvedReadAction: ReportControlAction;
 }) {
   return report ? (
-    <ReadyReport report={report} meta={meta} />
+    <ReadyReport
+      report={report}
+      meta={meta}
+      sessionId={sessionId}
+      drillAction={drillAction}
+      improvedReadAction={improvedReadAction}
+    />
   ) : (
     <GenerateReport action={generateAction} sessionId={sessionId} />
   );

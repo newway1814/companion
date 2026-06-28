@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+import { emitFirstSessionCompleted, emitPracticeDrillStarted } from "@/lib/analytics";
 import { getUser } from "@/lib/auth";
 import { validateAnswer } from "@/lib/interview/answer";
 import { analyzeAnswer } from "@/lib/interview/challenge";
@@ -12,6 +13,7 @@ import {
   nextInterviewerAction,
 } from "@/lib/interview/interviewer";
 import {
+  countCompletedSessions,
   getInterviewSessionForUser,
   markSessionComplete,
   recordAnswer,
@@ -98,9 +100,25 @@ export async function submitAnswerAction(
   // and hand off to the session-complete bridge.
   if (session && nextInterviewerAction(session).type === "complete") {
     await markSessionComplete(user.id, sessionId);
+    const completedSessionCount = await countCompletedSessions(user.id);
+    await emitFirstSessionCompleted({
+      userId: user.id,
+      sessionId,
+      completedSessionCount,
+    });
     redirect(`/interview/${sessionId}/complete`);
   }
 
   revalidatePath(`/interview/${sessionId}`);
   return { ok: true };
+}
+
+/** Records the practice-drill signal, then sends the user into a new setup. */
+export async function startPracticeDrillAction(formData: FormData) {
+  const user = await getUser();
+  if (user) {
+    const sessionId = String(formData.get("sessionId") ?? "") || undefined;
+    await emitPracticeDrillStarted({ userId: user.id, sessionId });
+  }
+  redirect("/setup");
 }

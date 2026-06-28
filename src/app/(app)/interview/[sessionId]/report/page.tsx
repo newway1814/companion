@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 
+import { emitReportViewed } from "@/lib/analytics";
 import { getUser } from "@/lib/auth";
 import { getFeedbackReport } from "@/lib/interview/report-repository";
 import { CoachingReportSchema } from "@/lib/interview/report";
 import { getSessionForReport } from "@/lib/interview/repository";
 
-import { generateReportAction } from "./actions";
+import { startPracticeDrillAction } from "../actions";
+import { generateReportAction, markImprovedAnswerReadAction } from "./actions";
 import { ReportView } from "./report-view";
 
 /**
@@ -31,6 +33,11 @@ export default async function CoachingReportPage({
     ? CoachingReportSchema.safeParse(existing.reportJson)
     : null;
 
+  // Success signal: the user is viewing a generated report.
+  if (parsed?.success) {
+    await emitReportViewed({ userId: user.id, sessionId });
+  }
+
   return (
     <ReportView
       report={parsed?.success ? parsed.data : null}
@@ -40,6 +47,8 @@ export default async function CoachingReportPage({
         completedAtISO: (session.completedAt ?? session.createdAt).toISOString(),
       }}
       generateAction={generateReportAction}
+      drillAction={startPracticeDrillAction}
+      improvedReadAction={markImprovedAnswerReadAction}
     />
   );
 }
