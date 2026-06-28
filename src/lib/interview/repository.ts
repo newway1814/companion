@@ -126,6 +126,24 @@ export async function recordFollowUp(input: {
   });
 }
 
+/** Lists the user's sessions (newest first) with the data the history table shows. */
+export function listSessionsForUser(userId: string) {
+  return prisma.interviewSession.findMany({
+    where: { userId },
+    orderBy: { createdAt: "desc" },
+    include: {
+      resume: { select: { filename: true } },
+      targetRole: { select: { title: true } },
+      report: { select: { readinessBand: true, readinessScore: true } },
+    },
+  });
+}
+
+/** Deletes one session, scoped to the owner (cascades questions/turns/report). */
+export function deleteInterviewSession(userId: string, id: string) {
+  return prisma.interviewSession.deleteMany({ where: { id, userId } });
+}
+
 /** Marks the owner's session complete once the five-question run resolves. */
 export function markSessionComplete(userId: string, id: string) {
   return prisma.interviewSession.updateMany({
