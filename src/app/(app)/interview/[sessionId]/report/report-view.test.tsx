@@ -27,10 +27,15 @@ const report: CoachingReport = {
   nextPractice: { focus: "Metrics", drill: "Re-answer with a baseline and measured delta." },
 };
 
+const meta = {
+  roleTitle: "Backend Intern",
+  completedAtISO: "2026-06-27T12:00:00.000Z",
+};
+
 describe("ReportView", () => {
   it("offers to generate the report when none exists yet", async () => {
     const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={null} sessionId="sess-1" generateAction={action} />);
+    render(<ReportView report={null} sessionId="sess-1" meta={meta} generateAction={action} />);
 
     await userEvent.click(
       screen.getByRole("button", { name: /generate coaching report/i }),
@@ -45,7 +50,7 @@ describe("ReportView", () => {
         error: "Could not build your report. Please try again.",
       }),
     );
-    render(<ReportView report={null} sessionId="sess-1" generateAction={action} />);
+    render(<ReportView report={null} sessionId="sess-1" meta={meta} generateAction={action} />);
 
     await userEvent.click(
       screen.getByRole("button", { name: /generate coaching report/i }),
@@ -59,7 +64,7 @@ describe("ReportView", () => {
 
   it("renders readiness and the key coaching sections once generated", () => {
     const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    render(<ReportView report={report} sessionId="sess-1" generateAction={action} />);
+    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
 
     expect(screen.getByText(/68/)).toBeInTheDocument();
     expect(screen.getByText(/^solid$/i)).toBeInTheDocument();
@@ -69,9 +74,58 @@ describe("ReportView", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows session metadata and the readiness band/score in the header", () => {
+    const action = vi.fn(async (): Promise<GenerateReportState> => null);
+    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+
+    expect(
+      screen.getByRole("heading", { name: /final coaching report/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/backend intern/i)).toBeInTheDocument();
+    expect(screen.getByText(/readiness score/i)).toBeInTheDocument();
+  });
+
+  it("renders the depth, vulnerability, and reframing sections with non-color status text", () => {
+    const action = vi.fn(async (): Promise<GenerateReportState> => null);
+    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+
+    expect(
+      screen.getByRole("heading", { name: /technical depth/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /claim-defense vulnerabilities/i }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /suggested reframing/i }),
+    ).toBeInTheDocument();
+    expect(screen.getByText(/^incomplete$/i)).toBeInTheDocument();
+  });
+
+  it("offers navigation back to history, resumes, roles, and a new session", () => {
+    const action = vi.fn(async (): Promise<GenerateReportState> => null);
+    render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
+
+    expect(screen.getByRole("link", { name: /session history/i })).toHaveAttribute(
+      "href",
+      "/sessions",
+    );
+    expect(screen.getByRole("link", { name: /resumes/i })).toHaveAttribute(
+      "href",
+      "/resumes",
+    );
+    expect(screen.getByRole("link", { name: /target roles/i })).toHaveAttribute(
+      "href",
+      "/roles",
+    );
+    expect(screen.getByRole("link", { name: /new session/i })).toHaveAttribute(
+      "href",
+      "/setup",
+    );
+  });
+
   it("has no axe violations", async () => {
     const action = vi.fn(async (): Promise<GenerateReportState> => null);
-    const { container } = render(<ReportView report={report} sessionId="sess-1" generateAction={action} />);
+    const { container } = render(<ReportView report={report} sessionId="sess-1" meta={meta} generateAction={action} />);
 
     expect(await axe(container)).toHaveNoViolations();
   });

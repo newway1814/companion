@@ -1,12 +1,33 @@
 "use client";
 
-import { CircleAlert, Sparkles } from "lucide-react";
+import { ArrowRight, CircleAlert, Sparkles } from "lucide-react";
+import Link from "next/link";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
 import type { CoachingReport } from "@/lib/interview/report";
 
 import type { GenerateReportAction } from "./types";
+
+export type ReportMeta = { roleTitle: string; completedAtISO: string };
+
+const REPORT_NAV = [
+  { href: "/sessions", label: "Session history" },
+  { href: "/resumes", label: "Resumes" },
+  { href: "/roles", label: "Target roles" },
+  { href: "/setup", label: "New session" },
+] as const;
+
+function formatDate(iso: string): string {
+  const date = new Date(iso);
+  return Number.isNaN(date.getTime())
+    ? ""
+    : date.toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+      });
+}
 
 const BAND_LABEL: Record<CoachingReport["readiness"]["band"], string> = {
   developing: "Developing",
@@ -78,22 +99,43 @@ function Section({
   );
 }
 
-function ReadyReport({ report }: { report: CoachingReport }) {
+function ReadyReport({
+  report,
+  meta,
+}: {
+  report: CoachingReport;
+  meta: ReportMeta;
+}) {
+  const date = formatDate(meta.completedAtISO);
   return (
     <div className="mx-auto max-w-3xl p-gutter py-12">
-      <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
-        Overall readiness
-      </p>
-      <div className="mt-2 flex items-baseline gap-3">
-        <span className="font-heading text-display-md text-on-surface">
-          {report.readiness.score}
-          <span className="text-headline-sm text-on-surface-variant">/100</span>
-        </span>
-        <span className="rounded-full border border-outline-variant px-3 py-1 text-label-caps font-bold uppercase tracking-wide text-primary">
-          {BAND_LABEL[report.readiness.band]}
-        </span>
-      </div>
-      <p className="mt-3 max-w-prose text-body-lg text-on-surface-variant">
+      <header className="flex flex-wrap items-start justify-between gap-4 border-b border-outline-variant pb-6">
+        <div>
+          <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
+            Post-session analysis{date ? ` • ${date}` : ""}
+          </p>
+          <h1 className="mt-1 font-heading text-display-md text-on-surface">
+            Final coaching report
+          </h1>
+          <p className="mt-1 text-body-lg text-on-surface-variant">
+            {meta.roleTitle} · Project deep-dive (mock interview)
+          </p>
+        </div>
+        <div className="rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-right">
+          <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
+            Readiness score
+          </p>
+          <p className="font-heading text-headline-sm text-on-surface">
+            {report.readiness.score}
+            <span className="text-body-md text-on-surface-variant">/100</span>
+          </p>
+          <span className="text-label-caps font-bold uppercase tracking-wide text-primary">
+            {BAND_LABEL[report.readiness.band]}
+          </span>
+        </div>
+      </header>
+
+      <p className="mt-6 max-w-prose text-body-lg text-on-surface-variant">
         {report.readiness.summary}
       </p>
       <p className="mt-2 text-mono-label text-on-surface-variant">
@@ -103,16 +145,23 @@ function ReadyReport({ report }: { report: CoachingReport }) {
 
       {report.technicalDepth.length ? (
         <Section title="Technical depth">
-          <ul className="flex flex-col gap-2">
+          <ul className="grid gap-2 sm:grid-cols-2">
             {report.technicalDepth.map((item, index) => (
               <li
                 key={index}
-                className="rounded-lg border border-outline-variant p-3 text-body-md text-on-surface"
+                className="rounded-lg border border-outline-variant p-3"
               >
-                <span className="font-medium">{item.area}</span>{" "}
-                <span className="text-on-surface-variant">
-                  — {STATUS_TEXT[item.status]}. {item.note}
-                </span>
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-body-md font-medium text-on-surface">
+                    {item.area}
+                  </span>
+                  <span className="rounded border border-outline-variant px-2 py-0.5 text-label-caps font-bold uppercase tracking-wide text-on-surface-variant">
+                    {STATUS_TEXT[item.status]}
+                  </span>
+                </div>
+                <p className="mt-1 text-body-md text-on-surface-variant">
+                  {item.note}
+                </p>
               </li>
             ))}
           </ul>
@@ -158,12 +207,36 @@ function ReadyReport({ report }: { report: CoachingReport }) {
         </Section>
       ) : null}
 
-      <Section title="Next practice">
-        <p className="text-body-md text-on-surface">
-          <span className="font-medium">{report.nextPractice.focus}:</span>{" "}
-          {report.nextPractice.drill}
-        </p>
+      <Section title="Next recommended action">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-outline-variant bg-surface-container-lowest p-4">
+          <p className="text-body-md text-on-surface">
+            <span className="font-medium">{report.nextPractice.focus}:</span>{" "}
+            {report.nextPractice.drill}
+          </p>
+          <Link
+            href="/setup"
+            className="inline-flex shrink-0 items-center gap-2 rounded bg-primary-container px-5 py-2 text-body-md font-semibold text-on-primary transition-colors hover:bg-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-surface"
+          >
+            Start focused drill
+            <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
+        </div>
       </Section>
+
+      <nav
+        aria-label="Report navigation"
+        className="mt-10 flex flex-wrap gap-2 border-t border-outline-variant pt-6"
+      >
+        {REPORT_NAV.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="rounded border border-outline-variant px-4 py-2 text-body-md text-on-surface transition-colors hover:bg-surface-container-low focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </div>
   );
 }
@@ -171,14 +244,16 @@ function ReadyReport({ report }: { report: CoachingReport }) {
 export function ReportView({
   report,
   sessionId,
+  meta,
   generateAction,
 }: {
   report: CoachingReport | null;
   sessionId: string;
+  meta: ReportMeta;
   generateAction: GenerateReportAction;
 }) {
   return report ? (
-    <ReadyReport report={report} />
+    <ReadyReport report={report} meta={meta} />
   ) : (
     <GenerateReport action={generateAction} sessionId={sessionId} />
   );

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getUser } from "@/lib/auth";
 import { getFeedbackReport } from "@/lib/interview/report-repository";
 import { CoachingReportSchema } from "@/lib/interview/report";
-import { getInterviewSessionForUser } from "@/lib/interview/repository";
+import { getSessionForReport } from "@/lib/interview/repository";
 
 import { generateReportAction } from "./actions";
 import { ReportView } from "./report-view";
@@ -23,7 +23,7 @@ export default async function CoachingReportPage({
   const user = await getUser();
   if (!user) notFound();
 
-  const session = await getInterviewSessionForUser(user.id, sessionId);
+  const session = await getSessionForReport(user.id, sessionId);
   if (!session) notFound();
 
   const existing = await getFeedbackReport(user.id, sessionId);
@@ -35,6 +35,10 @@ export default async function CoachingReportPage({
     <ReportView
       report={parsed?.success ? parsed.data : null}
       sessionId={sessionId}
+      meta={{
+        roleTitle: session.targetRole.title,
+        completedAtISO: (session.completedAt ?? session.createdAt).toISOString(),
+      }}
       generateAction={generateReportAction}
     />
   );
