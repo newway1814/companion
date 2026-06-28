@@ -106,8 +106,24 @@ model InterviewSession {
 
   questions    InterviewQuestion[]
   turns        InterviewTurn[]
+  report       FeedbackReport?
 
   @@index([userId])
+}
+
+/// The post-session coaching report: readiness, technical depth, claim-defense
+/// vulnerabilities, suggested reframing, and next practice. One per session.
+model FeedbackReport {
+  id             String           @id @default(uuid()) @db.Uuid
+  sessionId      String           @unique @db.Uuid
+  session        InterviewSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  /// Qualitative readiness band: developing | solid | strong.
+  readinessBand  String
+  /// Preparation-readiness score 0-100 (preparation quality, not hireability).
+  readinessScore Int
+  /// Full structured report (scores, depth, vulnerabilities, reframing, drill).
+  reportJson     Json
+  createdAt      DateTime         @default(now())
 }
 
 /// One primary question in a session's ordered plan, with the objective it tests
