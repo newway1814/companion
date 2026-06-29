@@ -1,12 +1,14 @@
 # Companion MVP PRD
 
+> **Status: historical MVP spec.** The MVP has shipped. UI/UX authority has moved from Stitch to the in-repo design system (`docs/design/design-system.md`) per [ADR 0003](../adr/0003-adopt-in-repo-design-system.md). The "Source of truth: …stitch…" references below are retained as the MVP's visual provenance, not as current authority.
+
 ## 1. Product Summary
 
 Companion is a private, desktop-first AI interview sparring partner for university candidates preparing for software internship interviews. The MVP focuses on one flagship interview mode: a technical project deep-dive that helps the user defend resume project claims with ownership, implementation detail, tradeoffs, baselines, and measured results.
 
 The MVP experience is a bounded five-question practice session. The user starts from a resume and target role, reviews what Companion extracted, enters an interview workspace, answers questions, receives adaptive follow-up pressure when answers are vague or unsupported, and ends with a performance report that turns the session into concrete coaching.
 
-Stitch is the MVP UI source of truth. The production UI must implement the Stitch-generated design under `docs/design/stitch/pages/` faithfully. Codex should not revive or borrow from the rejected earlier Codex-generated prototype UI.
+Stitch was the MVP UI source of truth and bootstrapped the shipped screens; UI authority has since moved to the in-repo design system (`docs/design/design-system.md`, [ADR 0003](../adr/0003-adopt-in-repo-design-system.md)). The production UI must not revive or borrow from the rejected earlier Codex-generated prototype UI.
 
 ## 2. Target User
 
@@ -105,7 +107,7 @@ Every future UI issue must reference one or more of these Stitch page folders.
 
 ## 7. Main Interview Room Requirements
 
-Source of truth: `docs/design/stitch/pages/main_interview_room/`.
+MVP visual reference (historical): `docs/design/stitch/pages/main_interview_room/`.
 
 Functional requirements:
 
@@ -132,7 +134,7 @@ Visual and interaction requirements:
 
 ## 8. Live Challenge Moment Requirements
 
-Source of truth: `docs/design/stitch/pages/live_challenge_moment/`.
+MVP visual reference (historical): `docs/design/stitch/pages/live_challenge_moment/`.
 
 Functional requirements:
 
@@ -155,7 +157,7 @@ Visual and interaction requirements:
 
 ## 9. Final Coaching Report Requirements
 
-Source of truth: `docs/design/stitch/pages/final_coaching_report/`.
+MVP visual reference (historical): `docs/design/stitch/pages/final_coaching_report/`.
 
 Functional requirements:
 
@@ -178,7 +180,7 @@ Visual and interaction requirements:
 
 ## 10. Resume Management Requirements
 
-Source of truth: `docs/design/stitch/pages/resume_management/`.
+MVP visual reference (historical): `docs/design/stitch/pages/resume_management/`.
 
 Functional requirements:
 
@@ -199,7 +201,7 @@ Visual and interaction requirements:
 
 ## 11. Target Role Management Requirements
 
-Source of truth: `docs/design/stitch/pages/target_role_management/`.
+MVP visual reference (historical): `docs/design/stitch/pages/target_role_management/`.
 
 Functional requirements:
 
@@ -219,7 +221,7 @@ Visual and interaction requirements:
 
 ## 12. Session History Requirements
 
-Source of truth: `docs/design/stitch/pages/session_history/`.
+MVP visual reference (historical): `docs/design/stitch/pages/session_history/`.
 
 Functional requirements:
 
@@ -239,7 +241,7 @@ Visual and interaction requirements:
 
 ## 13. Privacy/Delete Controls
 
-Source of truth: `docs/design/stitch/pages/privacy_settings/`, plus privacy guidance in `docs/agents/domain.md`.
+MVP visual reference (historical): `docs/design/stitch/pages/privacy_settings/`, plus privacy guidance in `docs/agents/domain.md`.
 
 Functional requirements:
 

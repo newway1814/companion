@@ -1,6 +1,8 @@
 # Stitch Implementation Notes
 
-Stitch is the MVP UI source of truth for Companion. Codex should implement the Stitch design faithfully, not redesign the product while translating it into production code.
+> **Historical reference — no longer authoritative.** See [ADR 0003](../../adr/0003-adopt-in-repo-design-system.md); the UI source of truth is now [`docs/design/design-system.md`](../design-system.md). These notes describe how the MVP screens were built from Stitch and are retained for context only.
+
+Stitch was the MVP UI source of truth for Companion. The shipped screens were implemented faithfully from the Stitch design rather than redesigned during translation to production code.
 
 ## Implementation Rules
 

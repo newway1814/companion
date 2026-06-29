@@ -1,5 +1,7 @@
 # Use Stitch as MVP UI source of truth
 
+> **Superseded by [ADR 0003](0003-adopt-in-repo-design-system.md).** Stitch bootstrapped the MVP UI; the source of truth is now the in-repo design system at `docs/design/design-system.md`. The Stitch artifacts under `docs/design/stitch/` remain only as historical reference. This ADR is kept for the record.
+
 Companion's MVP UI will use the Stitch-generated design under `docs/design/stitch/pages/` as the source of truth because it matches the documented product direction for a desktop-first, speech-first interview workspace. The previous Codex-generated prototype UI was rejected and must not become the production baseline; Codex should implement Stitch faithfully rather than redesigning the interface.
 
 Stitch is authoritative for UI composition, hierarchy, component treatment, and interaction direction. Product behavior and MVP scope remain governed by `CONTEXT.md`, ADRs, and the PRD when static mock content conflicts with them.

@@ -68,9 +68,9 @@ _Avoid_: Mobile-first app
 Companion's primary UI feel: calm, polished, focused, and slightly high-pressure, with dedicated areas for the interviewer, evidence, transcript, and coaching report.
 _Avoid_: Study app, SaaS dashboard, playful app
 
-**Stitch UI source of truth**:
-The Stitch-generated MVP design under `docs/design/stitch/pages/`, used as the authoritative visual and interaction reference for production UI implementation.
-_Avoid_: Codex prototype, loose redesign, inspiration board
+**Design system (UI source of truth)**:
+The in-repo design system at `docs/design/design-system.md` plus the design tokens in `src/app/globals.css` — authoritative for visual and interaction design ([ADR 0003](docs/adr/0003-adopt-in-repo-design-system.md)). New UI is designed against it directly. The Stitch mockups under `docs/design/stitch/` are historical MVP reference only.
+_Avoid_: Codex prototype, treating Stitch as authoritative, loose redesign outside the system
 
 **Evidence panel**:
 A subtle interview-room panel showing the current probing focus and the resume or target-role snippet being tested, without exposing full internal reasoning.
