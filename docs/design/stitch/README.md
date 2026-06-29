@@ -1,6 +1,8 @@
 # Stitch MVP UI Handoff
 
-This directory contains the Stitch-generated MVP UI design for Companion. Treat these pages as the visual and interaction source of truth for the MVP UI.
+> **Historical reference — no longer authoritative.** Stitch bootstrapped the MVP UI. The UI source of truth is now the in-repo design system at [`docs/design/design-system.md`](../design-system.md) ([ADR 0003](../../adr/0003-adopt-in-repo-design-system.md)). These pages are kept as provenance for how the shipped screens originally looked; do not cite them as authority for new or changed designs.
+
+This directory contains the Stitch-generated MVP UI design for Companion. It was the visual and interaction source of truth for the MVP UI.
 
 Production UI work must reference the relevant page folder before implementation. The previous Codex-generated prototype UI was rejected and must not be used as a production baseline.
 

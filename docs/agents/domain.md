@@ -32,7 +32,7 @@ Design the MVP as desktop-first. Mobile should remain usable for report review a
 
 The interface should feel like a focused interview workspace: calm, polished, slightly high-pressure, and organized around an interviewer panel, evidence panel, transcript timeline, and coaching-intelligence report. Avoid playful study-app styling and generic SaaS dashboard composition.
 
-For MVP UI implementation, treat `docs/design/stitch/pages/` as the Stitch UI source of truth. Codex should implement the Stitch pages faithfully, especially `main_interview_room`, `live_challenge_moment`, and `final_coaching_report`; do not revive the rejected Codex-generated prototype UI. Every future UI issue should reference the relevant Stitch page folder, and deviations from Stitch should be justified by accessibility, responsiveness, or technical feasibility.
+For UI work, the source of truth is the in-repo design system at `docs/design/design-system.md` plus the design tokens in `src/app/globals.css` ([ADR 0003](../adr/0003-adopt-in-repo-design-system.md)). Design new screens directly against the design system and reuse the shared tokens/components; do not revive the rejected Codex-generated prototype UI. The Stitch mockups under `docs/design/stitch/pages/` are historical MVP reference only (they show how the shipped screens originally looked) and are no longer authoritative — do not cite them to justify keeping or changing a design.
 
 The MVP report should prioritize overall readiness, claim-defense issues, missing metrics, strongest answer, weakest answer, transcript highlights, improved answer rewrites, and the next practice drill. Avoid chart overload in the first version.
 
