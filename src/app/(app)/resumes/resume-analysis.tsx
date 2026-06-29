@@ -65,7 +65,7 @@ export function ResumeAnalysis({
         </p>
       ) : null}
 
-      <ul className="space-y-4">
+      <ul className="grid gap-4 lg:grid-cols-2">
         {profile.claims.map((claim, index) => (
           <li key={index}>
             <ClaimCard
