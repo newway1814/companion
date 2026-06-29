@@ -1,6 +1,7 @@
 import { ArrowRight, History, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 
+import { Reveal } from "@/components/motion/reveal";
 import { Card } from "@/components/ui/card";
 import { EvidenceChip } from "@/components/ui/evidence-chip";
 
@@ -13,90 +14,110 @@ const secondaryAction =
 /** Signed-in dashboard gateway, positioned around defending project claims. */
 export function LandingEntry() {
   return (
-    <div className="mx-auto max-w-5xl p-gutter">
-      <section className="grid gap-10 py-8 lg:grid-cols-2 lg:items-center">
-        <div>
-          <h1 className="font-heading text-display-lg leading-tight text-on-surface">
-            Practice defending your software project claims.
-          </h1>
-          <p className="mt-6 max-w-prose text-body-lg text-on-surface-variant">
-            A technical interviewer that challenges vague answers using your
-            resume and target role. Prepare for technical project deep-dives in
-            a high-fidelity environment.
-          </p>
+    <div className="relative overflow-hidden">
+      {/* Ambient teal glow behind the hero */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 -top-40 size-[560px] rounded-full opacity-40 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(45,212,191,0.16) 0%, rgba(45,212,191,0) 70%)",
+        }}
+      />
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link href="/setup" className={primaryAction}>
-              Start project deep-dive
-              <ArrowRight className="size-5" aria-hidden="true" />
-            </Link>
-            <Link href="/sessions" className={secondaryAction}>
-              View previous sessions
-            </Link>
+      <div className="relative mx-auto max-w-5xl p-gutter">
+        <section className="grid gap-10 py-12 lg:grid-cols-2 lg:items-center">
+          <div>
+            <Reveal>
+              <h1 className="font-heading text-display-lg leading-tight tracking-tight text-on-surface">
+                Practice defending your software project claims.
+              </h1>
+            </Reveal>
+            <Reveal delay={0.08}>
+              <p className="mt-6 max-w-prose text-body-lg text-on-surface-variant">
+                A technical interviewer that challenges vague answers using your
+                resume and target role. Prepare for technical project deep-dives
+                in a high-fidelity environment.
+              </p>
+            </Reveal>
+
+            <Reveal delay={0.16} className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <Link href="/setup" className={primaryAction}>
+                Start project deep-dive
+                <ArrowRight className="size-5" aria-hidden="true" />
+              </Link>
+              <Link href="/sessions" className={secondaryAction}>
+                View previous sessions
+              </Link>
+            </Reveal>
+
+            <Reveal delay={0.24}>
+              <p className="mt-6 flex items-start gap-2 text-body-md text-on-surface-variant">
+                <ShieldCheck
+                  className="mt-0.5 size-4 shrink-0 text-primary"
+                  aria-hidden="true"
+                />
+                <span>
+                  Private by default — your resumes and transcripts are never
+                  shared or used to train public models.
+                </span>
+              </p>
+            </Reveal>
           </div>
 
-          <p className="mt-6 flex items-start gap-2 text-body-md text-on-surface-variant">
-            <ShieldCheck
-              className="mt-0.5 size-4 shrink-0 text-primary"
-              aria-hidden="true"
-            />
-            <span>
-              Private by default — your resumes and transcripts are never shared
-              or used to train public models.
-            </span>
-          </p>
-        </div>
+          {/* Challenge-mechanic preview — an illustrative example, not the
+              signed-in user's real claim. */}
+          <Reveal delay={0.12} y={24}>
+            <Card className="border-l-4 border-l-evidence bg-surface-container-lowest">
+              <EvidenceChip>Example challenge</EvidenceChip>
+              <p className="mt-3 text-body-md text-on-surface-variant">
+                Here&apos;s how a deep-dive challenge works. A resume claim like{" "}
+                <mark className="rounded bg-evidence/20 px-1 text-on-evidence underline decoration-2 underline-offset-2">
+                  reduced API latency by 40%
+                </mark>{" "}
+                gets pressure-tested:
+              </p>
+              <p className="mt-2 font-semibold text-on-surface">
+                What was the original baseline latency, and how did your change
+                specifically address the bottleneck compared to an off-the-shelf
+                solution?
+              </p>
+            </Card>
+          </Reveal>
+        </section>
 
-        {/* Challenge-mechanic preview — an illustrative example, not the
-            signed-in user's real claim (their own claims drive real sessions). */}
-        <Card className="border-l-4 border-l-evidence bg-surface-container-lowest">
-          <EvidenceChip>Example challenge</EvidenceChip>
-          <p className="mt-3 text-body-md text-on-surface-variant">
-            Here&apos;s how a deep-dive challenge works. A resume claim like{" "}
-            <mark className="rounded bg-evidence/20 px-1 text-on-evidence underline decoration-2 underline-offset-2">
-              reduced API latency by 40%
-            </mark>{" "}
-            gets pressure-tested:
-          </p>
-          <p className="mt-2 font-semibold text-on-surface">
-            What was the original baseline latency, and how did your change
-            specifically address the bottleneck compared to an off-the-shelf
-            solution?
-          </p>
-        </Card>
-      </section>
-
-      <section className="mt-4">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="font-heading text-section-title text-on-surface">
-            Previous sessions
-          </h2>
-          <Link
-            href="/sessions"
-            className="text-body-md text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          >
-            View all
-          </Link>
-        </div>
-        <Card>
-          <div className="flex flex-col items-center gap-2 py-8 text-center">
-            <History
-              className="size-6 text-on-surface-variant"
-              aria-hidden="true"
-            />
-            <p className="text-body-md text-on-surface-variant">
-              No practice sessions yet. Start a project deep-dive to build your
-              history.
-            </p>
+        <Reveal as="section" className="mt-4" y={24}>
+          <div className="mb-3 flex items-center justify-between">
+            <h2 className="font-heading text-section-title text-on-surface">
+              Previous sessions
+            </h2>
             <Link
-              href="/setup"
-              className="text-body-md font-medium text-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              href="/sessions"
+              className="text-body-md text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
-              Start your first session
+              View all
             </Link>
           </div>
-        </Card>
-      </section>
+          <Card>
+            <div className="flex flex-col items-center gap-2 py-8 text-center">
+              <History
+                className="size-6 text-on-surface-variant"
+                aria-hidden="true"
+              />
+              <p className="text-body-md text-on-surface-variant">
+                No practice sessions yet. Start a project deep-dive to build your
+                history.
+              </p>
+              <Link
+                href="/setup"
+                className="text-body-md font-medium text-primary transition-colors hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >
+                Start your first session
+              </Link>
+            </div>
+          </Card>
+        </Reveal>
+      </div>
     </div>
   );
 }
