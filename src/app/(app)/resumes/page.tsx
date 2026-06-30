@@ -1,15 +1,9 @@
 import { getUser } from "@/lib/auth";
+import { Reveal } from "@/components/motion/reveal";
 import { ResumeProfileSchema } from "@/lib/resume/extraction";
 import { listResumes } from "@/lib/resume/repository";
 
-import {
-  addResumeAction,
-  analyzeResumeAction,
-  deleteResumeAction,
-  selectResumeAction,
-} from "./actions";
-import { ResumeAnalysis } from "./resume-analysis";
-import { ResumeDetail } from "./resume-detail";
+import { addResumeAction, deleteResumeAction, selectResumeAction } from "./actions";
 import { ResumeList } from "./resume-list";
 import { ResumeUploadForm } from "./resume-upload-form";
 import type { ResumeSummary } from "./types";
@@ -30,21 +24,25 @@ export default async function ResumesPage() {
       profile: parsed.success ? parsed.data : null,
     };
   });
-  const active = resumes.find((resume) => resume.isActive) ?? null;
 
   return (
-    <div className="mx-auto grid max-w-[1400px] gap-gutter p-gutter md:grid-cols-[340px_1fr] md:items-start">
-      <section
-        aria-label="Resume library"
-        className="space-y-8 md:sticky md:top-gutter md:max-h-[calc(100vh-3rem)] md:overflow-y-auto md:pr-1"
-      >
-        <div>
-          <h2 className="mb-3 font-heading text-section-title text-on-surface">
+    <div className="mx-auto max-w-4xl p-gutter">
+      <Reveal>
+        <h1 className="font-heading text-display-md text-on-surface">Resumes</h1>
+        <p className="mt-1 max-w-prose text-body-lg text-on-surface-variant">
+          Add a resume, then open it to see Companion&apos;s claim analysis.
+        </p>
+      </Reveal>
+
+      <div className="mt-8 grid gap-gutter md:grid-cols-[minmax(0,340px)_1fr] md:items-start">
+        <Reveal delay={0.06} className="rounded-xl border border-outline-variant bg-surface-container-lowest p-5">
+          <h2 className="mb-4 font-heading text-section-title text-on-surface">
             Add a resume
           </h2>
           <ResumeUploadForm action={addResumeAction} />
-        </div>
-        <div>
+        </Reveal>
+
+        <Reveal delay={0.12}>
           <h2 className="mb-3 font-heading text-section-title text-on-surface">
             Saved resumes
           </h2>
@@ -53,22 +51,8 @@ export default async function ResumesPage() {
             onSelect={selectResumeAction}
             onDelete={deleteResumeAction}
           />
-        </div>
-      </section>
-
-      <section
-        aria-label="Active resume"
-        className="min-w-0 md:border-l md:border-outline-variant md:pl-gutter"
-      >
-        <ResumeDetail resume={active} />
-        {active ? (
-          <ResumeAnalysis
-            resumeId={active.id}
-            profile={active.profile}
-            action={analyzeResumeAction}
-          />
-        ) : null}
-      </section>
+        </Reveal>
+      </div>
     </div>
   );
 }

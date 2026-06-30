@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import { TriangleAlert } from "lucide-react";
 import { useActionState } from "react";
 
@@ -27,6 +28,7 @@ export function ResumeAnalysis({
   action: AnalyzeResumeAction;
 }) {
   const [state, formAction, pending] = useActionState(action, null);
+  const reduce = useReducedMotion();
 
   if (!profile) {
     return (
@@ -56,6 +58,19 @@ export function ResumeAnalysis({
   const verified = profile.claims.filter((c) => c.status === "verified").length;
   const needsEvidence = profile.claims.length - verified;
 
+  const stagger = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.06 } },
+  };
+  const item = {
+    hidden: { opacity: 0, y: 12 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const },
+    },
+  };
+
   return (
     <section className="mt-8 space-y-5" aria-label="Project claims analysis">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -81,14 +96,19 @@ export function ResumeAnalysis({
         </details>
       ) : null}
 
-      <ul className="grid gap-3 lg:grid-cols-2">
+      <motion.ul
+        className="grid gap-3 lg:grid-cols-2"
+        variants={reduce ? undefined : stagger}
+        initial={reduce ? false : "hidden"}
+        animate={reduce ? false : "show"}
+      >
         {profile.claims.map((claim, index) => {
           const isVerified = claim.status === "verified";
           return (
-            <li key={index}>
+            <motion.li key={index} variants={reduce ? undefined : item}>
               <article
                 className={cn(
-                  "h-full rounded-lg border border-l-2 border-outline-variant bg-surface-container-lowest p-4",
+                  "h-full rounded-lg border border-l-2 border-outline-variant bg-surface-container-lowest p-4 transition-colors hover:border-outline",
                   isVerified ? "border-l-primary" : "border-l-evidence",
                 )}
               >
@@ -146,10 +166,10 @@ export function ResumeAnalysis({
                   </details>
                 ) : null}
               </article>
-            </li>
+            </motion.li>
           );
         })}
-      </ul>
+      </motion.ul>
     </section>
   );
 }

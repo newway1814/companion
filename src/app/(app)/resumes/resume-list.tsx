@@ -1,6 +1,7 @@
 "use client";
 
-import { FileText, Trash2 } from "lucide-react";
+import { ArrowRight, FileText, Trash2 } from "lucide-react";
+import Link from "next/link";
 import * as React from "react";
 
 import { Button } from "@/components/ui/button";
@@ -34,13 +35,16 @@ export function ResumeList({
         <li
           key={resume.id}
           className={cn(
-            "rounded-lg border p-3",
+            "rounded-lg border p-3 transition-colors",
             resume.isActive
-              ? "border-primary bg-surface-container-low"
-              : "border-outline-variant",
+              ? "border-primary/60 bg-surface-container-low"
+              : "border-outline-variant hover:border-outline hover:bg-surface-container-low/60",
           )}
         >
-          <div className="flex items-start gap-2">
+          <Link
+            href={`/resumes/${resume.id}`}
+            className="group flex items-start gap-2 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          >
             <FileText
               className="mt-0.5 size-4 shrink-0 text-on-surface-variant"
               aria-hidden="true"
@@ -60,8 +64,13 @@ export function ResumeList({
               <span className="text-label-caps uppercase tracking-wide text-primary">
                 Active
               </span>
-            ) : null}
-          </div>
+            ) : (
+              <ArrowRight
+                className="mt-0.5 size-4 shrink-0 text-on-surface-variant opacity-0 transition-opacity group-hover:opacity-100"
+                aria-hidden="true"
+              />
+            )}
+          </Link>
 
           <div className="mt-2 flex flex-wrap items-center gap-2">
             {!resume.isActive ? (
