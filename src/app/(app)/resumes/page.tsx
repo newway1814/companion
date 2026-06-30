@@ -33,8 +33,11 @@ export default async function ResumesPage() {
   const active = resumes.find((resume) => resume.isActive) ?? null;
 
   return (
-    <div className="grid gap-gutter p-gutter md:grid-cols-[320px_1fr]">
-      <section aria-label="Resume library" className="space-y-8">
+    <div className="mx-auto grid max-w-[1400px] gap-gutter p-gutter md:grid-cols-[340px_1fr] md:items-start">
+      <section
+        aria-label="Resume library"
+        className="space-y-8 md:sticky md:top-gutter md:max-h-[calc(100vh-3rem)] md:overflow-y-auto md:pr-1"
+      >
         <div>
           <h2 className="mb-3 font-heading text-section-title text-on-surface">
             Add a resume
@@ -55,7 +58,7 @@ export default async function ResumesPage() {
 
       <section
         aria-label="Active resume"
-        className="md:border-l md:border-outline-variant md:pl-gutter"
+        className="min-w-0 md:border-l md:border-outline-variant md:pl-gutter"
       >
         <ResumeDetail resume={active} />
         {active ? (

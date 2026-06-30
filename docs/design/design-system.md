@@ -13,20 +13,28 @@ The earlier Stitch mockups under `docs/design/stitch/` are historical reference 
 
 ## Brand & direction
 
-**Modern Academic Rigor** — a focused research-studio feel for university candidates doing high-stakes prep: calm, precise, slightly high-pressure, utility over "magical AI" tropes. This is the current direction and the starting point for future iteration; it is not frozen.
+**Focused Cockpit** — a dark, high-contrast "serious instrument" for high-stakes interview prep: spacious and modern (examtaker-inspired polish + smooth motion) over a near-black canvas, calm and focused rather than busy. Evolved from the original light "Modern Academic Rigor" MVP; the semantic colour roles carried over.
 
-## Colour
+## Colour (dark)
 
-Warm-academic foundation with semantic accents. Current token values (in `globals.css`):
+Near-black canvas, layered panels, one vivid accent. Token values live in `globals.css`:
 
-- **Surfaces:** off-white background (`--color-background` `#f9f9ff`), white cards (`surface-container-lowest`), tonal grays for utility panels. Ink-navy text (`on-surface` `#141b2b`) rather than pure black.
-- **Primary (action):** deep teal — `primary` `#005c55`, `primary-container` `#0f766e`, `on-primary` white.
-- **Evidence (amber):** `evidence` `#f59e0b` / `on-evidence` `#92400e`, used for highlighting tested claims and transcript evidence.
-- **Challenge / error (red):** `error` `#ba1a1a` and container, used for the live-challenge / gap states.
-- **Success (green):** `success` `#0e8a16`.
-- **Outlines:** 1px borders (`outline-variant`) instead of heavy shadows.
+- **Surfaces:** canvas `--color-background` `#0e1116`; raised panels/cards `surface-container-lowest` `#161b22`, stepping up through `surface-container-*`. Hairlines `outline-variant` `#2a313c` (no heavy shadows).
+- **Text:** `on-surface` `#e6edf3`; secondary `on-surface-variant` `#9aa4b2`.
+- **Primary (action, electric teal):** `primary` `#2dd4bf` (bright — accent text/icons/active states), `primary-container` `#0d9488` (button fill), `on-primary` `#04211c` (dark text on teal; hover brightens fill to `primary`).
+- **Evidence (amber):** `evidence` `#e7b24a`, `on-evidence` `#f5c77a` (light text on dark amber tints).
+- **Challenge / error (red):** `error` `#f0635e`, `error-container` `#5a1a1a`, `on-error-container` `#fca5a0`.
+- **Success (green):** `success` `#3fb950`.
 
-When the palette evolves, change the token values here + in `globals.css`; the semantic names stay.
+When the palette evolves, change the token values here + in `globals.css`; the semantic names stay. A light theme is a future option (see backlog).
+
+## Motion
+
+Smooth, purposeful motion via **framer-motion**. Intensity scales with surface:
+
+- **Marketing / auth / landing:** expressive — entrance fade-ups and staggered reveals (`src/components/motion/reveal.tsx`), an ambient accent glow. This is the "wow" layer.
+- **Inside the app (interview room, management):** restrained, functional — smooth hover/press, route/state transitions, the challenge moment animating in. High-focus surfaces must not distract.
+- Always respect `prefers-reduced-motion` (the `Reveal` primitive renders static when set). Easing: `[0.22, 1, 0.36, 1]`, ~0.4–0.5s.
 
 ## Typography
 
@@ -53,6 +61,6 @@ When the palette evolves, change the token values here + in `globals.css`; the s
 
 Track here as they come up:
 
-- **Dark mode** — token set + `@theme` strategy (not yet built).
-- Palette refresh / brand evolution (direction TBD).
+- **Light theme option** — the app is dark-first ("Focused Cockpit"); a light theme could return as an opt-in via a `[data-theme]` token override.
+- Roll the dark re-skin polish through every screen (landing + sign-in done first; tune contrast/motion per screen).
 - Component coverage: skeleton/loading states, toasts, modals/dialogs.
