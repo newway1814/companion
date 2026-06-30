@@ -1,5 +1,7 @@
 import { Timer, User } from "lucide-react";
 
+import { Reveal } from "@/components/motion/reveal";
+
 import { AnswerComposer } from "./answer-composer";
 import { EvidencePanel } from "./evidence-panel";
 import type { InterviewRoomView } from "./room-view";
@@ -70,7 +72,11 @@ export function InterviewRoom({
               </div>
             </div>
             {view.currentQuestion ? (
-              <div className="relative rounded border border-outline-variant bg-surface p-4">
+              <Reveal
+                key={view.currentQuestion.id}
+                y={8}
+                className="relative block rounded border border-outline-variant bg-surface p-4"
+              >
                 <span
                   className="absolute inset-y-0 left-0 w-1 rounded-l bg-primary-container"
                   aria-hidden="true"
@@ -78,7 +84,7 @@ export function InterviewRoom({
                 <p className="ml-2 text-body-lg leading-relaxed text-on-surface">
                   {view.currentQuestion.text}
                 </p>
-              </div>
+              </Reveal>
             ) : null}
           </div>
 
