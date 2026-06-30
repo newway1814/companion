@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 import { AiSafetyError } from "@/lib/ai/gateway";
 import { getUser } from "@/lib/auth";
@@ -31,6 +32,8 @@ export async function addResumeAction(
   const file = formData.get("file");
   const pasted = String(formData.get("text") ?? "").trim();
 
+  let createdId: string;
+
   if (file instanceof File && file.size > 0) {
     const validation = validateResumeUpload({ type: file.type, size: file.size });
     if (!validation.ok) return { error: validation.error };
@@ -51,6 +54,7 @@ export async function addResumeAction(
       source: "UPLOAD",
       rawText,
     });
+    createdId = resume.id;
     try {
       const path = await uploadResumeFile(user.id, resume.id, file);
       await setResumeStoragePath(user.id, resume.id, path);
@@ -63,18 +67,20 @@ export async function addResumeAction(
       );
     }
   } else if (pasted) {
-    await createResume({
+    const resume = await createResume({
       userId: user.id,
       filename: "Pasted resume",
       source: "PASTE",
       rawText: pasted,
     });
+    createdId = resume.id;
   } else {
     return { error: "Add a PDF or paste your resume text." };
   }
 
+  // Open the new resume's analysis page.
   revalidatePath("/resumes");
-  return { error: undefined };
+  redirect(`/resumes/${createdId}`);
 }
 
 export async function analyzeResumeAction(
@@ -99,6 +105,7 @@ export async function analyzeResumeAction(
   }
 
   revalidatePath("/resumes");
+  revalidatePath(`/resumes/${id}`);
   return { error: undefined };
 }
 

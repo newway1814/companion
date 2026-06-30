@@ -141,7 +141,8 @@ exports[`InterviewRoom shell > matches the three-area workspace composition 1`] 
           </div>
         </div>
         <div
-          class="relative rounded border border-outline-variant bg-surface p-4"
+          class="relative block rounded border border-outline-variant bg-surface p-4"
+          style="opacity: 0; transform: translateY(8px);"
         >
           <span
             aria-hidden="true"
