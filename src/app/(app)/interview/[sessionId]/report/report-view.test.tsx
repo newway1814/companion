@@ -84,7 +84,10 @@ describe("ReportView", () => {
   it("renders readiness and the key coaching sections once generated", () => {
     renderReport();
 
-    expect(screen.getByText(/68/)).toBeInTheDocument();
+    expect(screen.getByRole("progressbar", { name: /readiness/i })).toHaveAttribute(
+      "aria-valuenow",
+      "68",
+    );
     expect(screen.getByText(/^solid$/i)).toBeInTheDocument();
     expect(screen.getByText(/reduced api latency by 40%/i)).toBeInTheDocument();
     expect(
