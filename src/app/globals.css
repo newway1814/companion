@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
 /*
- * "Focused Cockpit" dark design system — the UI source of truth is
- * docs/design/design-system.md (ADR 0003). Token names are stable; only the
- * values change to re-skin the app. Semantic roles: teal = action, amber =
- * evidence, red = challenge, green = success.
+ * "Focused Cockpit" dark design system — the UI source of truth is the root
+ * DESIGN.md + PRODUCT.md, managed via the impeccable skill (ADR 0004). This
+ * file is the normative token layer they describe. Token names are stable;
+ * only the values change to re-skin the app. Semantic roles: teal = action,
+ * amber = evidence, red = challenge, green = success.
  */
 @theme {
   /* Fonts (CSS vars supplied by next/font in layout.tsx) */

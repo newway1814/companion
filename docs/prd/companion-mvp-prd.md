@@ -1,6 +1,6 @@
 # Companion MVP PRD
 
-> **Status: historical MVP spec.** The MVP has shipped. UI/UX authority has moved from Stitch to the in-repo design system (`docs/design/design-system.md`) per [ADR 0003](../adr/0003-adopt-in-repo-design-system.md). The "Source of truth: …stitch…" references below are retained as the MVP's visual provenance, not as current authority.
+> **Status: historical MVP spec.** The MVP has shipped. UI/UX authority now lives in the impeccable-managed `DESIGN.md` + `PRODUCT.md` at the repo root ([ADR 0004](../adr/0004-adopt-impeccable-design-md-as-ui-source-of-truth.md), superseding [ADR 0003](../adr/0003-adopt-in-repo-design-system.md)). The "Source of truth: …stitch…" references below are retained as the MVP's visual provenance, not as current authority.
 
 ## 1. Product Summary
 
