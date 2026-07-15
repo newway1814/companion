@@ -2,6 +2,19 @@
 .claude/skills/
 skills-lock.json
 
+# --- impeccable design skill ---
+# Vendored skill also installs into .github/skills; keep only the design sidecar.
+.github/skills/
+.impeccable/*
+!.impeccable/design.json
+
+# --- Local personal files (never commit: real resumes, scratch) ---
+/rendercv/
+/tmp/
+/Tejas_Gandhi_*
+/TejasGandhi_*
+/*_resume_*.md
+
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
