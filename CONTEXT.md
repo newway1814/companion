@@ -69,8 +69,8 @@ Companion's primary UI feel: calm, polished, focused, and slightly high-pressure
 _Avoid_: Study app, SaaS dashboard, playful app
 
 **Design system (UI source of truth)**:
-The in-repo design system at `docs/design/design-system.md` plus the design tokens in `src/app/globals.css` — authoritative for visual and interaction design ([ADR 0003](docs/adr/0003-adopt-in-repo-design-system.md)). New UI is designed against it directly. The Stitch mockups under `docs/design/stitch/` are historical MVP reference only.
-_Avoid_: Codex prototype, treating Stitch as authoritative, loose redesign outside the system
+The impeccable-managed `DESIGN.md` + `PRODUCT.md` at the repo root, plus the design tokens in `src/app/globals.css` — authoritative for visual, interaction, and strategic design ([ADR 0004](docs/adr/0004-adopt-impeccable-design-md-as-ui-source-of-truth.md), superseding [ADR 0003](docs/adr/0003-adopt-in-repo-design-system.md)). New UI is designed with the impeccable skill (`/impeccable …`) against `DESIGN.md`. The older `docs/design/design-system.md` is a superseded pointer; the Stitch mockups under `docs/design/stitch/` are historical MVP reference only.
+_Avoid_: Codex prototype, treating Stitch or design-system.md as authoritative, loose redesign outside the system
 
 **Evidence panel**:
 A subtle interview-room panel showing the current probing focus and the resume or target-role snippet being tested, without exposing full internal reasoning.

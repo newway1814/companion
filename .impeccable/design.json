@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-07T00:00:00.000Z",
+  "title": "Design System: Companion",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Electric Teal", "canonical": "#2dd4bf", "tonalRamp": ["#03201c", "#054a42", "#0d9488", "#12b3a3", "#2dd4bf", "#5fe0d0", "#8fe9dd", "#c7f5ef"] },
+      "primary-container": { "role": "primary", "displayName": "Deep Teal (Button Fill)", "canonical": "#0d9488", "tonalRamp": ["#03201c", "#054a42", "#0a7a70", "#0d9488", "#12b3a3", "#2dd4bf", "#7ee6d9", "#c7f5ef"] },
+      "evidence": { "role": "secondary", "displayName": "Evidence Amber", "canonical": "#e7b24a", "tonalRamp": ["#2a1a00", "#4a3007", "#7a5210", "#b7791f", "#e7b24a", "#f0c56f", "#f5d79a", "#faead0"] },
+      "tertiary": { "role": "tertiary", "displayName": "Signal Blue", "canonical": "#4d8df0", "tonalRamp": ["#06121f", "#0f2b52", "#1e5fe7", "#3a7aec", "#4d8df0", "#79abf4", "#a6c7f8", "#dce6ff"] },
+      "background": { "role": "neutral", "displayName": "Cabin Black", "canonical": "#0e1116", "tonalRamp": ["#0a0d11", "#0e1116", "#161b22", "#1f2630", "#2b333f", "#3a434f", "#5b6675", "#9aa4b2"] },
+      "surface-container-lowest": { "role": "neutral", "displayName": "Instrument Graphite", "canonical": "#161b22", "tonalRamp": ["#0a0d11", "#0e1116", "#161b22", "#1b222b", "#1f2630", "#252d38", "#2b333f", "#3a434f"] },
+      "on-surface": { "role": "neutral", "displayName": "Readout White", "canonical": "#e6edf3", "tonalRamp": ["#2a313c", "#3a434f", "#5b6675", "#7c8798", "#9aa4b2", "#c3cbd6", "#e6edf3", "#f4f7fa"] },
+      "on-surface-variant": { "role": "neutral", "displayName": "Muted Steel", "canonical": "#9aa4b2", "tonalRamp": ["#2a313c", "#3a434f", "#5b6675", "#7c8798", "#9aa4b2", "#b6bec9", "#d3d9e1", "#eef1f5"] },
+      "error": { "role": "status", "displayName": "Challenge Red", "canonical": "#f0635e", "tonalRamp": ["#2a0606", "#5a1a1a", "#8a2b28", "#c04440", "#f0635e", "#f48b87", "#f9b3b0", "#fddad9"] },
+      "success": { "role": "status", "displayName": "Success Green", "canonical": "#3fb950", "tonalRamp": ["#04210a", "#0a3d16", "#166f2a", "#2a9a3f", "#3fb950", "#6bcc78", "#9adda3", "#cdeed2"] }
+    },
+    "typographyMeta": {
+      "display-lg": { "displayName": "Display Large", "purpose": "Page-level titles: report headline, landing hero. Ceiling 2.5rem." },
+      "section-title": { "displayName": "Section Title", "purpose": "Workhorse heading: panel titles, card titles, current question framing." },
+      "body-lg": { "displayName": "Body Large", "purpose": "Primary reading text: question, transcript answers, report prose. 65-75ch." },
+      "label-caps": { "displayName": "Label Caps", "purpose": "Uppercase metadata and speaker labels, chip and badge text." },
+      "mono-label": { "displayName": "Mono Label", "purpose": "Machine-generated content only: IDs, timestamps, technical references." }
+    },
+    "shadows": [
+      { "name": "none", "value": "none", "purpose": "The No-Shadow Rule. Depth is tonal layering + 1px hairlines, never a cast shadow." }
+    ],
+    "motion": [
+      { "name": "ease-cockpit", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Default ease-out for state, route, and reveal transitions. ~0.4-0.5s." },
+      { "name": "duration-standard", "value": "450ms", "purpose": "Standard transition duration for entrances and state changes." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "768px" },
+      { "name": "container-max", "value": "1440px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single strongest action on a screen. Deep teal fill, brightens on hover.",
+      "html": "<button class=\"ds-btn-primary\">Start interview</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border: none; border-radius: 4px; background: var(--color-primary-container, #0d9488); color: var(--color-on-primary, #04211c); font-family: Inter, sans-serif; font-size: 0.9375rem; font-weight: 500; cursor: pointer; transition: background 200ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-primary:hover { background: var(--color-primary, #2dd4bf); } .ds-btn-primary:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-surface, #0e1116), 0 0 0 4px var(--color-primary, #2dd4bf); }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Bordered, low-emphasis alternative to the primary action.",
+      "html": "<button class=\"ds-btn-secondary\">Cancel</button>",
+      "css": ".ds-btn-secondary { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 40px; padding: 0 16px; border: 1px solid var(--color-outline-variant, #2a313c); border-radius: 4px; background: var(--color-surface-container-lowest, #161b22); color: var(--color-on-surface, #e6edf3); font-family: Inter, sans-serif; font-size: 0.9375rem; font-weight: 500; cursor: pointer; transition: background 200ms cubic-bezier(0.22,1,0.36,1); } .ds-btn-secondary:hover { background: var(--color-surface-container-low, #1b222b); } .ds-btn-secondary:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--color-surface, #0e1116), 0 0 0 4px var(--color-primary, #2dd4bf); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Standard field. Border shifts to teal with a soft ring on focus.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Paste your target role…\" />",
+      "css": ".ds-input { height: 40px; width: 260px; padding: 0 12px; border: 1px solid var(--color-outline-variant, #2a313c); border-radius: 4px; background: var(--color-surface-container-lowest, #161b22); color: var(--color-on-surface, #e6edf3); font-family: Inter, sans-serif; font-size: 0.9375rem; } .ds-input::placeholder { color: color-mix(in srgb, var(--color-on-surface-variant, #9aa4b2) 60%, transparent); } .ds-input:focus-visible { outline: none; border-color: var(--color-primary, #2dd4bf); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary, #2dd4bf) 20%, transparent); }"
+    },
+    {
+      "name": "Evidence Chip",
+      "kind": "chip",
+      "refersTo": "evidence-chip",
+      "description": "Amber tag for transcript evidence and resume snippets. Amber only — never teal or red.",
+      "html": "<span class=\"ds-evidence-chip\">Resume claim</span>",
+      "css": ".ds-evidence-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--color-evidence, #e7b24a) 15%, transparent); color: var(--color-on-evidence, #f5c77a); font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Status Badge (Missing)",
+      "kind": "custom",
+      "refersTo": "status-badge",
+      "description": "Status pill with a mandatory leading icon so status is never color-only. Verified/Missing/Incomplete/Warning variants.",
+      "html": "<span class=\"ds-status-badge\"><svg viewBox=\"0 0 24 24\" width=\"14\" height=\"14\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linecap=\"round\"><path d=\"M18 6 6 18M6 6l12 12\"/></svg>Missing</span>",
+      "css": ".ds-status-badge { display: inline-flex; align-items: center; gap: 6px; padding: 2px 8px; border-radius: 4px; background: color-mix(in srgb, var(--color-error, #f0635e) 15%, transparent); color: var(--color-on-error-container, #fca5a0); font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }"
+    },
+    {
+      "name": "Claim Card",
+      "kind": "card",
+      "refersTo": "claim-card",
+      "description": "Resume project claim card with a 4px left status accent (teal = verified, amber = hypothesis) plus a full hairline border.",
+      "html": "<div class=\"ds-claim-card\"><h4 class=\"ds-claim-title\">Real-time sync engine</h4><p class=\"ds-claim-body\">Reduced p95 latency — baseline and measurement method not yet stated.</p></div>",
+      "css": ".ds-claim-card { max-width: 340px; padding: 16px; border: 1px solid var(--color-outline-variant, #2a313c); border-left: 4px solid var(--color-evidence, #e7b24a); border-radius: 8px; background: var(--color-surface-container-lowest, #161b22); } .ds-claim-title { margin: 0 0 4px; font-family: 'IBM Plex Sans', sans-serif; font-size: 1.125rem; font-weight: 600; color: var(--color-on-surface, #e6edf3); } .ds-claim-body { margin: 0; font-family: Inter, sans-serif; font-size: 0.9375rem; line-height: 1.5rem; color: var(--color-on-surface-variant, #9aa4b2); }"
+    },
+    {
+      "name": "Transcript Row (Active)",
+      "kind": "custom",
+      "refersTo": "transcript-row",
+      "description": "A single turn in the transcript timeline. Active turn gets a wash + aria-current; upcoming is dimmed; state never relies on color alone.",
+      "html": "<div class=\"ds-transcript-row\"><span class=\"ds-transcript-speaker\">Interviewer</span><span class=\"ds-transcript-text\">What was the baseline before your change, and what did you personally build?</span></div>",
+      "css": ".ds-transcript-row { display: flex; flex-direction: column; gap: 2px; max-width: 420px; padding: 8px 16px; border-radius: 8px; background: var(--color-surface-container-low, #1b222b); } .ds-transcript-speaker { font-family: Inter, sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-on-surface-variant, #9aa4b2); } .ds-transcript-text { font-family: Inter, sans-serif; font-size: 0.9375rem; line-height: 1.5rem; color: var(--color-on-surface, #e6edf3); }"
+    },
+    {
+      "name": "Nav Item (Active)",
+      "kind": "nav",
+      "refersTo": "nav",
+      "description": "Sidebar nav row. Active = surface wash + semibold + teal icon/text; inactive = muted steel resolving to readout white on hover.",
+      "html": "<a class=\"ds-nav-item ds-nav-active\" href=\"#\"><svg viewBox=\"0 0 24 24\" width=\"20\" height=\"20\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"3\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"3\" width=\"7\" height=\"7\"/><rect x=\"14\" y=\"14\" width=\"7\" height=\"7\"/><rect x=\"3\" y=\"14\" width=\"7\" height=\"7\"/></svg>Dashboard</a>",
+      "css": ".ds-nav-item { display: inline-flex; align-items: center; gap: 12px; width: 220px; padding: 8px 16px; border-radius: 8px; font-family: Inter, sans-serif; font-size: 0.9375rem; text-decoration: none; color: var(--color-on-surface-variant, #9aa4b2); transition: background 200ms, color 200ms; } .ds-nav-item:hover { background: var(--color-surface-container-low, #1b222b); color: var(--color-on-surface, #e6edf3); } .ds-nav-active { background: var(--color-surface-container-low, #1b222b); font-weight: 600; color: var(--color-primary, #2dd4bf); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Cockpit at Night",
+    "overview": "Companion is an instrument panel in a darkened cabin. The candidate is flying the interview; surfaces recede into near-black so the readouts, the live question, and the single electric-teal glow of what's active carry the whole cabin. Depth comes from tonal layering and 1px hairlines, never shadows. Density is high and IDE-like. Color is strictly semantic and rationed: teal = action/live, amber = evidence, red = challenge/gap, green = success. It never reads as a hiring verdict, a playful study app, a chatbot thread, or magical-AI spectacle.",
+    "keyCharacteristics": [
+      "Near-black canvas (#0e1116) with panels layered up in tonal steps, not shadows.",
+      "One vivid accent — electric teal — reserved for action and the live/active state.",
+      "1px hairline borders (#2a313c) separate panels; depth is tonal, not lifted.",
+      "Three semantic status colors (amber / red / green), each paired with a non-color signal.",
+      "Precise, dense, workspace-grade layout capped at 1440px on an 8px rhythm.",
+      "Typography splits work: IBM Plex Sans structures, Inter reads, IBM Plex Mono for IDs/metadata."
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Electric teal is the only action/live color. It appears on ≤10% of any screen. Its rarity is what makes 'active' instantly readable.", "section": "colors" },
+      { "name": "The Semantic-Color Rule", "body": "Teal = action/live, amber = evidence, red = challenge/gap, green = success. A color is never chosen for decoration or variety.", "section": "colors" },
+      { "name": "The No-Pure-Black, No-Pure-White Rule", "body": "The canvas is #0e1116, not #000; text is #e6edf3, not #fff. Softened contrast keeps long dark sessions calm.", "section": "colors" },
+      { "name": "The Mono-Means-Machine Rule", "body": "IBM Plex Mono is reserved for machine-generated content. Human prose is never set in mono; the typeface signals who is speaking.", "section": "typography" },
+      { "name": "The Display-Ceiling Rule", "body": "Display Large tops out at 2.5rem/40px. This is an instrument panel, not a marketing hero.", "section": "typography" },
+      { "name": "The No-Shadow Rule", "body": "Drop shadows and glassmorphism are forbidden. Raised surfaces step up the graphite ramp with a hairline border.", "section": "elevation" },
+      { "name": "The Focus-Is-Teal Rule", "body": "Selection and focus are shown by a 2px teal border/ring, not by growing, shadowing, or scaling.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do keep electric teal (#2dd4bf) rare — one live/active signal per view, ≤10% of the surface.",
+      "Do convey depth with tonal steps on the graphite ramp (#161b22 → #2b333f) plus 1px outline-variant (#2a313c) borders.",
+      "Do pair every status with a non-color signal — an icon, label, or shape.",
+      "Do use IBM Plex Mono only for machine output; set all human prose in Inter.",
+      "Do show focus and selection with a 2px teal border/ring on a surface offset.",
+      "Do keep the interview room a three-pane workspace partitioned by borders.",
+      "Do keep body text at Readout White (#e6edf3) on Cabin Black; bump toward ink before lightening it."
+    ],
+    "donts": [
+      "Don't ship a generic SaaS dashboard — no identical icon-heading-text card grids, hero-metric tiles, or gradient-and-glow chrome.",
+      "Don't make it a playful edtech app — no mascots, confetti, streaks, badges, or bubbly friendliness.",
+      "Don't turn the interview room into a chatbot thread — a centered message list with a text box is the wrong mental model.",
+      "Don't use magical-AI spectacle — no sparkles, glowing orbs, animated avatars, or exposed chain-of-thought.",
+      "Don't use drop shadows or glassmorphism for elevation; step the tonal ramp instead.",
+      "Don't use pure black (#000) or pure white (#fff).",
+      "Don't use color as decoration; every hue must resolve to action, evidence, challenge, or success.",
+      "Don't add a bare colored side-stripe as an accent; the only sanctioned left bar is the Claim Card status accent, always paired with a full border.",
+      "Don't present any element as a hiring verdict, pass/fail, or employability score."
+    ]
+  }
+}
