@@ -14,9 +14,9 @@ function PrivacyReassurance() {
     <div className="mt-8 flex items-start gap-3 rounded-lg border border-outline-variant bg-surface-container p-4">
       <Lock className="mt-0.5 size-5 shrink-0 text-primary" aria-hidden="true" />
       <div>
-        <p className="mb-1 font-semibold text-on-surface">Privacy guaranteed</p>
+        <p className="mb-1 font-semibold text-on-surface">Private by default</p>
         <p className="text-body-md text-on-surface-variant">
-          Your resumes and transcripts stay private. We do not use your data to
+          Your resumes and transcripts stay yours, and we do not use your data to
           train public models.
         </p>
       </div>
@@ -51,19 +51,21 @@ export function SignInForm() {
 
   if (status === "sent") {
     return (
-      <div role="status" className="text-center">
-        <Mail className="mx-auto mb-4 size-8 text-primary" aria-hidden="true" />
-        <h2 className="mb-2 font-heading text-headline-sm text-on-surface">
+      <div role="status">
+        <span className="mb-6 inline-flex size-12 items-center justify-center rounded-full bg-primary-container/15 text-primary">
+          <Mail className="size-6" aria-hidden="true" />
+        </span>
+        <h1 className="mb-3 font-heading text-display-md text-balance text-on-surface">
           Check your email
-        </h2>
-        <p className="text-body-md text-on-surface-variant">
+        </h1>
+        <p className="text-body-lg text-on-surface-variant">
           We sent a sign-in link to{" "}
           <span className="font-medium text-on-surface">{email}</span>. Click it
-          to continue.
+          to continue — it expires in a few minutes.
         </p>
         <Button
           variant="ghost"
-          className="mt-4"
+          className="mt-6 -ml-4"
           onClick={() => setStatus("idle")}
         >
           Use a different email
@@ -74,6 +76,16 @@ export function SignInForm() {
 
   return (
     <div>
+      <div className="mb-8">
+        <h1 className="font-heading text-display-md text-balance text-on-surface">
+          Your interviewer is ready.
+        </h1>
+        <p className="mt-3 text-body-lg text-on-surface-variant">
+          Enter your email and we&apos;ll send a one-time sign-in link — no
+          password to remember.
+        </p>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4" noValidate>
         <div className="space-y-1.5">
           <label
