@@ -1,0 +1,17 @@
+# Vercel CLI deploys upload the working dir and do NOT read .gitignore, so
+# exclude local/private files explicitly here.
+
+# Local personal files — never deploy (real resumes, scratch)
+/rendercv/
+/tmp/
+/Tejas_Gandhi_*
+/TejasGandhi_*
+/*_resume_*.md
+
+# Agent tooling / local skill installs
+.claude/
+.impeccable/
+.github/skills/
+
+# Docs are not imported at runtime
+/docs/
