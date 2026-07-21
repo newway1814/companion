@@ -1,13 +1,31 @@
 "use client";
 
+import { animate, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, CircleAlert, Copy, Sparkles } from "lucide-react";
 import Link from "next/link";
 import * as React from "react";
 
+import { Reveal } from "@/components/motion/reveal";
 import { Button } from "@/components/ui/button";
 import type { CoachingReport } from "@/lib/interview/report";
 
 import type { GenerateReportAction } from "./types";
+
+/** Counts up to `to` on mount (respects reduced motion). */
+function CountUp({ to }: { to: number }) {
+  const reduce = useReducedMotion();
+  const [value, setValue] = React.useState(reduce ? to : 0);
+  React.useEffect(() => {
+    if (reduce) return;
+    const controls = animate(0, to, {
+      duration: 0.9,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setValue(Math.round(v)),
+    });
+    return () => controls.stop();
+  }, [to, reduce]);
+  return <>{value}</>;
+}
 
 export type ReportMeta = { roleTitle: string; completedAtISO: string };
 
@@ -100,10 +118,51 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="mt-8">
+    <Reveal as="section" className="mt-8" y={12}>
       <h2 className="font-heading text-section-title text-on-surface">{title}</h2>
       <div className="mt-3">{children}</div>
-    </section>
+    </Reveal>
+  );
+}
+
+function ReadinessMeter({
+  score,
+  band,
+}: {
+  score: number;
+  band: CoachingReport["readiness"]["band"];
+}) {
+  const reduce = useReducedMotion();
+  return (
+    <div
+      role="progressbar"
+      aria-label="Readiness score"
+      aria-valuenow={score}
+      aria-valuemin={0}
+      aria-valuemax={100}
+      className="w-full min-w-[180px] rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 sm:w-auto"
+    >
+      <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
+        Readiness score
+      </p>
+      <div className="mt-1 flex items-baseline gap-2">
+        <span className="font-heading text-display-md leading-none text-on-surface">
+          <CountUp to={score} />
+          <span className="text-headline-sm text-on-surface-variant">/100</span>
+        </span>
+        <span className="text-label-caps font-bold uppercase tracking-wide text-primary">
+          {BAND_LABEL[band]}
+        </span>
+      </div>
+      <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-surface-variant">
+        <motion.div
+          className="h-full rounded-full bg-primary"
+          initial={reduce ? false : { width: 0 }}
+          animate={{ width: `${score}%` }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        />
+      </div>
+    </div>
   );
 }
 
@@ -135,18 +194,10 @@ function ReadyReport({
             {meta.roleTitle} · Project deep-dive (mock interview)
           </p>
         </div>
-        <div className="rounded-lg border border-outline-variant bg-surface-container-lowest px-4 py-3 text-right">
-          <p className="text-label-caps uppercase tracking-wide text-on-surface-variant">
-            Readiness score
-          </p>
-          <p className="font-heading text-headline-sm text-on-surface">
-            {report.readiness.score}
-            <span className="text-body-md text-on-surface-variant">/100</span>
-          </p>
-          <span className="text-label-caps font-bold uppercase tracking-wide text-primary">
-            {BAND_LABEL[report.readiness.band]}
-          </span>
-        </div>
+        <ReadinessMeter
+          score={report.readiness.score}
+          band={report.readiness.band}
+        />
       </header>
 
       <p className="mt-6 max-w-prose text-body-lg text-on-surface-variant">
