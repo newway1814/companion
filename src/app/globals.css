@@ -104,3 +104,44 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
+
+/* Public marketing exception. Scoped to the landing page per ADR 0005. */
+.marketing-page {
+  color-scheme: dark;
+  --marketing-accent: #ff6a32;
+}
+
+.marketing-focus:focus-visible {
+  outline: 2px solid var(--marketing-accent);
+  outline-offset: 5px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .marketing-page .story-beat > div {
+    animation: marketing-story-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 38%;
+  }
+
+  @keyframes marketing-story-reveal {
+    from {
+      opacity: 0.28;
+      transform: translateY(28px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marketing-page *,
+  .marketing-page *::before,
+  .marketing-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

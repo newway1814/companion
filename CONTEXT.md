@@ -72,6 +72,10 @@ _Avoid_: Study app, SaaS dashboard, playful app
 The impeccable-managed `DESIGN.md` + `PRODUCT.md` at the repo root, plus the design tokens in `src/app/globals.css` — authoritative for visual, interaction, and strategic design ([ADR 0004](docs/adr/0004-adopt-impeccable-design-md-as-ui-source-of-truth.md), superseding [ADR 0003](docs/adr/0003-adopt-in-repo-design-system.md)). New UI is designed with the impeccable skill (`/impeccable …`) against `DESIGN.md`. The older `docs/design/design-system.md` is a superseded pointer; the Stitch mockups under `docs/design/stitch/` are historical MVP reference only.
 _Avoid_: Codex prototype, treating Stitch or design-system.md as authoritative, loose redesign outside the system
 
+**Marketing landing page**:
+The public acquisition experience for logged-out visitors. It may use a distinct cinematic visual language to demonstrate Companion's adaptive follow-up pressure, while the authenticated interview workspace retains its own design system.
+_Avoid_: Dashboard, signed-in landing entry, product workspace
+
 **Evidence panel**:
 A subtle interview-room panel showing the current probing focus and the resume or target-role snippet being tested, without exposing full internal reasoning.
 _Avoid_: Sidebar, context panel

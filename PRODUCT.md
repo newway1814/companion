@@ -40,6 +40,10 @@ Success looks like: the user completes a first session, reads the report, recogn
 - **The rejected Codex prototype** — must never be revived or borrowed from.
 - **Anything that reads as a hiring/scoring verdict** — no pass/fail, no employability score, no candidate-ranking framing. Readiness is *preparation quality*, never hireability.
 
+## Marketing Surface
+
+The public landing page is an acquisition surface, not part of the interview workspace. It may use a distinct cinematic 3D language to demonstrate adaptive follow-up pressure, while preserving Companion's rigorous, calm, honest voice and all privacy and safety boundaries. This exception is limited to logged-out marketing and does not authorize redesigning authenticated product surfaces.
+
 ## Design Principles
 
 1. **Pressure the answer, not the person.** Every challenge, highlight, and report line stays on the work. The UI can be intense and demanding, but never shaming — no red "wrong" verdicts on the human, only precise gaps in the argument.

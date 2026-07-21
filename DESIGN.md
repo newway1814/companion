@@ -135,6 +135,8 @@ components:
 
 # Design System: Companion
 
+> Scope: This system governs authenticated product surfaces. The public marketing landing page is a separate visual context defined by [ADR 0005](docs/adr/0005-separate-marketing-and-product-visual-languages.md); that exception does not change the authenticated workspace.
+
 ## 1. Overview
 
 **Creative North Star: "The Cockpit at Night"**

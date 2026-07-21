@@ -38,11 +38,33 @@ describe("updateSession", () => {
     withUser(null);
 
     const response = await updateSession(
-      new NextRequest("http://localhost:3000/sign-in"),
+      new NextRequest("http://localhost:3000/"),
     );
 
     expect(locationOf(response)).not.toBe("/sign-in");
     expect(response.status).toBe(200);
+  });
+
+  it("redirects an unauthenticated dashboard request to sign-in", async () => {
+    withUser(null);
+
+    const response = await updateSession(
+      new NextRequest("http://localhost:3000/dashboard"),
+    );
+
+    expect(response.status).toBe(307);
+    expect(locationOf(response)).toBe("/sign-in");
+  });
+
+  it("lets an authenticated request reach the dashboard", async () => {
+    withUser({ id: "user-1" });
+
+    const response = await updateSession(
+      new NextRequest("http://localhost:3000/dashboard"),
+    );
+
+    expect(response.status).toBe(200);
+    expect(response.headers.get("location")).toBeNull();
   });
 
   it("lets an authenticated request through to a protected route", async () => {

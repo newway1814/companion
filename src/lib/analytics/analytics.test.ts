@@ -3,6 +3,9 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import {
   emitFirstSessionCompleted,
   emitImprovedAnswerRead,
+  emitLandingPrimaryCtaSelected,
+  emitLandingStorySelected,
+  emitLandingViewed,
   emitPracticeDrillStarted,
   emitReportViewed,
   emitRepeatSession,
@@ -44,6 +47,18 @@ describe("analytics sink", () => {
 });
 
 describe("success-signal emitters", () => {
+  it("records the public landing journey without sample resume content", async () => {
+    await emitLandingViewed();
+    await emitLandingStorySelected();
+    await emitLandingPrimaryCtaSelected();
+
+    expect(events).toEqual([
+      { name: "landing_viewed" },
+      { name: "landing_story_selected" },
+      { name: "landing_primary_cta_selected" },
+    ]);
+  });
+
   it("fires first-session-completed only on the user's first completion", async () => {
     await emitFirstSessionCompleted({ userId: "u1", sessionId: "s2", completedSessionCount: 2 });
     expect(events).toHaveLength(0);

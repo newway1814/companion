@@ -132,7 +132,7 @@ exports[`AppShell > matches the shell snapshot 1`] = `
       >
         <a
           class="flex items-center gap-3 rounded-lg px-4 py-2 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface"
-          href="/"
+          href="/dashboard"
         >
           <svg
             aria-hidden="true"

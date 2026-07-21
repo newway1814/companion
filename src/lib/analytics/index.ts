@@ -6,6 +6,10 @@
  */
 
 export type AnalyticsEvent =
+  | { name: "landing_viewed" }
+  | { name: "landing_primary_cta_selected" }
+  | { name: "landing_story_selected" }
+  | { name: "sign_in_reached" }
   | { name: "first_session_completed"; userId: string; sessionId: string }
   | { name: "report_viewed"; userId: string; sessionId: string }
   | { name: "improved_answer_read"; userId: string; sessionId: string }
@@ -43,6 +47,22 @@ export function resetAnalyticsSink(): void {
 /** Records an event through the configured sink. */
 export async function track(event: AnalyticsEvent): Promise<void> {
   await sink.record(event);
+}
+
+export async function emitLandingViewed(): Promise<void> {
+  await track({ name: "landing_viewed" });
+}
+
+export async function emitLandingPrimaryCtaSelected(): Promise<void> {
+  await track({ name: "landing_primary_cta_selected" });
+}
+
+export async function emitLandingStorySelected(): Promise<void> {
+  await track({ name: "landing_story_selected" });
+}
+
+export async function emitSignInReached(): Promise<void> {
+  await track({ name: "sign_in_reached" });
 }
 
 /** Fires only when this is the user's first completed session. */

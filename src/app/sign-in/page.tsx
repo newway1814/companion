@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 
 import { Reveal } from "@/components/motion/reveal";
+import { SignInReached } from "@/components/marketing/marketing-analytics";
 import { getUser } from "@/lib/auth";
 
 import { CockpitSignature } from "./cockpit-signature";
@@ -25,10 +26,11 @@ const footerLinks = ["Terms", "Privacy", "Help"] as const;
 
 export default async function SignInPage() {
   const user = await getUser();
-  if (user) redirect("/");
+  if (user) redirect("/dashboard");
 
   return (
     <main className="grid min-h-screen grid-cols-1 lg:grid-cols-[1.15fr_1fr]">
+      <SignInReached />
       {/* Left — identity / cockpit (desktop only; condensed into the form pane on mobile) */}
       <section className="relative hidden flex-col justify-between overflow-hidden border-r border-outline-variant bg-surface-dim p-10 lg:flex xl:p-14">
         <div

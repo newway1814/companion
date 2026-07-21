@@ -19,7 +19,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const primaryNav = [
-  { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/resumes", label: "Resumes", icon: FileText },
   { href: "/roles", label: "Target roles", icon: Target },
   { href: "/sessions", label: "Session history", icon: History },
@@ -28,7 +28,6 @@ const primaryNav = [
 const footerNav = [{ href: "/settings", label: "Settings", icon: Settings }] as const;
 
 export function isActive(pathname: string, href: string) {
-  if (href === "/") return pathname === "/";
   // Match the exact route or a nested child, but not prefix siblings
   // (e.g. "/roles" must not light up for "/roles-archive").
   return pathname === href || pathname.startsWith(`${href}/`);
